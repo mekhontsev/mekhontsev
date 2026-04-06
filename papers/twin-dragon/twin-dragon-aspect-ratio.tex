@@ -1,8 +1,12 @@
 \documentclass{amsart}
 \usepackage{amsmath, amssymb, amsthm}
+\usepackage{graphicx}
 \usepackage{hyperref}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
 
 \newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
 \newtheorem{remark}{Remark}
 
 \title{The aspect ratio of the Twin Dragon is $1/\varphi$}
@@ -10,6 +14,8 @@
 \author{Dmitry Mekhontsev}
 \address{Novosibirsk State University, Novosibirsk, Russia}
 \email{mekhontsev@gmail.com}
+\urladdr{https://orcid.org/0009-0001-5065-7890}
+\thanks{Preprint available at \href{https://doi.org/10.5281/zenodo.19440754}{doi:10.5281/zenodo.19440754}.}
 
 \subjclass[2020]{28A80, 37C45, 15A18}
 \keywords{Twin Dragon, iterated function system, self-similar measure,
@@ -25,10 +31,16 @@ We show that the geometric aspect ratio of the Twin Dragon equals $1/\varphi$,
 where $\varphi=(1+\sqrt{5})/2$ is the golden ratio.
 The result follows by solving the covariance fixed-point equation for the
 self-similar measure, which coincides with Lebesgue area since the
-similarity dimension is~$2$.
+similarity dimension equals~$2$ and the open set condition holds.
 The appearance of $\varphi$ is surprising: the Twin Dragon is defined
 purely via the Gaussian integer $1+i$, with no pentagonal or Fibonacci
 structure in its construction.
+More generally, we derive a closed-form expression for the aspect ratio of
+the entire one-parameter family $\{f_{1,2}(z)=a(z\pm 1)\}$ for arbitrary
+$a\in\mathbb{C}$ with $|a|<1$.
+The same constant $\varphi$ also governs the orientation: the major axis
+of the Twin Dragon makes angle $-\arctan\varphi\approx -58.3^\circ$
+with the horizontal.
 \end{abstract}
 
 \section{Introduction}
@@ -38,14 +50,16 @@ by the Gaussian integer $1+i$: its two defining contractions share the linear pa
 $(1-i)/2$, and their translations are symmetric about the origin.
 Despite this simple, purely arithmetic construction, the attractor has a non-trivial
 shape that is not immediately obvious from the definition.
+Visually the Twin Dragon looks somewhat elongated --- neither a square nor a thin
+sliver --- which raises the question of its precise aspect ratio.
 
 A natural quantitative measure of shape for a planar set is the \emph{geometric aspect
 ratio}: the ratio of standard deviations along the principal axes of its area
 distribution, or equivalently the square root of the ratio of the eigenvalues of the
 second-moment (covariance) matrix $M$ of the uniform measure on the attractor.
 This definition gives the expected answers for elementary shapes: a circle has aspect
-ratio~$1$ (all eigenvalues equal); an $a \times b$ rectangle has aspect ratio $a/b$
-(eigenvalues $a^2/12$ and $b^2/12$); and a square has aspect ratio~$1$.
+ratio~$1$ (all eigenvalues equal); a $p \times q$ rectangle has aspect ratio $p/q$
+(eigenvalues $p^2/12$ and $q^2/12$); and a square has aspect ratio~$1$.
 
 The approach of characterising IFS attractors through moments of their invariant
 measures was introduced by Vrscay and Roehrig \cite{VrscayRoehrig1989} and
@@ -60,6 +74,9 @@ $M = \tfrac{1}{5}\begin{pmatrix}2&-1\\-1&3\end{pmatrix}$,
 whose eigenvalues involve $\sqrt{5}$, leading to the aspect ratio $1/\varphi$,
 where $\varphi = (1+\sqrt{5})/2$ is the golden ratio.  The appearance of $\varphi$
 in a fractal with no pentagonal geometry is unexpected.
+Although the method of moments for IFS goes back to \cite{VrscayRoehrig1989},
+the closed-form formula for the aspect ratio of the family $\{a(z\pm 1)\}$
+(Theorem~\ref{thm:family} below) is, to our knowledge, new.
 
 \textit{Discovery.}
 The result was first found empirically using the IFStile software
@@ -67,130 +84,315 @@ The result was first found empirically using the IFStile software
 \cite{VrscayRoehrig1989,Vrscay1991} as part of its algebraic IFS search engine.
 Among the similarity invariants reported by IFStile for the Twin Dragon, the
 aspect ratio $1/\varphi$ appeared as a numerical value; the present paper supplies
-the exact derivation.
+the exact proof and its generalisation to the full one-parameter family
+$\{a(z\pm 1) : a\in\mathbb{C},\,|a|<1\}$.
+This is an instance of \emph{experimental mathematics} \cite{BorweinBailey2004}:
+a computer experiment suggests a precise conjecture, which is then confirmed
+by a rigorous proof.
 
 The paper is organised as follows.
 Section~\ref{sec:ifs} recalls the definition of the Twin Dragon and its IFS.
-Section~\ref{sec:cov} derives the covariance matrix by solving the
-fixed-point equation.
-Section~\ref{sec:aspect} computes the eigenvalues and states the main result.
+Section~\ref{sec:family} derives a closed-form aspect ratio formula for the
+full one-parameter family $\{f_{1,2}(z) = a(z\pm 1) : a\in\mathbb{C},\,|a|<1\}$.
+Section~\ref{sec:td} applies the formula to the Twin Dragon and proves the
+main theorem.
 
 \section{The IFS}\label{sec:ifs}
 
 An iterated function system (IFS) \cite{Hutchinson1981} is a finite collection of
-contractions on a complete metric space; by Hutchinson's theorem \cite{Hutchinson1981}
-there exists a unique non-empty compact attractor.  For background on fractal geometry
-and self-similar sets see \cite{Falconer2014}.
+contractions on a complete metric space; by Hutchinson's theorem there exists a
+unique non-empty compact attractor.  For background on self-similar sets and
+fractal geometry see \cite{Falconer2014}.
 
-The Twin Dragon $A \subset \mathbb{R}^2$ is the attractor of the IFS \cite{DavisKnuth1970}
+The Twin Dragon $A \subset \mathbb{C}$ is the attractor of the IFS \cite{DavisKnuth1970}
 \begin{equation}
   A = f_1(A) \cup f_2(A),
   \qquad
-  f_{1,2}(z) = \frac{1-i}{2}(z \mp 1),
+  f_{1,2}(z) = \frac{1-i}{2}(z \pm 1).
 \end{equation}
-where $z = x + iy$. In matrix form, both maps share the same linear part
-\begin{equation}
-  A_0 = g^{-1} = \tfrac{1}{2}\begin{pmatrix}1 & 1 \\ -1 & 1\end{pmatrix},
+Both maps have the same contraction ratio $r = |{(1-i)/2}| = 1/\sqrt{2}$,
+so the similarity dimension is $\alpha = -\log 2 / \log r = 2$:
+the attractor has positive area.
+
+\section{The general family}\label{sec:family}
+
+Consider the two-map IFS $\{f_{1,2}(z) = a(z \pm 1)\}$ with equal weights
+$\tfrac{1}{2}$, for an arbitrary parameter $a \in \mathbb{C}$ with $|a| < 1$.
+The Twin Dragon is the special case $a = (1-i)/2$, studied in
+Section~\ref{sec:td}.
+
+\begin{theorem}\label{thm:family}
+Let $a \in \mathbb{C}$ with $|a| < 1$.  The
+invariant (equal-weight) measure $\mu_a$ of the IFS
+$\{f_{1,2}(z) = a(z\pm 1)\}$ has covariance eigenvalues
+\[
+  I_{1,2} = \frac{|a|^2}{2}\left(\frac{1}{1-|a|^2} \mp \frac{1}{|1-a^2|}\right)
+\]
+and aspect ratio
+\begin{equation}\label{eq:family}
+  \mathrm{AR}^2 = \frac{|1-a^2| - (1-|a|^2)}{|1-a^2| + (1-|a|^2)}.
+\end{equation}
+In particular, $\mathrm{AR}=0$ if and only if $a$ is real.
+\end{theorem}
+
+\begin{proof}
+Let $Z$ be a random variable with distribution $\mu_a$; the fixed-point
+equation $\mu_a = \tfrac{1}{2}(f_1)_*\mu_a + \tfrac{1}{2}(f_2)_*\mu_a$
+becomes
+\begin{equation}\label{eq:fp}
+  E[h(Z)] = \tfrac{1}{2}E[h(aZ+a)] + \tfrac{1}{2}E[h(aZ-a)]
+\end{equation}
+for every integrable $h$.  Applying \eqref{eq:fp} to $h(z)=z$ gives
+$E[Z] = aE[Z]$, hence $E[Z]=0$ since $|a|<1$.
+Applying \eqref{eq:fp} to $h(z) = z^2$ and expanding:
+\[
+  E[Z^2] = a^2 E[Z^2] + a^2,
+  \qquad \text{so} \qquad
+  E[Z^2] = \frac{a^2}{1-a^2}.
+\]
+Applying \eqref{eq:fp} to $h(z) = |z|^2$:
+\[
+  E[|Z|^2] = |a|^2(E[|Z|^2] + 1),
+  \qquad \text{so} \qquad
+  E[|Z|^2] = \frac{|a|^2}{1-|a|^2}.
+\]
+For $Z = X+iY$, the covariance matrix has
+$\operatorname{tr}M = E[|Z|^2]$ and
+\[
+  \det M = \tfrac{1}{4}\bigl(E[|Z|^2]^2 - |E[Z^2]|^2\bigr).
+\]
+The eigenvalue discriminant is therefore
+\[
+  (\operatorname{tr}M)^2 - 4\det M
+  = \bigl|E[Z^2]\bigr|^2
+  = \frac{|a|^4}{|1-a^2|^2},
+\]
+giving the eigenvalues in the statement.  The inequality
+$|1-a^2| \geq 1-|a|^2$ (triangle inequality) ensures $I_1 \geq 0$,
+with equality iff $a$ is real.
+\end{proof}
+
+\begin{remark}\label{rem:bound}
+Formula~\eqref{eq:family} shows that $\mathrm{AR}$ depends on $a$ only
+through $(|a|^2, |1-a^2|)$: the attractor is nearly round when $|1-a^2|$
+is large relative to $1-|a|^2$, and degenerates to a segment when
+$|1-a^2|\approx 1-|a|^2$ (i.e.\ $a$ nearly real).
+For every $a$ in the family, $\mathrm{AR}(a) \leq |a|$, with equality
+if and only if $a$ is purely imaginary.
+Indeed, $|1-a^2| \leq 1+|a|^2$ (triangle inequality), with equality iff
+$a^2/|a^2|=-1$, i.e.\ $a\in i\mathbb{R}$.
+Substituting $|1-a^2|=1+|a|^2$ into~\eqref{eq:family} gives
+$\mathrm{AR}^2 = |a|^2$.
+In particular, for the plane-filling sub-family $|a|=1/\sqrt{2}$
+(similarity dimension~$2$), the maximum $\mathrm{AR}=1/\sqrt{2}$ is
+achieved by the IFS $\{(i/\sqrt{2})(z\pm 1)\}$, whose attractor is
+the rectangle $[-1,1]\times[-\sqrt{2},\sqrt{2}]$ (verified by checking
+that $f_1$ and $f_2$ map it to the top and bottom halves respectively).
+This rectangle tiles the plane by translation along $[2,0]$ and $[0,2\sqrt{2}]$.
+Among named tiles in this sub-family, the Twin Dragon
+($a=(1-i)/2$, an algebraic integer satisfying $2a^2-2a+1=0$) gives
+$\mathrm{AR}=1/\varphi\approx 0.618$.
+Figure~\ref{fig:ar} shows $\mathrm{AR}$ over the entire sub-family.
+\end{remark}
+
+\begin{remark}
+A second named tile in the sub-family $|a|=1/\sqrt{2}$ is the
+\emph{tame twindragon} \cite[p.~550]{Bandt1991}, the attractor of $\{f_{1,2}(z)=a(z\pm 1)\}$
+with $a=(1-i\sqrt{7})/4$.
+One computes $1-a^2=(11+i\sqrt{7})/8$, hence $|1-a^2|=\sqrt{2}$, and
+Theorem~\ref{thm:family} gives
+\[
+  \mathrm{AR}^2 = \frac{\sqrt{2}-\tfrac{1}{2}}{\sqrt{2}+\tfrac{1}{2}}
+               = \frac{2\sqrt{2}-1}{2\sqrt{2}+1}
+               = \frac{9-4\sqrt{2}}{7}
+               \approx 0.478,
   \qquad
-  g = \begin{pmatrix}1 & -1 \\ 1 & 1\end{pmatrix},
-\end{equation}
-with translation vectors $b_1 = (-\tfrac{1}{2}, \tfrac{1}{2})^T$ and
-$b_2 = -b_1$. The contraction ratio is $\|A_0\| = 1/\sqrt{2}$, and the
-similarity dimension is $\alpha = 2$ (positive area).
+  \mathrm{AR} \approx 0.691.
+\]
+This tile arises as the numeration digit set for
+the complex base $\beta=(1+i\sqrt{7})/2$
+(satisfying $\beta^2-\beta+2=0$ and $|\beta|^2=2$)
+via $a=1/\beta$;\footnote{The attractor is the set
+$\bigl\{\sum_{k\geq 1}d_k\beta^{-k}:d_k\in\{-1,+1\}\bigr\}\subset\mathbb{C}$.}
+it is marked in Figure~\ref{fig:ar}.
+\end{remark}
 
-\section{Covariance of the Invariant Measure}\label{sec:cov}
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+  width=8cm, height=5.5cm,
+  xlabel={$\theta = |\arg(a)|$},
+  ylabel={$\mathrm{AR}$},
+  xmin=0, xmax=90,
+  ymin=0, ymax=0.82,
+  xtick={0,45,90},
+  xticklabels={$0$, $\pi/4$, $\pi/2$},
+  ytick={0, 0.6180, 0.7071},
+  yticklabels={$0$, $1/\varphi$, $1/\sqrt{2}$},
+  grid=major,
+  grid style={dotted, gray!60},
+  axis lines=left,
+]
+\addplot[blue!70!black, thick, smooth, domain=0:90, samples=200]
+  { sqrt( (sqrt(1.25 - cos(2*x)) - 0.5) / (sqrt(1.25 - cos(2*x)) + 0.5) ) };
+\addplot[red, mark=*, mark size=2pt, only marks] coordinates {(45, 0.6180)};
+\addplot[red, mark=*, mark size=2pt, only marks] coordinates {(69.295, 0.6911)};
+\addplot[red, mark=*, mark size=2pt, only marks] coordinates {(90, 0.7071)};
+\node[anchor=north, font=\small] at (axis cs:45,0.610) {Twin Dragon};
+\node[anchor=north, font=\small] at (axis cs:69.295,0.683) {tame twindragon};
+\node[anchor=south east, font=\small] at (axis cs:88,0.717) {rectangle};
+\addplot[dashed, thin, gray!80] coordinates {(0,0.7071)(90,0.7071)};
+\addplot[dashed, thin, gray!80] coordinates {(45,0)(45,0.6180)};
+\addplot[dashed, thin, gray!80] coordinates {(69.295,0)(69.295,0.6911)};
+\addplot[dashed, thin, gray!80] coordinates {(90,0)(90,0.7071)};
+\end{axis}
+\end{tikzpicture}
+\caption{Aspect ratio $\mathrm{AR}(\theta)$ of the attractor of
+$\{a(z\pm 1)\}$ for $|a|=1/\sqrt{2}$, as a function of
+$\theta = |\arg(a)|$.  The Twin Dragon ($\theta=\pi/4$),
+the tame twindragon ($\theta=\arctan\sqrt{7}$), and
+the rectangle attractor ($\theta=\pi/2$) are marked in red.}
+\label{fig:ar}
+\end{figure}
 
-Vrscay and Roehrig \cite{VrscayRoehrig1989} observed that the moments of the
-invariant measure of an IFS satisfy linear recursion relations that can be solved
-exactly.  For a self-similar IFS $\{f_i\}$ with invariant measure $\mu$, the
-covariance matrix $M = \int xx^T\,d\mu$ satisfies a fixed-point equation linear
-in $M$, which is uniquely solvable whenever the spectral radius of the associated
-linear operator is less than one (see \cite{Vrscay1991} for a systematic treatment).
+\section{The Twin Dragon}\label{sec:td}
 
-For the Twin Dragon, the situation is particularly clean.  The open set condition
-holds \cite{Hutchinson1981}, so by \cite[\S10.3]{Mekhontsev2019}
-(see also \cite[Theorem~5.3]{Hutchinson1981}) the self-similar measure $\mu$ is
-proportional to $\mathcal{H}^2|_A$.  Since the similarity dimension equals the
-ambient dimension $\alpha = 2$, the Hausdorff $2$-measure coincides with Lebesgue
-area up to a constant, so $\mu \propto \mathcal{L}^2|_A$: the covariance $M$
-describes the actual geometric shape of the attractor.
+For the Twin Dragon the similarity dimension equals the ambient
+dimension $\alpha = 2$; the open set condition holds, so by
+\cite[\S5]{Hutchinson1981} the self-similar measure coincides with
+Lebesgue area on the attractor, and the covariance matrix $M$ describes
+the actual geometric shape (Figure~\ref{fig:td}).
 
-The measure $\mu$ is the unique probability measure satisfying
-$\mu = \frac{1}{2}(f_1)_*\mu + \frac{1}{2}(f_2)_*\mu$ \cite{Hutchinson1981}
-(equal weights because both maps have contraction ratio $r = 1/\sqrt{2}$,
-hence $r^\alpha = \tfrac{1}{2}$).  Since $b_1 + b_2 = 0$, the centre of mass
-is $c = 0$, and the general recursion specialises to
-\begin{equation}\label{eq:cov}
-  M = A_0\, M\, A_0^T + b_1 b_1^T.
-\end{equation}
-This form of the Euler tensor equation for self-similar IFS is given in
-\cite[Theorem~3.3]{DiCarloPaoluzzi2006} and applied in \cite[\S11.3]{Mekhontsev2019}.
+\begin{figure}[ht]
+\centering
+\includegraphics[width=6cm]{twin-dragon.png}
+\caption{The Twin Dragon with its $1.5$-sigma principal-axis ellipse
+(red).  The major axis lies along $(1,-\varphi)$ and the minor axis
+along $(\varphi,1)$; their ratio of lengths equals the aspect ratio
+$\mathrm{AR}=1/\varphi\approx 0.618$.}
+\label{fig:td}
+\end{figure}
 
-\subsection*{Translation term}
-\begin{equation}
-  b_1 b_1^T
-  = \frac{1}{4}\begin{pmatrix}1 & -1 \\ -1 & 1\end{pmatrix}.
-\end{equation}
-
-\subsection*{Solving the linear system}
-
-Write $M = \begin{pmatrix}p & q \\ q & r\end{pmatrix}$. Expanding
-$A_0 M A_0^T$:
-\begin{equation}
-  A_0 M A_0^T
-  = \frac{1}{4}\begin{pmatrix}p+2q+r & -p+r \\ -p+r & p-2q+r\end{pmatrix}.
-\end{equation}
-
-Substituting into \eqref{eq:cov} and collecting terms:
-\begin{align}
-  3p - 2q - r &= 1, \\
-   p + 4q - r &= -1, \\
-   p - 2q - 3r &= -1.
-\end{align}
-
-The unique solution is $p = \tfrac{2}{5}$, $q = -\tfrac{1}{5}$,
-$r = \tfrac{3}{5}$, giving
+Substituting $a = (1-i)/2$ into Theorem~\ref{thm:family}:
+$|a|^2 = \tfrac{1}{2}$, $a^2 = -\tfrac{i}{2}$,
+$1-a^2 = \tfrac{2+i}{2}$, so
+\[
+  E[Z^2] = \frac{a^2}{1-a^2} = \frac{-i}{2+i} = \frac{-1-2i}{5},
+  \qquad
+  E[|Z|^2] = \frac{|a|^2}{1-|a|^2} = 1.
+\]
+The covariance matrix follows via
+$M_{11}=\tfrac{1}{2}(E[|Z|^2]+\mathrm{Re}\,E[Z^2])$,
+$M_{22}=\tfrac{1}{2}(E[|Z|^2]-\mathrm{Re}\,E[Z^2])$,
+$M_{12}=\tfrac{1}{2}\mathrm{Im}\,E[Z^2]$:
 \begin{equation}
   M = \frac{1}{5}\begin{pmatrix}2 & -1 \\ -1 & 3\end{pmatrix}.
 \end{equation}
-
-\section{Eigenvalues and Aspect Ratio}\label{sec:aspect}
-
 The matrix $M$ has $\operatorname{tr} M = 1$ and $\det M = \frac{1}{5}$,
 so its eigenvalues are
 \begin{equation}
   I_{1,2} = \frac{1 \mp \tfrac{1}{\sqrt{5}}}{2}.
 \end{equation}
-
-The geometric aspect ratio --- the ratio of standard deviations along the
-principal axes of $M$ \cite[Proposition~45]{Mekhontsev2019} --- is
+The geometric aspect ratio --- the ratio of standard deviations along
+the principal axes of $M$ --- is
 \begin{equation}
   \sqrt{\frac{I_1}{I_2}}
   = \sqrt{\frac{\sqrt{5}-1}{\sqrt{5}+1}}
   = \sqrt{\frac{3-\sqrt{5}}{2}}
   = \frac{1}{\varphi},
 \end{equation}
-where $\varphi = \frac{1+\sqrt{5}}{2}$ is the golden ratio.
+where $\varphi = (1+\sqrt{5})/2$ is the golden ratio.
 
-\begin{theorem}
-The geometric aspect ratio of the Twin Dragon --- the ratio of standard
-deviations along the principal axes of its covariance matrix $M$ ---
-equals $1/\varphi$, where $\varphi = (1+\sqrt{5})/2$ is the golden ratio.
-\end{theorem}
+\begin{corollary}
+The attractor of the IFS $\bigl\{f_{1,2}(z) = \tfrac{1-i}{2}(z \pm 1)\bigr\}$
+has covariance matrix $M = \tfrac{1}{5}\bigl(\begin{smallmatrix}2&-1\\-1&3\end{smallmatrix}\bigr)$
+and geometric aspect ratio $1/\varphi = (\sqrt{5}-1)/2 \approx 0.618$,
+where $\varphi = (1+\sqrt{5})/2$ is the golden ratio.
+\end{corollary}
 
 \begin{remark}
-The Twin Dragon is governed by the Gaussian integer $1+i$: its two maps
-are simply $f_{1,2}(z) = \frac{1-i}{2}(z \mp 1)$, with no pentagon,
-regular decagon, or Fibonacci recurrence in the construction.
+The Twin Dragon is defined by the Gaussian integer $1+i$, with no
+pentagon, decagon, or Fibonacci recurrence in the construction.
 The emergence of $\varphi$ is therefore unexpected.
 \end{remark}
 
+\begin{remark}
+The golden ratio likewise governs the \emph{orientation} of the Twin Dragon.
+For $Z = X + iY$ with $E[Z] = 0$, writing $E[Z^2] = \rho e^{2i\psi}$
+($\rho > 0$), the entries $M_{11} = \tfrac{1}{2}(E[|Z|^2] + \mathrm{Re}\,E[Z^2])$,
+$M_{22} = \tfrac{1}{2}(E[|Z|^2] - \mathrm{Re}\,E[Z^2])$,
+$M_{12} = \tfrac{1}{2}\mathrm{Im}\,E[Z^2]$ give
+\[
+  M = \frac{E[|Z|^2]}{2}\,I
+    + \frac{\rho}{2}
+      \begin{pmatrix}\cos 2\psi & \sin 2\psi \\ \sin 2\psi & -\cos 2\psi\end{pmatrix},
+\]
+whose larger eigenvalue has eigenvector $(\cos\psi, \sin\psi)$.
+Hence the major axis of any member of the family $\{a(z\pm 1)\}$ makes angle
+\[
+  \psi = \tfrac{1}{2}\arg\!\left(\tfrac{a^2}{1-a^2}\right)
+\]
+with the positive $x$-axis.
+For the Twin Dragon, $E[Z^2] = (-1-2i)/5$, so $2\psi = \arg(-1-2i)$
+lies in the third quadrant with $\tan(2\psi) = 2$.
+Applying the double-angle identity with $\psi\in(-\tfrac{\pi}{2},-\tfrac{\pi}{4})$,
+one gets $\tan\psi = (-1-\sqrt{5})/2 = -\varphi$.
+Thus the major axis has direction vector $(1, -\varphi)$, making angle
+$-\arctan\varphi \approx -58.3^\circ$ with the horizontal,
+and the same constant $\varphi$ governs both the aspect ratio
+($\mathrm{AR} = 1/\varphi$) and the orientation ($\tan\psi = -\varphi$).
+\end{remark}
+
+\begin{remark}
+The number $5$ --- and hence $\varphi$ --- can be traced to a single
+Gaussian prime.  By the ergodic theorem for random iteration
+\cite{BarnsleyElton1988}, $\mu$ is the distribution of the random series
+\[
+  Z = \sum_{k=1}^{\infty} \varepsilon_k\,\lambda^k,
+  \qquad \lambda = \tfrac{1-i}{2},
+  \qquad \varepsilon_k \overset{\mathrm{iid}}{\sim} \{\pm 1\},
+\]
+so $E[|Z|^2] = 1$ and
+\[
+  E[Z^2]
+  = \frac{\lambda^2}{1-\lambda^2}
+  = \frac{-i/2}{(2+i)/2}
+  = \frac{-1-2i}{5}.
+\]
+The ellipticity $\rho = |E[Z^2]| = 1/\sqrt{5}$ controls the
+eigenvalue spread: $I_{1,2} = (1\pm\rho)/2$.
+The value $5 = \mathbf{N}(2+i)$ arises as the Gaussian norm of $2+i$,
+which appears because $1-\lambda^2 = (2+i)/2$.
+Substituting $\rho=1/\sqrt{5}$:
+\[
+  \frac{I_1}{I_2}
+  = \frac{1-\rho}{1+\rho}
+  = \frac{\sqrt{5}-1}{\sqrt{5}+1}
+  = \frac{1}{\varphi^2},
+\]
+where the last step uses $\varphi^2=\varphi+1$.
+Thus $\varphi$ enters via the Gaussian factorisation $5=(2+i)(2-i)$
+in $\mathbb{Z}[i]$.
+\end{remark}
+
 \begin{thebibliography}{9}
-\bibitem{DiCarloPaoluzzi2006}
-A.~DiCarlo and A.~Paoluzzi,
-\textit{Fast computation of inertia through affinely extended Euler tensor},
-Comput.-Aided Des.\ \textbf{38} (2006), no.~11, 1145--1153.
-\href{https://doi.org/10.1016/j.cad.2006.09.003}{doi:10.1016/j.cad.2006.09.003}.
+\bibitem{Bandt1991}
+C.~Bandt,
+\textit{Self-similar sets. {V}. Integer matrices and fractal tilings of $\mathbb{R}^n$},
+Proc.\ Amer.\ Math.\ Soc.\ \textbf{112} (1991), no.~2, 549--562.
+\href{https://doi.org/10.2307/2048545}{doi:10.2307/2048545}.
+
+\bibitem{BorweinBailey2004}
+J.~M.~Borwein and D.~H.~Bailey,
+\textit{Mathematics by Experiment: Plausible Reasoning in the 21st Century},
+A.~K.~Peters, Natick, MA, 2004.
+
+\bibitem{BarnsleyElton1988}
+M.~F.~Barnsley and J.~H.~Elton,
+\textit{A new class of Markov processes for image encoding},
+Adv.\ Appl.\ Probab.\ \textbf{20} (1988), no.~1, 14--32.
+\href{https://doi.org/10.2307/1427268}{doi:10.2307/1427268}.
 
 \bibitem{Hutchinson1981}
 J.~E.~Hutchinson,
