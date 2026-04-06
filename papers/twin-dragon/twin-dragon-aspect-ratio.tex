@@ -1,0 +1,234 @@
+\documentclass{amsart}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{remark}{Remark}
+
+\title{The aspect ratio of the Twin Dragon is $1/\varphi$}
+
+\author{Dmitry Mekhontsev}
+\address{Novosibirsk State University, Novosibirsk, Russia}
+\email{mekhontsev@gmail.com}
+
+\subjclass[2020]{28A80, 37C45, 15A18}
+\keywords{Twin Dragon, iterated function system, self-similar measure,
+  second moments, golden ratio, aspect ratio}
+
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We show that the geometric aspect ratio of the Twin Dragon equals $1/\varphi$,
+where $\varphi=(1+\sqrt{5})/2$ is the golden ratio.
+The result follows by solving the covariance fixed-point equation for the
+self-similar measure, which coincides with Lebesgue area since the
+similarity dimension is~$2$.
+The appearance of $\varphi$ is surprising: the Twin Dragon is defined
+purely via the Gaussian integer $1+i$, with no pentagonal or Fibonacci
+structure in its construction.
+\end{abstract}
+
+\section{Introduction}
+
+The Twin Dragon is a classical plane-filling fractal \cite{DavisKnuth1970} governed
+by the Gaussian integer $1+i$: its two defining contractions share the linear part
+$(1-i)/2$, and their translations are symmetric about the origin.
+Despite this simple, purely arithmetic construction, the attractor has a non-trivial
+shape that is not immediately obvious from the definition.
+
+A natural quantitative measure of shape for a planar set is the \emph{geometric aspect
+ratio}: the ratio of standard deviations along the principal axes of its area
+distribution, or equivalently the square root of the ratio of the eigenvalues of the
+second-moment (covariance) matrix $M$ of the uniform measure on the attractor.
+This definition gives the expected answers for elementary shapes: a circle has aspect
+ratio~$1$ (all eigenvalues equal); an $a \times b$ rectangle has aspect ratio $a/b$
+(eigenvalues $a^2/12$ and $b^2/12$); and a square has aspect ratio~$1$.
+
+The approach of characterising IFS attractors through moments of their invariant
+measures was introduced by Vrscay and Roehrig \cite{VrscayRoehrig1989} and
+systematically developed in \cite{Vrscay1991}.  The key observation is that the
+self-similar measure satisfies a linear fixed-point equation in its moments, which
+can be solved exactly.  In favourable cases --- when the similarity dimension equals
+the ambient dimension --- this gives the moments of the actual area measure on the
+attractor.
+
+We apply this method to the Twin Dragon.  The covariance matrix turns out to be
+$M = \tfrac{1}{5}\begin{pmatrix}2&-1\\-1&3\end{pmatrix}$,
+whose eigenvalues involve $\sqrt{5}$, leading to the aspect ratio $1/\varphi$,
+where $\varphi = (1+\sqrt{5})/2$ is the golden ratio.  The appearance of $\varphi$
+in a fractal with no pentagonal geometry is unexpected.
+
+\textit{Discovery.}
+The result was first found empirically using the IFStile software
+\cite{Mekhontsev2019}, which implements the moment invariants of
+\cite{VrscayRoehrig1989,Vrscay1991} as part of its algebraic IFS search engine.
+Among the similarity invariants reported by IFStile for the Twin Dragon, the
+aspect ratio $1/\varphi$ appeared as a numerical value; the present paper supplies
+the exact derivation.
+
+The paper is organised as follows.
+Section~\ref{sec:ifs} recalls the definition of the Twin Dragon and its IFS.
+Section~\ref{sec:cov} derives the covariance matrix by solving the
+fixed-point equation.
+Section~\ref{sec:aspect} computes the eigenvalues and states the main result.
+
+\section{The IFS}\label{sec:ifs}
+
+An iterated function system (IFS) \cite{Hutchinson1981} is a finite collection of
+contractions on a complete metric space; by Hutchinson's theorem \cite{Hutchinson1981}
+there exists a unique non-empty compact attractor.  For background on fractal geometry
+and self-similar sets see \cite{Falconer2014}.
+
+The Twin Dragon $A \subset \mathbb{R}^2$ is the attractor of the IFS \cite{DavisKnuth1970}
+\begin{equation}
+  A = f_1(A) \cup f_2(A),
+  \qquad
+  f_{1,2}(z) = \frac{1-i}{2}(z \mp 1),
+\end{equation}
+where $z = x + iy$. In matrix form, both maps share the same linear part
+\begin{equation}
+  A_0 = g^{-1} = \tfrac{1}{2}\begin{pmatrix}1 & 1 \\ -1 & 1\end{pmatrix},
+  \qquad
+  g = \begin{pmatrix}1 & -1 \\ 1 & 1\end{pmatrix},
+\end{equation}
+with translation vectors $b_1 = (-\tfrac{1}{2}, \tfrac{1}{2})^T$ and
+$b_2 = -b_1$. The contraction ratio is $\|A_0\| = 1/\sqrt{2}$, and the
+similarity dimension is $\alpha = 2$ (positive area).
+
+\section{Covariance of the Invariant Measure}\label{sec:cov}
+
+Vrscay and Roehrig \cite{VrscayRoehrig1989} observed that the moments of the
+invariant measure of an IFS satisfy linear recursion relations that can be solved
+exactly.  For a self-similar IFS $\{f_i\}$ with invariant measure $\mu$, the
+covariance matrix $M = \int xx^T\,d\mu$ satisfies a fixed-point equation linear
+in $M$, which is uniquely solvable whenever the spectral radius of the associated
+linear operator is less than one (see \cite{Vrscay1991} for a systematic treatment).
+
+For the Twin Dragon, the situation is particularly clean.  The open set condition
+holds \cite{Hutchinson1981}, so by \cite[\S10.3]{Mekhontsev2019}
+(see also \cite[Theorem~5.3]{Hutchinson1981}) the self-similar measure $\mu$ is
+proportional to $\mathcal{H}^2|_A$.  Since the similarity dimension equals the
+ambient dimension $\alpha = 2$, the Hausdorff $2$-measure coincides with Lebesgue
+area up to a constant, so $\mu \propto \mathcal{L}^2|_A$: the covariance $M$
+describes the actual geometric shape of the attractor.
+
+The measure $\mu$ is the unique probability measure satisfying
+$\mu = \frac{1}{2}(f_1)_*\mu + \frac{1}{2}(f_2)_*\mu$ \cite{Hutchinson1981}
+(equal weights because both maps have contraction ratio $r = 1/\sqrt{2}$,
+hence $r^\alpha = \tfrac{1}{2}$).  Since $b_1 + b_2 = 0$, the centre of mass
+is $c = 0$, and the general recursion specialises to
+\begin{equation}\label{eq:cov}
+  M = A_0\, M\, A_0^T + b_1 b_1^T.
+\end{equation}
+This form of the Euler tensor equation for self-similar IFS is given in
+\cite[Theorem~3.3]{DiCarloPaoluzzi2006} and applied in \cite[\S11.3]{Mekhontsev2019}.
+
+\subsection*{Translation term}
+\begin{equation}
+  b_1 b_1^T
+  = \frac{1}{4}\begin{pmatrix}1 & -1 \\ -1 & 1\end{pmatrix}.
+\end{equation}
+
+\subsection*{Solving the linear system}
+
+Write $M = \begin{pmatrix}p & q \\ q & r\end{pmatrix}$. Expanding
+$A_0 M A_0^T$:
+\begin{equation}
+  A_0 M A_0^T
+  = \frac{1}{4}\begin{pmatrix}p+2q+r & -p+r \\ -p+r & p-2q+r\end{pmatrix}.
+\end{equation}
+
+Substituting into \eqref{eq:cov} and collecting terms:
+\begin{align}
+  3p - 2q - r &= 1, \\
+   p + 4q - r &= -1, \\
+   p - 2q - 3r &= -1.
+\end{align}
+
+The unique solution is $p = \tfrac{2}{5}$, $q = -\tfrac{1}{5}$,
+$r = \tfrac{3}{5}$, giving
+\begin{equation}
+  M = \frac{1}{5}\begin{pmatrix}2 & -1 \\ -1 & 3\end{pmatrix}.
+\end{equation}
+
+\section{Eigenvalues and Aspect Ratio}\label{sec:aspect}
+
+The matrix $M$ has $\operatorname{tr} M = 1$ and $\det M = \frac{1}{5}$,
+so its eigenvalues are
+\begin{equation}
+  I_{1,2} = \frac{1 \mp \tfrac{1}{\sqrt{5}}}{2}.
+\end{equation}
+
+The geometric aspect ratio --- the ratio of standard deviations along the
+principal axes of $M$ \cite[Proposition~45]{Mekhontsev2019} --- is
+\begin{equation}
+  \sqrt{\frac{I_1}{I_2}}
+  = \sqrt{\frac{\sqrt{5}-1}{\sqrt{5}+1}}
+  = \sqrt{\frac{3-\sqrt{5}}{2}}
+  = \frac{1}{\varphi},
+\end{equation}
+where $\varphi = \frac{1+\sqrt{5}}{2}$ is the golden ratio.
+
+\begin{theorem}
+The geometric aspect ratio of the Twin Dragon --- the ratio of standard
+deviations along the principal axes of its covariance matrix $M$ ---
+equals $1/\varphi$, where $\varphi = (1+\sqrt{5})/2$ is the golden ratio.
+\end{theorem}
+
+\begin{remark}
+The Twin Dragon is governed by the Gaussian integer $1+i$: its two maps
+are simply $f_{1,2}(z) = \frac{1-i}{2}(z \mp 1)$, with no pentagon,
+regular decagon, or Fibonacci recurrence in the construction.
+The emergence of $\varphi$ is therefore unexpected.
+\end{remark}
+
+\begin{thebibliography}{9}
+\bibitem{DiCarloPaoluzzi2006}
+A.~DiCarlo and A.~Paoluzzi,
+\textit{Fast computation of inertia through affinely extended Euler tensor},
+Comput.-Aided Des.\ \textbf{38} (2006), no.~11, 1145--1153.
+\href{https://doi.org/10.1016/j.cad.2006.09.003}{doi:10.1016/j.cad.2006.09.003}.
+
+\bibitem{Hutchinson1981}
+J.~E.~Hutchinson,
+\textit{Fractals and self-similarity},
+Indiana Univ.\ Math.\ J.\ \textbf{30} (1981), no.~5, 713--747.
+\href{https://doi.org/10.1512/iumj.1981.30.30055}{doi:10.1512/iumj.1981.30.30055}.
+
+\bibitem{Falconer2014}
+K.~J.~Falconer,
+\textit{Fractal Geometry: Mathematical Foundations and Applications},
+3rd~ed., Wiley, 2014.
+
+\bibitem{DavisKnuth1970}
+C.~Davis and D.\,E.~Knuth,
+\textit{Number representations and dragon curves},
+Journal of Recreational Mathematics \textbf{3} (1970), no.~2--4, 66--81, 133--149.
+
+\bibitem{Mekhontsev2019}
+D.~Mekhontsev,
+\textit{An algebraic framework for finding and analyzing self-affine tiles and fractals},
+Doctoral thesis, Ernst-Moritz-Arndt-Universit\"at Greifswald, 2019.
+\href{https://nbn-resolving.org/urn:nbn:de:gbv:9-opus-24794}{urn:nbn:de:gbv:9-opus-24794}.
+
+\bibitem{VrscayRoehrig1989}
+E.~R.~Vrscay and C.~J.~Roehrig,
+\textit{Iterated function systems and the inverse problem of fractal
+  construction using moments},
+in \textit{Computers and Mathematics} (E.~Kaltofen and S.~M.~Watt, eds.),
+Springer, New York, 1989, pp.~250--259.
+\href{https://doi.org/10.1007/978-1-4613-9647-5_29}{doi:10.1007/978-1-4613-9647-5\_29}.
+
+\bibitem{Vrscay1991}
+E.~R.~Vrscay,
+\textit{Iterated function systems: theory, applications and the inverse
+  problem},
+in \textit{Fractal Geometry and Analysis} (J.~B\'elair and S.~Dubuc, eds.),
+Kluwer, Dordrecht, 1991, pp.~405--468.
+\href{https://doi.org/10.1007/978-94-015-7931-5_10}{doi:10.1007/978-94-015-7931-5\_10}.
+\end{thebibliography}
+
+\end{document}
