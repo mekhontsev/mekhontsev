@@ -3,7 +3,7 @@
 Mathematician and software developer. My research and tools focus on
 **iterated function systems (IFS)**, self-affine tiles, and algebraic fractals.
 
-[📚 Google Scholar](https://scholar.google.com/citations?user=azbx8lkAAAAJ&hl=en) · [arXiv](https://arxiv.org/search/math?searchtype=author&query=Mekhontsev,+D) · [ORCID](https://orcid.org/0009-0001-5065-7890) · [📧 mekhontsev@gmail.com](mailto:mekhontsev@gmail.com)
+[📚 Google Scholar](https://scholar.google.com/citations?user=azbx8lkAAAAJ&hl=en) · [arXiv](https://arxiv.org/a/mekhontsev_d_1.html) · [ORCID](https://orcid.org/0009-0001-5065-7890) · [📧 mekhontsev@gmail.com](mailto:mekhontsev@gmail.com)
 
 ---
 
