@@ -11,7 +11,7 @@ Mathematician and software developer. My research and tools focus on
 
 ### [The aspect ratio of the Twin Dragon is 1/φ](papers/twin-dragon/) *(2026)*
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19440754.svg)](https://doi.org/10.5281/zenodo.19440754)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19443672.svg)](https://doi.org/10.5281/zenodo.19443672)
 
 The Twin Dragon fractal is defined purely via the Gaussian integer $1+i$,
 yet its geometric aspect ratio equals $1/\varphi$, where $\varphi=(1+\sqrt{5})/2$
