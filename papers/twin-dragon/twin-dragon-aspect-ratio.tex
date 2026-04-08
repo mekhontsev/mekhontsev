@@ -98,8 +98,9 @@ The result was first found empirically using the IFStile software
 \cite{VrscayRoehrig1989,Vrscay1991} as part of its algebraic IFS search engine.
 Among the similarity invariants reported by IFStile for the Twin Dragon, the
 aspect ratio $1/\varphi$ appeared as a numerical value; the present paper supplies
-the exact proof and its generalisation to all equal-weight IFS
-$\{f_k(z)=a(z+t_k)\}$ with centred translations.
+the exact proof and its generalisation to matrix IFS
+$\{f_k(\mathbf{v})=AR_k(\mathbf{v}+\mathbf{t}_k)\}$ with Jordan-basis isometries,
+with the scalar case $\{f_k(z)=a(z+t_k)\}$ as a special case.
 This is an instance of \emph{experimental mathematics} \cite{BorweinBailey2004}:
 a computer experiment suggests a precise conjecture, which is then confirmed
 by a rigorous proof.
@@ -284,6 +285,7 @@ Three further special cases of the general formula are noteworthy:
 \end{enumerate}
 \end{remark}
 \begin{remark}\label{rem:sign-flip}
+This remark details case~(a) of Remark~\ref{rem:special-cases}.
 This is a special case of Theorem~\ref{thm:family} with $\varepsilon_k = \pm 1$.
 The formula extends to sign-flip IFS
 $f_k(z) = \varepsilon_k a(z + t_k)$ with
@@ -397,6 +399,7 @@ Substituting into the scalar formula (Corollary~\ref{cor:scalar}) gives
          {\sqrt{R} + (N\!-\!1)\kappa},
 \]
 where $R = \mathbf{N}(\lambda^2-1)/N^2$.
+(here $N = |\lambda|^2 = \mathbf{N}(\lambda)$ equals both the norm and the number of maps).
 Clearing $N^2$: the numerator and denominator are
 $\sqrt{\mathbf{N}(\lambda^2-1)} \mp (N\!-\!1)\kappa$.
 Rationalising, $\mathrm{AR}^2 = 1 - 2(N\!-\!1)\kappa/
@@ -425,7 +428,8 @@ Figure~\ref{fig:ar} shows $\mathrm{AR}$ over the entire sub-family $|a|=1/\sqrt{
 \end{remark}
 
 \begin{remark}\label{rem:orientation}
-The covariance matrix also determines the \emph{orientation} of the
+In the scalar case of Corollary~\ref{cor:scalar} (all $\varepsilon_k=1$, $A=aI$),
+the covariance matrix also determines the \emph{orientation} of the
 principal axes.  Writing $E[Z^2] = \rho e^{2i\psi}$ ($\rho > 0$) for
 $Z = X + iY$ with $E[Z]=0$, the matrix decomposes as
 \[
