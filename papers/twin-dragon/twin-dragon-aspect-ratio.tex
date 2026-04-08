@@ -343,7 +343,7 @@ Let $n \geq 1$ and consider the IFS in $\mathbb{R}^n$
 with equal weights $1/N$, where:
 \begin{itemize}
   \item $A$ is a real $n\times n$ contracting matrix (all eigenvalues satisfy
-    $|\lambda_i| < 1$);
+    $|\mu_i| < 1$);
   \item $O_k \in O(n)$ are arbitrary orthogonal matrices ($\det O_k = \pm 1$);
   \item $\mathbf{t}_k \in \mathbb{R}^n$ are arbitrary translation vectors.
 \end{itemize}
@@ -393,16 +393,16 @@ to $h(\mathbf{v}) = \mathbf{v}\mathbf{v}^\top$ gives
 which is~\eqref{eq:lyapunov} (using $E[\mathbf{Z}]=\mathbf{0}$).
 Vectorising via $\operatorname{vec}(PQR) = (R^\top\otimes P)\operatorname{vec}(Q)$ yields
 $(I-M)\operatorname{vec}(\Sigma) = \operatorname{vec}(T)$.
-Since all eigenvalues of $AO_k$ satisfy $|\mu| \leq \|AO_k\|$, and $A$ is contracting,
-the eigenvalues of $M$ satisfy $|\mu_j(M)| \leq \rho(A)^2 < 1$, so $\rho(M)<1$,
+Since all eigenvalues of $AO_k$ satisfy $|\mu_i| \leq \|AO_k\|$, and $A$ is contracting,
+the eigenvalues of $M$ satisfy $|\nu_j(M)| \leq \rho(A)^2 < 1$, so $\rho(M)<1$,
 $(I-M)$ is invertible, and $\Sigma$ is uniquely determined.
 \end{proof}
 
 \begin{remark}
-The maps $f_i(x) = s_i g^{-1}(x) + y_i$ of \cite{Bandt1991}, where $g$ is a
-linear expansive map with integer matrix and $s_i$ are elements of a symmetry
+The maps $f_k(x) = s_k g^{-1}(x) + y_k$ of \cite{Bandt1991}, where $g$ is a
+linear expansive map with integer matrix and $s_k$ are elements of a symmetry
 group of $g$, are a special case of Theorem~\ref{thm:general} with $A = g^{-1}$
-and $O_k = s_i$ (the affine part of $s_i$ is absorbed into the translation
+and $O_k = s_k$ (the affine part of $s_k$ is absorbed into the translation
 $\mathbf{t}_k$).  In particular, all examples in \cite{Bandt1991} involving
 rotations and reflections fall under Theorem~\ref{thm:general}.
 \end{remark}
