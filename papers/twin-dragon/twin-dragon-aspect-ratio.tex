@@ -36,7 +36,9 @@ and that its major axis makes angle $-\arctan\varphi$ with the horizontal.
 More generally, for matrix IFS $\{f_k(\mathbf{v})=AR_k(\mathbf{v}+\mathbf{t}_k)\}$
 with Jordan-basis isometries $R_k$ and centred translations, the aspect ratio
 is given by a closed-form formula depending on the eigenvalue $\lambda$ of $A$
-and a single anisotropy parameter $\kappa_\varepsilon$; the classical scalar
+and a single anisotropy parameter $\kappa_\varepsilon$; this result extends to
+IFS where some $R_k$ are reflections in the Jordan basis
+(Theorem~\ref{thm:mixed}), and the classical scalar
 formula for $\{f_k(z)=a(z+t_k)\}$ is a special case (Corollary~\ref{cor:scalar}).
 When $a=1/\lambda$ for a Gaussian integer~$\lambda$, the aspect ratio
 lies in a quadratic field determined by $\mathbf{N}(\lambda^2\!-\!1)$.
@@ -87,8 +89,9 @@ where $\varphi = (1+\sqrt{5})/2$ is the golden ratio.  The appearance of $\varph
 in a fractal with no pentagonal geometry is unexpected.
 Although the method of moments for IFS goes back to \cite{VrscayRoehrig1989},
 the closed-form aspect ratio formula for matrix IFS with Jordan-basis
-isometries (Theorem~\ref{thm:family} below), with the scalar case recovered as
-Corollary~\ref{cor:scalar}, and the
+isometries (Theorem~\ref{thm:family} below), its extension to IFS with
+mixed rotations and reflections (Theorem~\ref{thm:mixed}), with the scalar
+case recovered as Corollary~\ref{cor:scalar}, and the
 characterisation of its quadratic field for Gaussian-integer parameters
 (Corollary~\ref{cor:field}) are, to our knowledge, new.
 
@@ -108,8 +111,10 @@ by a rigorous proof.
 The paper is organised as follows.
 Section~\ref{sec:family} establishes a closed-form aspect ratio formula
 (Theorem~\ref{thm:family}) for matrix IFS $\{f_k(\mathbf{v}) = AR_k(\mathbf{v}+\mathbf{t}_k)\}$
-with Jordan-basis isometries, derives the scalar case as Corollary~\ref{cor:scalar},
-and classifies the quadratic field of the aspect ratio (Corollary~\ref{cor:field}).
+with Jordan-basis isometries, extends it to IFS with mixed rotations and
+reflections (Theorem~\ref{thm:mixed}), derives the scalar case as
+Corollary~\ref{cor:scalar}, and classifies the quadratic field of the aspect
+ratio (Corollary~\ref{cor:field}).
 Section~\ref{sec:family-N} applies the formula to a two-parameter family of
 plane-filling tiles parameterised by $x^2-\ell x+N$
 (Proposition~\ref{prop:family-N}).
@@ -237,6 +242,99 @@ The standard identity $\mathrm{AR}^2=(1-\rho)/(1+\rho)$
 yields~\eqref{eq:family}.
 \end{proof}
 
+\begin{theorem}\label{thm:mixed}
+Let $A$, $\lambda$, and the Jordan basis be as in Theorem~\ref{thm:family}.
+Partition the index set $\{1,\ldots,N\}$ into two classes:
+\begin{itemize}
+  \item $I^+$: maps with \emph{rotations} in the Jordan basis,
+    $f_k(z) = \lambda\varepsilon_k(z + t_k')$;
+  \item $I^-$: maps with \emph{reflections} in the Jordan basis,
+    $f_k(z) = \lambda\varepsilon_k(\bar{z} + t_k')$.
+\end{itemize}
+Define
+\[
+  \alpha_2^+ := \frac{1}{N}\sum_{k\in I^+}\varepsilon_k^2, \qquad
+  \alpha_2^- := \frac{1}{N}\sum_{k\in I^-}\varepsilon_k^2,
+\]
+and suppose the generalised centering condition
+\[
+  \sum_{k\in I^+}\varepsilon_k t_k' + \sum_{k\in I^-}\varepsilon_k\overline{t_k'} = 0
+\]
+holds (when $I^-=\emptyset$ this reduces to the standard condition
+$\sum_k\varepsilon_k t_k'=0$ of Theorem~\ref{thm:family}) and $\sigma^2 > 0$.  Set
+\[
+  \tau := \frac{1}{N}\!\left(\sum_{k\in I^+}\varepsilon_k^2(t_k')^2
+                            + \sum_{k\in I^-}\varepsilon_k^2(\overline{t_k'})^2\right),
+\]
+and let
+\[
+  \Delta := \bigl(1-\lambda^2\alpha_2^+\bigr)\bigl(1-\bar\lambda^2\bar\alpha_2^+\bigr)
+           - |\lambda|^4|\alpha_2^-|^2.
+\]
+If\/ $\Delta\neq 0$, the invariant measure has aspect ratio
+\begin{equation}\label{eq:mixed}
+  \mathrm{AR}^2 = \frac{1-\rho}{1+\rho},
+  \qquad
+  \rho = \frac{|E[Z^2]|}{E[|Z|^2]},
+\end{equation}
+where
+\begin{equation}\label{eq:mixed-moments}
+  E[Z^2] = \frac{\lambda^2\tau\,(1-\bar\lambda^2\bar\alpha_2^+)
+                 + \lambda^2\alpha_2^-\bar\lambda^2\bar\tau}{\Delta},
+  \qquad
+  E[|Z|^2] = \frac{|\lambda|^2\sigma^2}{1-|\lambda|^2}.
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Work in the Jordan basis throughout.
+Because $|\varepsilon_k|=1$ and $|\bar{z}|=|z|$, applying the
+fixed-point equation~\eqref{eq:fp} to $h(z)=|z|^2$ gives
+\[
+  E[|Z|^2] = |\lambda|^2 E[|Z|^2] + |\lambda|^2\sigma^2,
+\]
+exactly as in Theorem~\ref{thm:family}, so $E[|Z|^2] = |\lambda|^2\sigma^2/(1-|\lambda|^2)$.
+
+For $E[Z]$: applying~\eqref{eq:fp} to $h(z)=z$ and using the
+generalised centering condition gives $E[Z]=0$.
+
+Set $w := E[Z^2]$.  Applying~\eqref{eq:fp} to $h(z)=z^2$:
+\begin{itemize}
+  \item a rotation map $f_k(z)=\lambda\varepsilon_k(z+t_k')$ contributes
+    $\lambda^2\varepsilon_k^2\,E[(Z+t_k')^2]$;
+  \item a reflection map $f_k(z)=\lambda\varepsilon_k(\bar{z}+t_k')$ contributes
+    $\lambda^2\varepsilon_k^2\,E[(\bar{Z}+\overline{t_k'})^2]
+     = \lambda^2\varepsilon_k^2(\bar{w}+(\overline{t_k'})^2)$.
+\end{itemize}
+Collecting terms (using $E[Z]=0$):
+\begin{equation}\label{eq:mixed-w}
+  w = \lambda^2\alpha_2^+\,w + \lambda^2\alpha_2^-\,\bar{w} + \lambda^2\tau.
+\end{equation}
+Taking complex conjugates of~\eqref{eq:mixed-w}:
+\begin{equation}\label{eq:mixed-wbar}
+  \bar{w} = \bar\lambda^2\bar\alpha_2^+\,\bar{w}
+            + \bar\lambda^2\bar\alpha_2^-\,w + \bar\lambda^2\bar\tau.
+\end{equation}
+The system~\eqref{eq:mixed-w}--\eqref{eq:mixed-wbar} in unknowns $(w,\bar{w})$
+has coefficient matrix
+\[
+  \begin{pmatrix}
+    1-\lambda^2\alpha_2^+ & -\lambda^2\alpha_2^- \\
+    -\bar\lambda^2\bar\alpha_2^- & 1-\bar\lambda^2\bar\alpha_2^+
+  \end{pmatrix},
+\]
+with determinant $\Delta$.  Solving by Cramer's rule yields~\eqref{eq:mixed-moments},
+and inserting into~\eqref{eq:mixed} gives the formula for~$\mathrm{AR}^2$.
+\end{proof}
+
+\begin{remark}
+Theorem~\ref{thm:family} is the special case $I^-=\emptyset$ of
+Theorem~\ref{thm:mixed}: when no reflections are present,
+$\alpha_2^-=0$ and $\Delta=|1-\lambda^2\alpha_2^+|^2$,
+so $E[Z^2]=\lambda^2\tau_\varepsilon/(1-\lambda^2\alpha_2^+)$,
+recovering~\eqref{eq:family}.
+\end{remark}
+
 \begin{corollary}\label{cor:scalar}
 When $A = aI$ for $a\in\mathbb{C}$, $|a|<1$, and all $R_k = I$
 (so $\varepsilon_k=1$ and $\alpha_2=1$), the Jordan basis coincides
@@ -264,6 +362,7 @@ $aI$ & $I$ & $1$ & scalar formula (Corollary~\ref{cor:scalar}) \\
 $aI$ & $\pm I$ & $\pm 1$ & sign-flip (Remark~\ref{rem:sign-flip}) \\
 $aI$ & rotations & $e^{i\theta_k}$ & rotation-weights case \\
 general $A$ & Jordan-basis isometries & $|\varepsilon_k|=1$ & Theorem~\ref{thm:family} \\
+general $A$ & rotations + reflections & mixed $\varepsilon_k$ & Theorem~\ref{thm:mixed} \\
 \hline
 \end{tabular}
 \end{center}
