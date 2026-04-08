@@ -335,6 +335,78 @@ so $E[Z^2]=\lambda^2\tau_\varepsilon/(1-\lambda^2\alpha_2^+)$,
 recovering~\eqref{eq:family}.
 \end{remark}
 
+\begin{theorem}\label{thm:general}
+Let $n \geq 1$ and consider the IFS in $\mathbb{R}^n$
+\[
+  f_k(\mathbf{v}) = A O_k (\mathbf{v} + \mathbf{t}_k), \quad k = 1, \ldots, N,
+\]
+with equal weights $1/N$, where:
+\begin{itemize}
+  \item $A$ is a real $n\times n$ contracting matrix (all eigenvalues satisfy
+    $|\mu_i| < 1$);
+  \item $O_k \in O(n)$ are arbitrary orthogonal matrices ($\det O_k = \pm 1$);
+  \item $\mathbf{t}_k \in \mathbb{R}^n$ are arbitrary translation vectors.
+\end{itemize}
+Suppose the centering condition
+\[
+  \frac{1}{N} \sum_{k=1}^N A O_k \mathbf{t}_k = \mathbf{0}
+\]
+holds (i.e.\ the mean fixed point is at the origin).  Let $\Sigma = E[\mathbf{Z}\mathbf{Z}^\top]$
+be the covariance matrix of the invariant measure (which satisfies $E[\mathbf{Z}]=\mathbf{0}$
+by the centering condition).  Then $\Sigma$ is the unique solution of the
+Lyapunov-type equation
+\begin{equation}\label{eq:lyapunov}
+  \Sigma = \frac{1}{N} \sum_{k=1}^N A O_k \!\left(\Sigma + \mathbf{t}_k \mathbf{t}_k^\top\right) O_k^\top A^\top.
+\end{equation}
+Equivalently, setting
+\[
+  M := \frac{1}{N} \sum_{k=1}^N (AO_k) \otimes (AO_k),
+  \qquad
+  T := \frac{1}{N} \sum_{k=1}^N A O_k \mathbf{t}_k \mathbf{t}_k^\top O_k^\top A^\top,
+\]
+equation~\eqref{eq:lyapunov} reads $(I - M)\,\operatorname{vec}(\Sigma) = \operatorname{vec}(T)$,
+and $(I-M)$ is invertible because $\rho(M) < 1$.
+The attractor of the IFS is an ellipsoid whose semi-axes are proportional to
+$\sqrt{\lambda_1(\Sigma)} \geq \cdots \geq \sqrt{\lambda_n(\Sigma)}$,
+where $\lambda_1(\Sigma) \geq \cdots \geq \lambda_n(\Sigma)$ are the eigenvalues of $\Sigma$.
+In particular, the aspect ratio is
+\[
+  \mathrm{AR} = \sqrt{\frac{\lambda_n(\Sigma)}{\lambda_1(\Sigma)}}.
+\]
+\end{theorem}
+
+\begin{proof}
+The invariant measure $\mu$ of the IFS satisfies
+$\mu = \frac{1}{N}\sum_{k=1}^N \mu \circ f_k^{-1}$.
+The centering condition ensures $E[\mathbf{Z}] = \mathbf{0}$, so
+$\Sigma = E[\mathbf{Z}\mathbf{Z}^\top]$.  Applying the moment equation
+$E[h(\mathbf{Z})] = \frac{1}{N}\sum_{k=1}^N E[h(f_k(\mathbf{Z}))]$
+to $h(\mathbf{v}) = \mathbf{v}\mathbf{v}^\top$ gives
+\begin{align*}
+  \Sigma
+  &= \frac{1}{N}\sum_{k=1}^N E\!\left[\bigl(AO_k(\mathbf{Z}+\mathbf{t}_k)\bigr)
+                                       \bigl(AO_k(\mathbf{Z}+\mathbf{t}_k)\bigr)^\top\right] \\
+  &= \frac{1}{N}\sum_{k=1}^N AO_k\,E\!\left[(\mathbf{Z}+\mathbf{t}_k)(\mathbf{Z}+\mathbf{t}_k)^\top\right]
+     O_k^\top A^\top \\
+  &= \frac{1}{N}\sum_{k=1}^N AO_k\!\left(\Sigma + \mathbf{t}_k\mathbf{t}_k^\top\right)O_k^\top A^\top,
+\end{align*}
+which is~\eqref{eq:lyapunov} (using $E[\mathbf{Z}]=\mathbf{0}$).
+Vectorising via $\operatorname{vec}(PQR) = (R^\top\otimes P)\operatorname{vec}(Q)$ yields
+$(I-M)\operatorname{vec}(\Sigma) = \operatorname{vec}(T)$.
+Since all eigenvalues of $AO_k$ satisfy $|\mu_i| \leq \|AO_k\|$, and $A$ is contracting,
+the eigenvalues of $M$ satisfy $|\nu_j(M)| \leq \rho(A)^2 < 1$, so $\rho(M)<1$,
+$(I-M)$ is invertible, and $\Sigma$ is uniquely determined.
+\end{proof}
+
+\begin{remark}
+The maps $f_k(x) = s_k g^{-1}(x) + y_k$ of \cite{Bandt1991}, where $g$ is a
+linear expansive map with integer matrix and $s_k$ are elements of a symmetry
+group of $g$, are a special case of Theorem~\ref{thm:general} with $A = g^{-1}$
+and $O_k = s_k$ (the affine part of $s_k$ is absorbed into the translation
+$\mathbf{t}_k$).  In particular, all examples in \cite{Bandt1991} involving
+rotations and reflections fall under Theorem~\ref{thm:general}.
+\end{remark}
+
 \begin{corollary}\label{cor:scalar}
 When $A = aI$ for $a\in\mathbb{C}$, $|a|<1$, and all $R_k = I$
 (so $\varepsilon_k=1$ and $\alpha_2=1$), the Jordan basis coincides
