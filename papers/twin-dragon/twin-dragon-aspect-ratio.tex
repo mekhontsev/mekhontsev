@@ -212,6 +212,30 @@ $\kappa = 1$ and $|1-a^2| = 1-|a|^2$;
 the latter holds iff $a^2 \geq 0$, i.e.\ $a \in \mathbb{R}$.
 \end{proof}
 
+\begin{remark}\label{rem:sign-flip}
+The formula extends to sign-flip IFS
+$f_k(z) = \varepsilon_k a(z + t_k)$ with
+$\varepsilon_k \in \{+1,-1\}$.
+The centering condition becomes
+$\sum \varepsilon_k t_k = 0$;
+when it holds, $\varepsilon_k^2 = 1$ ensures that $E[Z^2]$ and
+$E[|Z|^2]$ reduce to the same expressions as in
+Theorem~\ref{thm:family}, so~\eqref{eq:family} applies as stated.
+When the IFS is not centred
+($\sum\varepsilon_k t_k\neq 0$), the formula still holds with
+$\kappa$ replaced by
+\[
+  \tilde\kappa
+  = \frac{|\tau - \beta^2(1-a^2)|}{\sigma^2 - |\beta|^2(1-|a|^2)},
+  \qquad
+  \beta = \frac{\textstyle\sum\varepsilon_k t_k}
+               {N - a\!\sum\varepsilon_k}.
+\]
+For $N=2$ every sign pattern gives $\tilde\kappa = \kappa$
+(signs are invisible); for $N \geq 3$ they enlarge the range of
+achievable aspect ratios.
+\end{remark}
+
 When the contraction ratio is the reciprocal of a Gaussian integer
 and the translations are collinear ($\kappa=1$), the
 aspect ratio is a quadratic irrational whose field is determined by a
@@ -970,26 +994,17 @@ from~\eqref{eq:family} immediately gives $1/\varphi^2$
 
 \subsection*{Further directions}
 
-Several natural extensions remain open.
-(1)~Replacing equal weights by a general probability vector
-$(p_1,\ldots,p_N)$ changes the self-similar measure; the covariance
-still satisfies a fixed-point equation, but the resulting AR is no longer
-a similarity invariant of the attractor --- it becomes a property of the
-measure.
-(2)~Over $\mathbb{Z}[\omega]$, the smallest norm $N=3$
-($\lambda=1\!-\!\omega$) presents an obstruction: the constraint
-$\kappa^2\!=\!7/20$ is a degree-$4$ Diophantine equation in the
-Eisenstein coordinates of $t_0,t_1$, and it remains open whether
-it has a solution.
-More broadly, characterising which pairs
-$(N,\kappa^*)$ are realisable over a given imaginary quadratic ring
-is an open problem.
-(3)~An explicit closed-form construction of a CRS
+An explicit closed-form construction of a CRS
 achieving $\kappa=\kappa_m^*$ for all~$N$ would be desirable;
 this amounts to a system of quadratic Diophantine equations
 in the digit shifts $c_k\in\mathbb{Z}[i]$
 (where $d_k = k + c_k\lambda$), which does not appear to simplify
 into a universal formula.
+The sign-flip extension of Remark~\ref{rem:sign-flip} provides an
+additional degree of freedom: by choosing
+$\varepsilon_k\in\{+1,-1\}$ one can tune~$\tilde\kappa$ away
+from~$\kappa$ and thereby reach aspect ratios inaccessible to the
+original IFS with uniform signs.
 
 \begin{thebibliography}{9}
 \bibitem{Bandt1991}
