@@ -1,52 +1,162 @@
-\begin{remark}\label{rem:rotation-weights}
-The formula extends to IFS with arbitrary unit-modulus weights,
-\[
-  f_k(z) = \varepsilon_k\, a\,(z + t_k), \qquad \varepsilon_k \in \mathbb{C},\quad |\varepsilon_k|=1,
-\]
-provided the centering condition \(\sum_{k=1}^N \varepsilon_k t_k = 0\) holds
-(which implies \(E[Z]=0\) by the fixed-point equation for \(h(z)=z\)).
-Define the \emph{weighted algebraic variance}
-\[
-  \tau_\varepsilon := \frac{1}{N}\sum_{k=1}^N \varepsilon_k^2\, t_k^2 \in \mathbb{C},
-  \qquad
-  \alpha_2 := \frac{1}{N}\sum_{k=1}^N \varepsilon_k^2 \in \mathbb{C},
-\]
-and the \emph{weighted digit anisotropy}\n\[\kappa_\varepsilon := |\tau_\varepsilon|/\sigma^2 \in [0,1].\]
-Applying the fixed-point equation to \(h(z)=z^2\) gives
-\[
-  E[Z^2] = a^2\alpha_2\, E[Z^2] + a^2\tau_\varepsilon,
-  \qquad\text{so}\qquad
-  E[Z^2] = \frac{a^2\tau_\varepsilon}{1 - a^2\alpha_2}.
-\]
-Since \(|\varepsilon_k|^2=1\), the equation for \(h(z)=|z|^2\) is unchanged:
-$E[|Z|^2] = |a|^2\sigma^2/(1-|a|^2)$.  
-The ellipticity ratio is therefore
-\[
-  \rho
-  = \frac{|E[Z^2]|}{E[|Z|^2]}
-  = \frac{(1-|a|^2)\,\kappa_\varepsilon}{|1 - a^2\alpha_2|},
-\]
-and the aspect ratio formula becomes
-\begin{equation}\label{eq:family-rot}
-  \mathrm{AR}^2
-  = \frac{|1-a^2\alpha_2| - (1-|a|^2)\,\kappa_\varepsilon}
-         {|1-a^2\alpha_2| + (1-|a|^2)\,\kappa_\varepsilon}.
-\end{equation}
-This reduces to~\eqref{eq:family} when \(\varepsilon_k=\pm 1\)
-(so \(\alpha_2=1\) and \(\kappa_\varepsilon=\kappa\)).
-When all weights are equal, \(\varepsilon_k = e^{i\theta}\),
-one has \(\alpha_2 = e^{2i\theta}\) and \(\tau_\varepsilon = e^{2i\theta}\tau\),
-so \(\kappa_\varepsilon = \kappa\) and~\eqref{eq:family-rot} describes
-the same attractor rotated by~\(\theta\), with AR unchanged.
-When the \(\varepsilon_k\) are the \(N\)-th roots of unity (\(N\geq 3\)),
-\(\alpha_2 = 0\) and~\eqref{eq:family-rot} reduces to
-\(\mathrm{AR}^2 = (1-(1-|a|^2)\kappa_\varepsilon)/(1+(1-|a|^2)\kappa_\varepsilon)\).
+\section{The aspect ratio formula}\label{sec:family}
 
-In particular, this framework covers self-similar tiles whose pieces
-are related by rotations: if the \(k\)-th piece is rotated by angle \(\theta_k\)
-relative to the whole, setting \(\varepsilon_k = e^{i\theta_k}\) and
-verifying the centering condition \(\sum e^{i\theta_k}t_k=0\)
-brings such IFS within the scope of~\eqref{eq:family-rot}.
-The full classification of aspect ratios for rotation-weighted tiles
-over \(\mathbb{Z}[i]\) is a natural direction for future work.
+An \emph{iterated function system} (IFS) is a finite collection
+of contractions $f_1,\ldots,f_N$ on a complete metric space.
+By Hutchinson's theorem \cite{Hutchinson1981} there exists a unique
+non-empty compact set, the \emph{attractor}, satisfying
+$\mathcal{A} = f_1(\mathcal{A}) \cup \cdots \cup f_N(\mathcal{A})$.
+
+Consider an IFS
+\[
+  f_k(\mathbf{v}) = A R_k(\mathbf{v} + \mathbf{t}_k), \qquad k=1,\ldots,N,
+\]
+where $A$ is a $2\times 2$ real matrix with complex eigenvalues
+$\lambda,\bar\lambda\in\mathbb{C}\setminus\mathbb{R}$, $|\lambda|<1$,
+and each $R_k$ is a real $2\times 2$ matrix that is an isometry
+\emph{in the Jordan basis of $A$}: that is, $P^{-1}R_kP$ acts as
+multiplication by some $\varepsilon_k\in\mathbb{C}$, $|\varepsilon_k|=1$,
+where $P$ is the real matrix whose columns are $\mathrm{Re}(\mathbf{p})$
+and $\mathrm{Im}(\mathbf{p})$ for an eigenvector $\mathbf{p}$ of $A$
+for eigenvalue $\lambda$.
+In the Jordan basis, writing $t_k' = (P^{-1}\mathbf{t}_k)^{(1)}
++ i(P^{-1}\mathbf{t}_k)^{(2)} \in \mathbb{C}$,
+the centering condition is $\sum_{k=1}^N \varepsilon_k t_k' = 0$.
+
+Define the \emph{digit variance} $\sigma^2 := \tfrac{1}{N}\sum_k|t_k'|^2 > 0$,
+the \emph{weighted algebraic variance}
+$\tau_\varepsilon := \tfrac{1}{N}\sum_k \varepsilon_k^2(t_k')^2 \in \mathbb{C}$,
+the \emph{weight second moment} $\alpha_2 := \tfrac{1}{N}\sum_k \varepsilon_k^2 \in \mathbb{C}$,
+and the \emph{weighted digit anisotropy}
+\[
+  \kappa_\varepsilon := \frac{|\tau_\varepsilon|}{\sigma^2} \in [0,1].
+\]
+
+\begin{lemma}\label{lem:kappa-invariant}
+Under the Jordan basis change $\mathbf{t}_k \mapsto t_k' = P^{-1}\mathbf{t}_k$
+(identified as a complex number), the digit anisotropy is preserved:
+if we define $\kappa$ using the original digits $\mathbf{t}_k$ identified
+as complex numbers $t_k$ via the standard basis, and $\kappa_\varepsilon$ using
+the Jordan-basis digits $t_k'$, then when all $\varepsilon_k = 1$,
+\[
+  \kappa'
+  := \frac{|\sum_k (t_k')^2|}{\sum_k |t_k'|^2}
+   = \kappa
+  := \frac{|\sum_k t_k^2|}{\sum_k |t_k|^2}.
+\]
+\end{lemma}
+
+\begin{proof}
+The columns of $P$ are $\mathrm{Re}(\mathbf{p})$ and $\mathrm{Im}(\mathbf{p})$,
+so $P^{-1}$ acts on $\mathbb{R}^2\cong\mathbb{C}$ as multiplication by
+$1/p$, where $p\in\mathbb{C}$ is the eigenvector regarded as a complex number.
+Therefore $t_k' = t_k/p$, and
+\[
+  \kappa'
+  = \frac{|\sum_k (t_k/p)^2|}{\sum_k |t_k/p|^2}
+  = \frac{|\sum_k t_k^2|/|p|^2}{\sum_k |t_k|^2/|p|^2}
+  = \kappa. \qedhere
+\]
+\end{proof}
+
+\begin{theorem}\label{thm:family}
+Let $A$ be a $2\times 2$ real matrix with eigenvalues
+$\lambda,\bar\lambda\in\mathbb{C}\setminus\mathbb{R}$, $|\lambda|<1$,
+and let $\{f_k(\mathbf{v})=AR_k(\mathbf{v}+\mathbf{t}_k)\}_{k=1}^N$
+be an equal-weight IFS where each $R_k$ is an isometry in the Jordan
+basis of $A$ with corresponding complex factor $\varepsilon_k$,
+$|\varepsilon_k|=1$.
+Suppose the centering condition $\sum_k \varepsilon_k t_k' = 0$ holds
+in the Jordan basis and $\sigma^2>0$.
+Then the invariant measure has aspect ratio
+\begin{equation}\label{eq:family}
+  \mathrm{AR}^2 = \frac{|1-\lambda^2\alpha_2| - (1-|\lambda|^2)\,\kappa_\varepsilon}
+                      {|1-\lambda^2\alpha_2| + (1-|\lambda|^2)\,\kappa_\varepsilon},
+\end{equation}
+where $\alpha_2 = \tfrac{1}{N}\sum_k\varepsilon_k^2$,
+$\tau_\varepsilon = \tfrac{1}{N}\sum_k\varepsilon_k^2(t_k')^2$,
+and $\kappa_\varepsilon = |\tau_\varepsilon|/\sigma^2$.
+\end{theorem}
+
+\begin{proof}
+By Lemma~\ref{lem:kappa-invariant} it suffices to work in the Jordan
+basis of $A$, where $f_k(z) = \lambda\varepsilon_k(z + t_k')$
+with $t_k'\in\mathbb{C}$.
+Let $Z$ be distributed according to the invariant measure $\mu$.
+The fixed-point equation
+\begin{equation}\label{eq:fp}
+  E[h(Z)] = \frac{1}{N}\sum_{k=1}^N E\bigl[h\bigl(\lambda\varepsilon_k(Z + t_k')\bigr)\bigr]
+\end{equation}
+applied to $h(z)=z$ gives, using $\sum_k\varepsilon_k t_k'=0$,
+\[
+  E[Z] = \lambda\alpha_1 E[Z],
+  \qquad \alpha_1 := \tfrac{1}{N}\textstyle\sum_k\varepsilon_k,
+\]
+so $E[Z]=0$ (since $|\lambda\alpha_1|\leq|\lambda|<1$).
+Applying~\eqref{eq:fp} to $h(z)=z^2$:
+\[
+  E[Z^2] = \lambda^2\alpha_2\,E[Z^2] + \lambda^2\tau_\varepsilon,
+  \qquad\text{so}\qquad
+  E[Z^2] = \frac{\lambda^2\tau_\varepsilon}{1-\lambda^2\alpha_2}.
+\]
+Applying~\eqref{eq:fp} to $h(z)=|z|^2$, noting $|\varepsilon_k|=1$:
+\[
+  E[|Z|^2] = |\lambda|^2 E[|Z|^2] + |\lambda|^2\sigma^2,
+  \qquad\text{so}\qquad
+  E[|Z|^2] = \frac{|\lambda|^2\sigma^2}{1-|\lambda|^2}.
+\]
+The ellipticity ratio is
+\[
+  \rho = \frac{|E[Z^2]|}{E[|Z|^2]}
+       = \frac{(1-|\lambda|^2)\,\kappa_\varepsilon}{|1-\lambda^2\alpha_2|}.
+\]
+The standard identity $\mathrm{AR}^2=(1-\rho)/(1+\rho)$
+yields~\eqref{eq:family}.
+\end{proof}
+
+\begin{corollary}\label{cor:scalar}
+When $A = aI$ for $a\in\mathbb{C}$, $|a|<1$, and all $R_k = I$
+(so $\varepsilon_k=1$ and $\alpha_2=1$), the Jordan basis coincides
+with the standard basis, $\lambda=a$, $\kappa_\varepsilon = \kappa$,
+and~\eqref{eq:family} reduces to
+\[
+  \mathrm{AR}^2 = \frac{|1-a^2| - (1-|a|^2)\,\kappa}
+                      {|1-a^2| + (1-|a|^2)\,\kappa},
+\]
+which is the aspect ratio formula for the scalar IFS
+$\{f_k(z)=a(z+t_k)\}$ over $\mathbb{C}$.
+\end{corollary}
+
+\begin{remark}\label{rem:special-cases}
+Theorem~\ref{thm:family} unifies several previously separate results.
+The following table summarises the main special cases.
+
+\medskip
+\begin{center}
+\begin{tabular}{cccp{4.5cm}}
+\hline
+$A$ & $R_k$ & $\varepsilon_k$ & Result \\
+\hline
+$aI$ & $I$ & $1$ & scalar formula (Corollary~\ref{cor:scalar}) \\
+$aI$ & $\pm I$ & $\pm 1$ & sign-flip (Remark~\ref{rem:sign-flip}) \\
+$aI$ & rotations & $e^{i\theta_k}$ & rotation-weights case \\
+general $A$ & Jordan-basis isometries & $|\varepsilon_k|=1$ & Theorem~\ref{thm:family} \\
+\hline
+\end{tabular}
+\end{center}
+\medskip
+
+Three further special cases of the general formula are noteworthy:
+\begin{enumerate}[(a)]
+\item \textbf{Sign flips} ($\varepsilon_k=\pm 1$): then $\alpha_2=1$ and
+  $\kappa_\varepsilon = |\sum_k \varepsilon_k^2(t_k')^2|/\sigma^2$,
+  recovering Remark~\ref{rem:sign-flip}.
+\item \textbf{Uniform rotation} ($\varepsilon_k = e^{i\theta}$ for all $k$):
+  then $\alpha_2 = e^{2i\theta}$ and $\tau_\varepsilon = e^{2i\theta}\tau$,
+  so $\kappa_\varepsilon = \kappa$ and the AR is unchanged — the attractor
+  is merely rotated by $\theta$.
+\item \textbf{$N$-th roots of unity} ($\varepsilon_k = e^{2\pi i k/N}$,
+  $N\geq 3$): then $\alpha_2 = 0$
+  and~\eqref{eq:family} reduces to
+  $\mathrm{AR}^2 = (1-(1-|\lambda|^2)\kappa_\varepsilon)/(1+(1-|\lambda|^2)\kappa_\varepsilon)$.
+\end{enumerate}
 \end{remark}
