@@ -7,22 +7,11 @@ Mathematician and software developer. My research and tools focus on
 
 ---
 
-## Scientific Results
-
-### [The aspect ratio of the Twin Dragon is 1/φ](papers/twin-dragon/) *(2026)*
-
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19475505.svg)](https://doi.org/10.5281/zenodo.19475505)
-
-The Twin Dragon fractal is defined purely via the Gaussian integer $1+i$,
-yet its geometric aspect ratio equals $1/\varphi$, where $\varphi=(1+\sqrt{5})/2$
-is the golden ratio. Proved by explicitly solving the covariance fixed-point
-equation for the self-similar measure.
-
-📄 [PDF](papers/twin-dragon/twin-dragon-aspect-ratio.pdf) · [arXiv:2604.05010](https://arxiv.org/abs/2604.05010)
-
----
-
 ## Publications
+
+**D. Mekhontsev** — [The aspect ratio of the Twin Dragon is 1/φ](https://arxiv.org/abs/2604.05010)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19475505.svg)](https://doi.org/10.5281/zenodo.19475505)  
+*Preprint*, 2026. [PDF](papers/twin-dragon/twin-dragon-aspect-ratio.pdf)
 
 **C. Bandt, D. Mekhontsev** — [Elementary fractal geometry. 2. Carpets involving irrational rotations](https://arxiv.org/abs/2003.08687)  
 *Fractal and Fractional* **6**(1), 39, 2022.
