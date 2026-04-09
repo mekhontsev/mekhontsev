@@ -18,7 +18,7 @@ yet its geometric aspect ratio equals $1/\varphi$, where $\varphi=(1+\sqrt{5})/2
 is the golden ratio. Proved by explicitly solving the covariance fixed-point
 equation for the self-similar measure.
 
-📄 [PDF](papers/twin-dragon/twin-dragon-aspect-ratio.pdf) · [LaTeX source](papers/twin-dragon/twin-dragon-aspect-ratio.tex)
+📄 [PDF](papers/twin-dragon/twin-dragon-aspect-ratio.pdf) · [LaTeX source](papers/twin-dragon/twin-dragon-aspect-ratio.tex) · [arXiv:2604.05010](https://arxiv.org/abs/2604.05010)
 
 ---
 
