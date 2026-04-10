@@ -10,7 +10,7 @@ Mathematician and software developer. My research and tools focus on
 ## Publications
 
 **D. Mekhontsev** — [The aspect ratio of the Twin Dragon is 1/φ](https://arxiv.org/abs/2604.05010)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19475505.svg)](https://doi.org/10.5281/zenodo.19475505)  
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19440753.svg)](https://doi.org/10.5281/zenodo.19440753)  
 *Preprint*, 2026. [PDF](papers/twin-dragon/twin-dragon-aspect-ratio.pdf)
 
 **C. Bandt, D. Mekhontsev** — [Elementary fractal geometry. 2. Carpets involving irrational rotations](https://arxiv.org/abs/2003.08687)  
