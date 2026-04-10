@@ -9,7 +9,11 @@
 \newtheorem{theorem}{Theorem}
 \newtheorem{corollary}[theorem]{Corollary}
 \newtheorem{proposition}[theorem]{Proposition}
-\newtheorem{remark}{Remark}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{example}[theorem]{Example}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
 
 \title{The aspect ratio of the Twin Dragon is $1/\varphi$}
 
@@ -34,13 +38,19 @@ We show that the geometric aspect ratio of the Twin Dragon
 --- defined via the Gaussian integer $1+i$ ---
 equals $1/\varphi$, where $\varphi=(1+\sqrt{5})/2$ is the golden ratio,
 and that its major axis makes angle $-\arctan\varphi$ with the horizontal.
-More generally, for every equal-weight IFS $\{f_k(z)=a(z+t_k)\}$
-with centred translations the aspect ratio depends only on~$a$ and
-a single anisotropy parameter
-$\kappa=|\sum t_k^2|/\sum|t_k|^2\in[0,1]$.
-When $a=1/\lambda$ for a Gaussian integer~$\lambda$, the aspect ratio
-lies in a quadratic field determined by $\mathbf{N}(\lambda^2\!-\!1)$.
-Every metallic ratio $\mu_m=(m+\sqrt{m^2+4})/2$ $(m\geq 1)$
+More generally, for every equal-contraction IFS
+$\{f_k(z)=a(s_k z+t_k)\}$ with rotations $s_k\in S^1$
+(or reflections) and centred translations,
+we give closed-form formulas for the aspect ratio, ellipticity, and
+principal-axis angle of the attractor.
+When all rotations are trivial, the aspect ratio depends only on~$a$
+and a single anisotropy parameter $\kappa\in[0,1]$;
+for $a=1/\lambda$ with $\lambda$ in an imaginary quadratic ring,
+it lies in the quadratic field $\mathbb{Q}(\sqrt{d}\,)$
+where $d$ is the square-free part of $\mathbf{N}(\lambda^2\!-\!1)$.
+Since $1/\varphi$ is the reciprocal of the first metallic mean, it is natural to ask
+which others arise: every metallic ratio
+$\mu_m=(m+\sqrt{m^2+4})/2$ $(m\geq 1)$
 arises as the reciprocal aspect ratio of a plane-filling tile
 over~$\mathbb{Z}[i]$;
 moreover, $\mathbb{Z}[i]$ is the unique imaginary quadratic ring
@@ -68,10 +78,24 @@ an ellipse with semi-axes $\alpha \geq \beta > 0$ has aspect ratio $\beta/\alpha
 (eigenvalues $\alpha^2/4$ and $\beta^2/4$, so the definition directly recovers the
 ratio of the semi-axes); a $p \times q$ rectangle has aspect ratio $p/q$
 (eigenvalues $p^2/12$ and $q^2/12$); and a square has aspect ratio~$1$.
+The covariance matrix is the unique second-order shape descriptor of a
+probability distribution: any similarity-invariant quantity derived
+from second moments alone is a function of the eigenvalue ratio of~$M$.
+Other notions of aspect ratio --- the bounding-box ratio, the Feret
+diameter ratio, the eccentricity of the convex hull --- require
+knowledge of the boundary or its extreme points,
+which for general IFS is not available in closed form.
+The covariance definition, by contrast, is determined entirely by the
+invariant measure and is exactly computable for self-similar IFS via
+the moment fixed-point equation.
 
 The approach of characterising IFS attractors through moments of their invariant
 measures was introduced by Vrscay and Roehrig \cite{VrscayRoehrig1989} and
-systematically developed in \cite{Vrscay1991}.  The key observation is that the
+systematically developed in \cite{Vrscay1991}.
+Further analysis of self-similar measures via moments and Fourier transforms
+appears in Strichartz~\cite{Strichartz1993} and Lau--Ngai~\cite{LauNgai1999};
+however, explicit aspect-ratio formulas were not derived in those works.
+The key observation is that the
 self-similar measure satisfies a linear fixed-point equation in its moments, which
 can be solved exactly.  When the open set condition holds, Hutchinson's theorem
 \cite{Hutchinson1981} guarantees that the self-similar measure coincides with the
@@ -86,8 +110,8 @@ whose eigenvalues involve $\sqrt{5}$, leading to the aspect ratio $1/\varphi$,
 where $\varphi = (1+\sqrt{5})/2$ is the golden ratio.  The appearance of $\varphi$
 in a fractal with no pentagonal geometry is unexpected.
 Although the method of moments for IFS goes back to \cite{VrscayRoehrig1989},
-the closed-form aspect ratio formula for equal-weight IFS with centred
-translations (Theorem~\ref{thm:family} below) and the
+the closed-form aspect ratio and orientation formulas
+(Theorem~\ref{thm:family} below) and the
 characterisation of its quadratic field for Gaussian-integer parameters
 (Corollary~\ref{cor:field}) are, to our knowledge, new.
 
@@ -97,16 +121,16 @@ The result was first found empirically using the IFStile software
 \cite{VrscayRoehrig1989,Vrscay1991} as part of its algebraic IFS search engine.
 Among the similarity invariants reported by IFStile for the Twin Dragon, the
 aspect ratio $1/\varphi$ appeared as a numerical value; the present paper supplies
-the exact proof and its generalisation to all equal-weight IFS
-$\{f_k(z)=a(z+t_k)\}$ with centred translations.
+the exact proof and its generalisation to arbitrary
+equal-contraction IFS with centred translations.
 This is an instance of \emph{experimental mathematics} \cite{BorweinBailey2004}:
 a computer experiment suggests a precise conjecture, which is then confirmed
 by a rigorous proof.
 
 The paper is organised as follows.
-Section~\ref{sec:family} establishes a closed-form aspect ratio formula
-(Theorem~\ref{thm:family}) for equal-weight IFS
-$\{f_k(z) = a(z+t_k)\}$ with centred translations and classifies the quadratic field
+Section~\ref{sec:family} derives closed-form formulas for the
+aspect ratio and principal-axis angle
+(Theorem~\ref{thm:family}) and classifies the quadratic field
 of the aspect ratio (Corollary~\ref{cor:field}).
 Section~\ref{sec:family-N} applies the formula to a two-parameter family of
 plane-filling tiles parameterised by $x^2-\ell x+N$
@@ -127,8 +151,8 @@ of contractions $f_1,\ldots,f_N$ on a complete metric space.
 By Hutchinson's theorem \cite{Hutchinson1981} there exists a unique
 non-empty compact set~$A$, the \emph{attractor}, satisfying
 $A = f_1(A) \cup \cdots \cup f_N(A)$.
-For background see \cite{Falconer2014}; for self-affine digit tiles
-in particular, see \cite{Kenyon1992, LagariasWang1996}.
+For background see \cite{Barnsley1993, Falconer2014}; for self-affine digit tiles
+in particular, see \cite{Bandt1991, Kenyon1992, LagariasWang1996}.
 
 Consider an equal-weight IFS of $N\geq 2$ contractions on~$\mathbb{C}$,
 each of the form
@@ -140,9 +164,19 @@ each of the form
 where $a \in \mathbb{C}$, $|a| < 1$, the rotations satisfy
 $s_k \in S^1$, and $t_1,\ldots,t_N \in \mathbb{C}$ satisfy
 $\sum_{k=1}^N t_k = 0$.
-The condition $\sum t_k = 0$ is no loss of generality: shifting all
-translations by a constant merely translates the attractor without
-changing the covariance matrix.
+
+\begin{remark}[Centering]\label{rem:centering}
+The condition $\sum t_k = 0$ is no loss of generality.
+The translation $z \mapsto z - c$ replaces each~$t_k$ by
+$\tilde{t}_k = s_k c + t_k - c/a$ (preserving maps) or
+$\tilde{t}_k = s_k \bar{c} + t_k - c/a$ (reversing maps).
+Setting $\sum \tilde{t}_k = 0$ gives a linear equation in~$c$
+(and~$\bar{c}$ when reversing maps are present)
+whose unique solvability is guaranteed by $|a| < 1$.
+When all~$s_k$ coincide, this simplifies to
+$t_k \mapsto t_k - \bar{t}$, a uniform shift of the digits.
+\end{remark}
+
 Define the \emph{digit variance} $\sigma^2 := \tfrac{1}{N}\sum_k |t_k|^2 > 0$,
 the \emph{algebraic variance} $\tau := \tfrac{1}{N}\sum_k t_k^2 \in \mathbb{C}$,
 and the \emph{digit anisotropy}
@@ -187,27 +221,6 @@ $\omega = a^2\tau/(1-a^2 u)$, and
 \begin{equation}\label{eq:rho-pres}
   \rho = \frac{(1-|a|^2)\,|\tau|}{|1-a^2 u|\,\sigma^2}.
 \end{equation}
-When additionally all $s_k = 1$, we have $u=1$,
-and with $\kappa = |\tau|/\sigma^2 \in [0,1]$:
-\begin{equation}\label{eq:family}
-  \mathrm{AR}^2 = \frac{|1-a^2| - (1-|a|^2)\,\kappa}{|1-a^2| + (1-|a|^2)\,\kappa},
-\end{equation}
-In this case \textup{(}$u=1$, $v=0$\textup{)}:
-\begin{enumerate}[\upshape(a)]
-\item $\mathrm{AR}$ depends on the translations only through $\kappa$.
-\item For fixed~$a$, $\mathrm{AR}$ is strictly decreasing in~$\kappa$:
-$\kappa=0$ \textup{(}isotropic digit set\textup{)} gives $\mathrm{AR}=1$,
-and $\kappa=1$ \textup{(}collinear translations\textup{)} gives the
-most elongated attractor.
-\item $\mathrm{AR}=0$ if and only if $a \in \mathbb{R}$ and $\kappa=1$.
-\end{enumerate}
-For collinear translations \textup{(}$\kappa=1$,
-$\tau>0$ after aligning the digit axis with~$\mathbb{R}$\textup{)},
-\begin{equation}\label{eq:psi-simple}
-  \tan 2\psi = \frac{\operatorname{Im}(a^2)}{\operatorname{Re}(a^2)-|a|^4}\,;
-\end{equation}
-for non-collinear digits, $\psi$ is shifted
-by~$\tfrac{1}{2}\arg\tau$.
 In general, the aspect ratio depends on $u$, $v$, and the
 complex value of~$\tau$ \textup{(}not just~$|\tau|$\textup{)}.
 \end{theorem}
@@ -260,27 +273,62 @@ covariance decomposition in Remark~\ref{rem:orientation}.
 When $v=0$, the equation is $\mathbb{C}$-linear:
 $\omega = a^2\tau/(1-a^2 u)$,
 giving~\eqref{eq:rho-pres}.
-When also $s_k=1$ for all~$k$,
-$u=1$ and $\rho = (1-|a|^2)\kappa/|1-a^2|$,
+\end{proof}
+
+When all rotations are trivial, the formulas simplify to depend
+on a single anisotropy parameter.
+
+\begin{corollary}\label{cor:kappa}
+When all $s_k = 1$ \textup{(}so $u=1$, $v=0$\textup{)},
+the aspect ratio depends on the translations only through
+$\kappa = |\tau|/\sigma^2 \in [0,1]$:
+\begin{equation}\label{eq:family}
+  \mathrm{AR}^2 = \frac{|1-a^2| - (1-|a|^2)\,\kappa}{|1-a^2| + (1-|a|^2)\,\kappa}.
+\end{equation}
+\begin{enumerate}[\upshape(a)]
+\item For fixed~$a$, $\mathrm{AR}$ is strictly decreasing in~$\kappa$:
+$\kappa=0$ \textup{(}isotropic digit set\textup{)} gives $\mathrm{AR}=1$,
+and $\kappa=1$ \textup{(}collinear translations\textup{)} gives the
+most elongated attractor.
+\item $\mathrm{AR}=0$ if and only if $a \in \mathbb{R}$ and $\kappa=1$.
+\end{enumerate}
+For collinear translations \textup{(}$\kappa=1$,
+$\tau>0$ after aligning the digit axis with~$\mathbb{R}$\textup{)},
+\begin{equation}\label{eq:psi-simple}
+  \tan 2\psi = \frac{\operatorname{Im}(a^2)}{\operatorname{Re}(a^2)-|a|^4}\,;
+\end{equation}
+for non-collinear digits, $\psi$ is shifted
+by~$\tfrac{1}{2}\arg\tau$.
+\end{corollary}
+
+\begin{proof}
+Setting $s_k=1$ gives $u=1$, $v=0$, and~\eqref{eq:rho-pres}
+yields $\rho = (1-|a|^2)\kappa/|1-a^2|$,
 giving~\eqref{eq:family}.
-Properties (a)--(c) follow:
-$\rho$ is increasing in $\kappa$,
+Properties~(a)--(b) follow:
+$\rho$ is increasing in~$\kappa$,
 vanishes at $\kappa=0$,
 and $\rho=1$ (i.e.\ $\mathrm{AR}=0$) requires
 $\kappa=1$ and $|1-a^2|=1-|a|^2$,
 which holds iff $a \in \mathbb{R}$.
 \end{proof}
 
-
-
-When the contraction ratio is the reciprocal of a Gaussian integer
-and the translations are collinear ($\kappa=1$), the
-aspect ratio is a quadratic irrational whose field is determined by a
-single Gaussian norm.
+The aspect ratio in~\eqref{eq:family} involves $|1-a^2|$, which is
+generically transcendental.  When $a = 1/\lambda$ for an algebraic
+integer~$\lambda$ in an imaginary quadratic field
+$K = \mathbb{Q}(\sqrt{-D})$, this modulus reduces to
+$\sqrt{\mathbf{N}(\lambda^2-1)}/\mathbf{N}(\lambda)$
+(where $\mathbf{N}$ is the field norm,
+$\mathbf{N}(\alpha)=|\alpha|^2\in\mathbb{Z}$ for
+$\alpha\in\mathcal{O}_K$),
+and the aspect ratio becomes a quadratic irrational.
 
 \begin{corollary}\label{cor:field}
-Let $\lambda \in \mathbb{Z}[i]$ with $|\lambda|>1$ and $\lambda\notin\mathbb{R}$,
-and set $a = 1/\lambda$.  For any IFS with $\kappa=1$,
+Let $K = \mathbb{Q}(\sqrt{-D})$ be an imaginary quadratic field
+with ring of integers~$\mathcal{O}_K$,
+let $\lambda \in \mathcal{O}_K$ with $|\lambda|>1$ and $\lambda\notin\mathbb{R}$,
+and set $a = 1/\lambda$.  For any IFS as in Corollary~\textup{\ref{cor:kappa}}
+with $\kappa=1$,
 the aspect ratio~\eqref{eq:family} lies
 in $\mathbb{Q}(\sqrt{d}\,)$,
 where $d$ is the square-free part of $\mathbf{N}(\lambda^2-1)$.
@@ -293,6 +341,9 @@ Explicitly,
 \end{corollary}
 
 \begin{proof}
+For $\lambda\in\mathcal{O}_K$,
+$\mathbf{N}(\lambda)=|\lambda|^2\in\mathbb{Z}$
+and $\mathbf{N}(\lambda^2-1)=|\lambda^2-1|^2\in\mathbb{Z}$.
 Substitute $|a|^2 = 1/\mathbf{N}(\lambda)$,
 $|1-a^2| = \sqrt{\mathbf{N}(\lambda^2-1)}/\mathbf{N}(\lambda)$,
 and $\kappa=1$
@@ -302,7 +353,7 @@ into~\eqref{eq:family}.
 \begin{table}[ht]
 \centering
 \small
-\caption{Aspect ratios for small Gaussian integers $\lambda$,
+\caption{Aspect ratios for small Gaussian integers $\lambda\in\mathbb{Z}[i]$,
 illustrating Corollary~\ref{cor:field}.
 The quadratic field $\mathbb{Q}(\sqrt{d}\,)$ is determined by the
 square-free part of $\mathbf{N}(\lambda^2-1)$.}
@@ -332,14 +383,116 @@ $(\sqrt{5}-n)/(\sqrt{5}+n)$ is a power of $1/\varphi$.
 The third row gives the \emph{silver ratio} $\delta_S = \sqrt{2}-1$
 (fundamental unit of $\mathbb{Z}[\sqrt{2}]$).
 
+All examples in Table~\ref{tab:examples} have $s_k=1$.
+When rotations are present, the general formula~\eqref{eq:rho-pres}
+applies, and the aspect ratio can change dramatically.
+
+\begin{example}[L\'evy C curve]\label{ex:levy}
+Take the same contraction $a = (1-i)/2$ and centred digits
+$t_0 = -1$, $t_1 = 1$ as in the Twin Dragon,
+but set~$s_0 = i$, $s_1 = 1$
+(so $f_0$ includes an extra $90^\circ$ rotation).
+The attractor is a copy of the \emph{L\'evy C curve}.
+Since $\sigma^2 = 1$, $\tau = 1$, $\kappa = 1$,
+the digit geometry is identical to the Twin Dragon;
+only the rotation average changes:
+$u = (i^2 + 1^2)/2 = 0$.
+By~\eqref{eq:rho-pres},
+\[
+  \rho
+  = \frac{(1-|a|^2)\,|\tau|}{|1-a^2 u|\,\sigma^2}
+  = \frac{\tfrac{1}{2}\cdot 1}{|1-0|\cdot 1}
+  = \frac{1}{2},
+\]
+whence $\mathrm{AR}^2 = (1-\tfrac{1}{2})/(1+\tfrac{1}{2}) = 1/3$,
+i.e.\ $\mathrm{AR} = 1/\sqrt{3} \approx 0.577$.
+For comparison, the Twin Dragon has $u=1$ and
+$\mathrm{AR} = 1/\varphi \approx 0.618$
+(Table~\ref{tab:examples}).
+Thus a single rotation $s_0 \mapsto i$ replaces $u=1$ with $u=0$,
+changing the aspect ratio from $1/\varphi$ to $1/\sqrt{3}$.
+More generally, for $N=2$ one has $u = 0$ if and only if
+$s_1/s_0 = \pm i$
+(the two rotations differ by~$90^\circ$).
+The \emph{Heighway Dragon}, with $s_0 = -1$ and $s_1 = i$,
+is another instance: its attractor has a very different shape
+but the same $\mathrm{AR}^2 = 1/3$.
+\end{example}
+
+\begin{example}[Conjugate parallelogram]\label{ex:refl}
+Replace the two preserving maps of the Twin Dragon
+by their orientation-reversing counterparts:
+$f_k(z) = a(\overline{z} \pm 1)$, $a = (1-i)/2$.
+The digits $t_k = \pm 1$ and contraction~$a$ are unchanged,
+so $\sigma^2 = 1$, $\tau = 1$, $\kappa = 1$;
+but now $I = \emptyset$, $J = \{1,2\}$, giving
+$u = 0$, $v = 1$.
+Setting $u=0$, $v=1$, $\tau=1$ in~\eqref{eq:omega} gives
+\[
+  \omega
+  = \frac{a^2(1+\overline{a^2})}{1-|a|^4}
+  = \frac{(-i/2)(1+i/2)}{3/4}
+  = \frac{1-2i}{3}\,,
+\]
+so $|\omega| = \sqrt{5}/3$ and $\rho = \sqrt{5}/3$.
+Therefore
+\[
+  \mathrm{AR}^2
+  = \frac{3-\sqrt{5}}{3+\sqrt{5}}
+  = \frac{7-3\sqrt{5}}{2}
+  = \frac{1}{\varphi^4}\,,
+  \qquad
+  \mathrm{AR} = \frac{1}{\varphi^2} = \frac{3-\sqrt{5}}{2} \approx 0.382.
+\]
+The attractor is a parallelogram
+with vertices $\pm i$ and $\pm(2-i)$
+(one verifies that both maps permute these four vertices).
+It is more elongated than the Twin Dragon ($1/\varphi^2 < 1/\varphi$).
+Thus replacing $z$ by $\overline{z}$ in both maps
+(switching from $u=1$, $v=0$ to $u=0$, $v=1$)
+changes the aspect ratio from $1/\varphi$ to $1/\varphi^2$,
+while keeping it in $\mathbb{Q}(\sqrt{5})$.
+\end{example}
+
+\begin{figure}[ht]
+\centering
+\begin{minipage}[b]{0.45\textwidth}\centering
+  \includegraphics[width=\textwidth]{fig-twin-dragon.png}\\[2pt]
+  (a) Twin Dragon
+\end{minipage}\hfill
+\begin{minipage}[b]{0.45\textwidth}\centering
+  \includegraphics[width=\textwidth]{fig-levy-c.png}\\[2pt]
+  (b) L\'evy C curve
+\end{minipage}\\[8pt]
+\begin{minipage}[b]{0.45\textwidth}\centering
+  \includegraphics[width=\textwidth]{fig-heighway.png}\\[2pt]
+  (c) Heighway Dragon
+\end{minipage}\hfill
+\begin{minipage}[b]{0.45\textwidth}\centering
+  \includegraphics[width=\textwidth]{fig-parallelogram.png}\\[2pt]
+  (d) Conjugate parallelogram
+\end{minipage}
+\caption{Four IFS with contraction $a = (1-i)/2$ and centred digits
+in~$\mathbb{Z}[i]$, shown with their $1.5\sigma$ covariance ellipses.
+The Twin Dragon~(a) has $s_k=1$ and $\mathrm{AR}=1/\varphi$.
+The L\'evy~C curve~(b) and Heighway Dragon~(c) both have $u=0$ and
+$\mathrm{AR}=1/\sqrt{3}$: the ellipses share the same
+aspect ratio but have different orientations
+($\psi=0^\circ$ and $\psi\approx 18^\circ$, respectively).
+The Conjugate parallelogram~(d) has all maps orientation-reversing
+($u=0$, $v=1$) and $\mathrm{AR}=1/\varphi^2$.}
+\label{fig:ellipses}
+\end{figure}
+
 \smallskip
 Corollary~\ref{cor:field} assumes $\kappa=1$.
 The following extension covers arbitrary~$\kappa$.
 
 \begin{corollary}\label{cor:field-gen}
 For any IFS $\{f_k(z)=a(z+t_k)\}$ with $a=1/\lambda$,
-$\lambda\in\mathbb{Z}[i]\setminus\mathbb{R}$,
-and digits $t_k\in\mathbb{Z}[i]$,
+$\lambda\in\mathcal{O}_K\setminus\mathbb{R}$
+\textup{(}$K$ an imaginary quadratic field\textup{)},
+and digits $t_k\in\mathcal{O}_K$,
 the anisotropy satisfies $\kappa^2\in\mathbb{Q}$,
 and $\mathrm{AR}^2$ lies in $\mathbb{Q}(\sqrt{d}\,)$
 where $d$ is the square-free part of
@@ -350,7 +503,7 @@ $\lambda$ and~$\kappa^2$, not on the individual digits.
 \end{corollary}
 
 \begin{proof}
-Write $\tau = \sum(t_k-\bar t)^2 \in \mathbb{Z}[i]$
+Write $\tau = \sum(t_k-\bar t)^2 \in \mathcal{O}_K$
 and $\sigma^2 = \sum |t_k-\bar t|^2 \in \mathbb{Z}$.
 Then $\kappa^2 = |\tau|^2/\sigma^4 = \mathbf{N}(\tau)/\sigma^4$,
 which is rational since $\mathbf{N}(\tau)\in\mathbb{Z}$.
@@ -364,14 +517,19 @@ Substituting into~\eqref{eq:family} gives
 where $R = \mathbf{N}(\lambda^2-1)/N^2$.
 Clearing $N^2$: the numerator and denominator are
 $\sqrt{\mathbf{N}(\lambda^2-1)} \mp (N\!-\!1)\kappa$.
-Rationalising, $\mathrm{AR}^2 = 1 - 2(N\!-\!1)\kappa/
-\bigl(\sqrt{\mathbf{N}(\lambda^2-1)}+(N\!-\!1)\kappa\bigr)$,
-and since $(N\!-\!1)\kappa$ is
-$\sqrt{\mathbf{N}(\tau)}/\sigma^2 \cdot (N\!-\!1)/N$
---- a rational multiple of $\sqrt{\mathbf{N}(\tau)}$,
-while $\sqrt{\mathbf{N}(\lambda^2-1)}$ is
-algebraic of degree~$\leq 2$,
-$\mathrm{AR}^2$ lies in a quadratic extension of~$\mathbb{Q}$.
+Rationalising:
+\[
+  \mathrm{AR}^2
+  = \frac{\sqrt{\mathbf{N}(\lambda^2\!-\!1)} - (N\!-\!1)\kappa}
+         {\sqrt{\mathbf{N}(\lambda^2\!-\!1)} + (N\!-\!1)\kappa}
+  = \frac{\mathbf{N}(\lambda^2\!-\!1) - (N\!-\!1)^2\kappa^2}
+         {\bigl(\sqrt{\mathbf{N}(\lambda^2\!-\!1)} + (N\!-\!1)\kappa\bigr)^2}\,.
+\]
+Now $\mathbf{N}(\lambda^2\!-\!1)\in\mathbb{Z}$
+and $(N\!-\!1)^2\kappa^2 = (N\!-\!1)^2\mathbf{N}(\tau)/\sigma^4 \in\mathbb{Q}$,
+so $\mathrm{AR}^2$ is a rational function of
+$\sqrt{\mathbf{N}(\lambda^2\!-\!1)}$
+and lies in~$\mathbb{Q}(\sqrt{d}\,)$.
 \end{proof}
 
 \begin{remark}
@@ -381,7 +539,8 @@ through $(|a|^2, |1-a^2|)$: the attractor is nearly round when $|1-a^2|$
 is large relative to $1-|a|^2$, and degenerates to a segment when
 $|1-a^2|\approx 1-|a|^2$ (i.e.\ $a$ nearly real).
 For every $a$ in the family, $\mathrm{AR}(a) \leq |a|$, with equality
-if and only if $a$ is purely imaginary.
+if and only if $a$ is purely imaginary
+(the attractor is then a rectangle, cf.\ \S\ref{sec:family-N}).
 Indeed, $|1-a^2| \leq 1+|a|^2$ (triangle inequality), with equality iff
 $a^2/|a^2|=-1$, i.e.\ $a\in i\mathbb{R}$.
 Substituting $|1-a^2|=1+|a|^2$ into~\eqref{eq:family} gives
@@ -408,12 +567,13 @@ their ratio determines the principal-axis direction.
 \section{The \texorpdfstring{$\lambda_{N,\ell}$}{λ\_{N,ℓ}} family}\label{sec:family-N}
 
 A natural two-parameter family of plane-filling tiles arises
-by applying Theorem~\ref{thm:family} to collinear digits.
+by applying Corollary~\ref{cor:kappa} to collinear digits.
 For integers $N\geq 2$ and $0 \leq \ell < 2\sqrt{N}$, let
 $\lambda_{N,\ell}$ be a root of $x^2-\ell x+N$
 (so $|\lambda_{N,\ell}|^2=N$ and $\lambda_{N,\ell}\notin\mathbb{R}$).
 The digits $\{0,1,\ldots,N\!-\!1\}$ form a complete residue system (CRS) of
-$\mathbb{Z}[\lambda_{N,\ell}]$ modulo~$\lambda_{N,\ell}$.
+$\mathbb{Z}[\lambda_{N,\ell}]$ modulo~$\lambda_{N,\ell}$
+\cite{Kenyon1992, LagariasWang1996}.
 Indeed, every element $a+b\lambda_{N,\ell}\in\mathbb{Z}[\lambda_{N,\ell}]$
 satisfies $\lambda_{N,\ell}(a+b\lambda_{N,\ell})
 = a\lambda_{N,\ell}+b(\ell\lambda_{N,\ell}-N)$
@@ -504,7 +664,7 @@ confirming that it belongs to the same two-parameter family.
 The entry $(N,\ell)=(5,4)$ gives $\lambda_{5,4}=2+i$
 --- the same contraction as the $2$-map tile in row~2 of
 Table~\ref{tab:examples}, illustrating again
-that AR depends only on $a = 1/\lambda$ (Theorem~\ref{thm:family}).
+that AR depends only on $a = 1/\lambda$ (Corollary~\ref{cor:kappa}).
 
 For fixed $\ell$, $\mathrm{AR}_{N,\ell}\to 0$ as $N\to\infty$
 (stronger contraction elongates the attractor).
@@ -523,7 +683,7 @@ and the attractor is the
 \emph{tame twindragon} \cite[p.~550]{Bandt1991}, the attractor of $\{f_{1,2}(z)=a(z\pm 1)\}$
 with $a=(1-i\sqrt{7})/4$.
 One computes $1-a^2=(11+i\sqrt{7})/8$, hence $|1-a^2|=\sqrt{2}$, and
-Theorem~\ref{thm:family} gives
+Corollary~\ref{cor:kappa} gives
 \[
   \mathrm{AR}^2 = \frac{\sqrt{2}-\tfrac{1}{2}}{\sqrt{2}+\tfrac{1}{2}}
                = \frac{2\sqrt{2}-1}{2\sqrt{2}+1}
@@ -619,7 +779,7 @@ In this section we specialise to tiles
 over~$\mathbb{Z}[i]$: the contraction is $a = 1/\lambda$ for
 a Gaussian integer~$\lambda$ and the translations form a
 CRS modulo~$\lambda$.
-Theorem~\ref{thm:family} then applies with $|a|^2=1/N$ and
+Corollary~\ref{cor:kappa} then applies with $|a|^2=1/N$ and
 $\kappa$ determined by the choice of CRS.
 
 The dependence on $\kappa$ is already visible for a single
@@ -773,6 +933,26 @@ The first admissible values are $N=2,4,5,8,9,10,13,\ldots$;
 in particular $N=3,6,7,11,14,15$ are not representable.
 \end{remark}
 
+\begin{remark}\label{rem:ncol}
+For \emph{collinear} digits ($\kappa=1$) the condition
+$m=(N\!-\!1)/q$ (Proposition~\ref{prop:golden}(b)) requires
+$p^2=q(m\!-\!q)+1$ to be a perfect square.
+Taking $q=m$ gives the universal upper bound
+$N_{\mathrm{col}}(m) \leq m^2+1$,
+but smaller~$q$ may yield a smaller~$N$.
+For $m=k^2$ a perfect square, $q=1$ gives
+$N_{\mathrm{col}}(k^2) = k^2+1 = N_{\min}(k^2)$,
+so the collinear and non-collinear minima coincide.
+In contrast, for non-square~$m$ a gap opens:
+e.g.\ $N_{\min}(5)=10$ while $N_{\mathrm{col}}(5)=26$,
+and $N_{\min}(7)=10$ while $N_{\mathrm{col}}(7)=50$.
+In general, $N_{\mathrm{col}}(m)$ equals the minimum of
+$q^2 + q(m\!-\!q) + 1$ over those $q\in\{1,\ldots,m\}$ for which
+$q(m\!-\!q)+1$ is a perfect square ---
+a Diophantine condition for which no closed-form solution
+is known for general~$m$.
+\end{remark}
+
 \begin{remark}
 Item~(b) of Proposition~\ref{prop:golden} recovers every row of
 Table~\ref{tab:examples} as a special case:
@@ -798,18 +978,20 @@ $1+i$  & $2$  & $1$              & $\{0,\,\pm 1\}$ \\
 $2+i$  & $5$  & $1/2$            & $\{0,\,1,\,-i,\,i,\,1\!+\!i\}$ \\
 $1+2i$ & $5$  & $\sqrt{2/5}$     & $\{-1\!-\!2i,\,-1,\,i,\,1,\,1\!+\!i\}$ \\
 $1+3i$ & $10$ & $\sqrt{13/45}$   & $\{-2,\,-2\!+\!2i,\,-1\!-\!i,\,-1,\,-1\!+\!i,\,-i,\,0,\,i,\,1\!-\!2i,\,1\}$ \\
-$2+3i$ & $13$ & $1/2$            & $\{3\!-\!2i,\,5i,\,3\!-\!5i,\,3,\ldots,12\}$ \\
-$1+4i$ & $17$ & $1/2$            & $\{-3,\ldots,\,2\!+\!2i\}$ (17~digits) \\
+$2+3i$ & $13$ & $1/2$            & $\{\!-\!2\!-\!3i,\,-2,\,-1\!\pm\!i,\,-1,\,\pm 2i,\,\pm i,\,1,\,1\!+\!i,\,2,\,3\!+\!2i\}$ \\
 \end{tabular}
 \end{table}
 
 \noindent
 Rows 3 and~4 have irrational $\kappa^*$ ($\sqrt{2/5}$ and $\sqrt{13/45}$),
 yet Gaussian-integer digits realise these values exactly.
-Corollary~\ref{cor:half} explains why rows 2, 5, and~6 all share
-$\kappa^*\!=\!1/2$: only three Gaussian primes attain
-this value, and the proof reduces to the unique representation
+Corollary~\ref{cor:half} explains why rows 2 and~5 share
+$\kappa^*\!=\!1/2$: only three Gaussian primes ($2\!+\!i$, $2\!+\!3i$, $1\!+\!4i$)
+attain this value, and the proof reduces to the unique representation
 $5=1^2+2^2$.
+A CRS for the remaining prime $\lambda=1\!+\!4i$ ($N\!=\!17$)
+achieving $\kappa\!=\!1/2$ also exists;
+its $17$ digits are omitted from the table for space.
 \end{remark}
 
 \begin{figure}[ht]
@@ -819,23 +1001,22 @@ $5=1^2+2^2$.
 $\{0,1,-i,i,1\!+\!i\}$ ($\kappa=1/2$).
 Its $1.5$-sigma principal-axis ellipse (red) confirms
 $\mathrm{AR}=1/\varphi\approx 0.618$,
-the same value as the Twin Dragon (Figure~\ref{fig:td}).}
+the same value as the Twin Dragon (Figure~\ref{fig:ellipses}a).}
 \label{fig:kappa-tile}
 \end{figure}
 
-\begin{proposition}\label{prop:quadratic}
-Let $\lambda\in\mathbb{C}\setminus\mathbb{R}$ with $|\lambda|^2=N\geq 2$.
-Then
+\begin{lemma}\label{lem:quadratic}
+For $\lambda\in\mathbb{C}\setminus\mathbb{R}$ with $|\lambda|^2=N\geq 2$,
 \begin{equation}\label{eq:imag-identity}
-  |\lambda^2-1|^2 = (N-1)^2 + 4\,(\operatorname{Im}\lambda)^2,
+  |\lambda^2-1|^2 = (N-1)^2 + 4\,(\operatorname{Im}\lambda)^2.
 \end{equation}
-and the digit anisotropy~\eqref{eq:kappa-m} satisfies
+Consequently, the digit anisotropy~\eqref{eq:kappa-m} satisfies
 $\kappa_m^*\leq 1$ if and only if
 $m\leq (N\!-\!1)/|\operatorname{Im}\lambda|$.
 The collinear case $\kappa=1$ corresponds to
 $m=(N\!-\!1)/|\operatorname{Im}\lambda|$, which is a positive integer
 only when $|\operatorname{Im}\lambda|$ divides $N\!-\!1$.
-\end{proposition}
+\end{lemma}
 
 \begin{proof}
 Write $\lambda=x+iy$,  so $N=x^2+y^2$ and
@@ -875,50 +1056,6 @@ $\operatorname{Im}\lambda = q\in\mathbb{Z}$,
 and taking $q=1$ gives $m=(N\!-\!1)/1 = p^2$, always a positive integer.
 \end{proof}
 
-\begin{remark}\label{rem:eisenstein}
-Proposition~\ref{prop:quadratic} shows that the identity
-$|\lambda^2\!-\!1|^2\!-\!(N\!-\!1)^2$ is controlled entirely by
-$\operatorname{Im}\lambda$.
-Specialising to each ring:
-$\mathbb{Z}[i]$: $4q^2$;\;
-$\mathbb{Z}[\omega]$: $3b^2$;\;
-$\mathbb{Z}[\sqrt{-k}]$: $4kq^2$.
-The upper bound $m_{\max}=(N\!-\!1)/|\operatorname{Im}\lambda|$
-is rational only for~$\mathbb{Z}[i]$.
-Nonetheless, by choosing $\kappa<1$ (non-collinear digits),
-$\kappa_m^*\leq 1$ is guaranteed for every imaginary quadratic ring
-whenever~$N$ is large enough.
-A computational search over $\mathbb{Z}[\omega]$ confirms that
-complete residue systems achieving $\kappa=\kappa_1^*$
-(i.e.\ $\mathrm{AR}=1/\varphi$) exist for all Eisenstein primes
-of norm $N\geq 7$.
-However, for $N=3$ ($\lambda=1\!-\!\omega$, $\kappa_1^*=\sqrt{7/20}$),
-an exhaustive search over shifts $|c_k|\leq 8$ fails to achieve
-$\kappa_1^*$ (best approximation $\approx 3\times 10^{-5}$),
-suggesting that three digits provide too few degrees of freedom
-in the hexagonal lattice.
-\end{remark}
-
-\begin{remark}\label{rem:ncol}
-For \emph{collinear} digits ($\kappa=1$) the condition
-$m=(N\!-\!1)/q$ (Proposition~\ref{prop:golden}(b)) requires
-$p^2=q(m\!-\!q)+1$ to be a perfect square.
-Taking $q=m$ gives the universal upper bound
-$N_{\mathrm{col}}(m) \leq m^2+1$,
-but smaller~$q$ may yield a smaller~$N$.
-For $m=k^2$ a perfect square, $q=1$ gives
-$N_{\mathrm{col}}(k^2) = k^2+1 = N_{\min}(k^2)$,
-so the collinear and non-collinear minima coincide.
-In contrast, for non-square~$m$ a gap opens:
-e.g.\ $N_{\min}(5)=10$ while $N_{\mathrm{col}}(5)=26$,
-and $N_{\min}(7)=10$ while $N_{\mathrm{col}}(7)=50$.
-In general, $N_{\mathrm{col}}(m)$ equals the minimum of
-$q^2 + q(m\!-\!q) + 1$ over those $q\in\{1,\ldots,m\}$ for which
-$q(m\!-\!q)+1$ is a perfect square ---
-a Diophantine condition whose behaviour mirrors the distribution of
-square values of binary quadratic forms.
-\end{remark}
-
 \section{The Twin Dragon}\label{sec:td}
 
 The Twin Dragon $A \subset \mathbb{C}$ is the attractor of the IFS \cite{DavisKnuth1970}
@@ -936,17 +1073,7 @@ pairwise disjoint.  By \cite[\S5]{Hutchinson1981} the
 self-similar measure therefore coincides with $\mathcal{H}^\alpha|_A$.
 Since $\alpha=2$ equals the ambient dimension, $\mathcal{H}^2$ is Lebesgue
 area, and the covariance matrix $M$ describes
-the actual geometric shape (Figure~\ref{fig:td}).
-
-\begin{figure}[ht]
-\centering
-\includegraphics[width=6cm]{twin-dragon.png}
-\caption{The Twin Dragon with its $1.5$-sigma principal-axis ellipse
-(red).  The major axis lies along $(1,-\varphi)$ and the minor axis
-along $(\varphi,1)$; their ratio of lengths equals the aspect ratio
-$\mathrm{AR}=1/\varphi\approx 0.618$.}
-\label{fig:td}
-\end{figure}
+the actual geometric shape (Figure~\ref{fig:ellipses}a).
 
 Substituting $a = (1-i)/2$ into Theorem~\ref{thm:family}
 (with $N=2$, $t_k=\pm1$, so $\sigma^2=1$):
@@ -1031,14 +1158,34 @@ this amounts to a system of quadratic Diophantine equations
 in the digit shifts $c_k\in\mathbb{Z}[i]$
 (where $d_k = k + c_k\lambda$), which does not appear to simplify
 into a universal formula.
+More broadly, for a fixed expansion factor~$\lambda$,
+characterising the set of all achievable anisotropy values~$\kappa$
+--- and in particular the CRS that minimise or maximise~$\kappa$
+--- is a natural combinatorial-geometric problem.
+
+The equal-contraction assumption ($a_k \equiv a$) is essential to our
+closed-form formulas.  For an IFS $\{a_k z + t_k\}$ with distinct
+contraction ratios the fixed-point equation for the second moment
+remains linear and is solvable in closed form for small~$N$;
+extending the aspect-ratio classification to this setting is a natural
+next step.
+In a different direction, higher-order moments ($E[Z^3]$, $E[Z^4]$, \ldots)
+satisfy analogous fixed-point equations and yield shape descriptors
+beyond the aspect ratio (skewness, kurtosis);
+their systematic study for self-similar measures remains open.
 
 
-\begin{thebibliography}{9}
+\begin{thebibliography}{14}
 \bibitem{Bandt1991}
 C.~Bandt,
 \textit{Self-similar sets. {V}. Integer matrices and fractal tilings of $\mathbb{R}^n$},
 Proc.\ Amer.\ Math.\ Soc.\ \textbf{112} (1991), no.~2, 549--562.
 \href{https://doi.org/10.2307/2048545}{doi:10.2307/2048545}.
+
+\bibitem{Barnsley1993}
+M.~F.~Barnsley,
+\textit{Fractals Everywhere},
+2nd~ed., Academic Press, Boston, 1993.
 
 \bibitem{BarnsleyElton1988}
 M.~F.~Barnsley and J.~H.~Elton,
@@ -1079,11 +1226,23 @@ J.~C.~Lagarias and Y.~Wang,
 Adv.\ Math.\ \textbf{121} (1996), no.~1, 21--49.
 \href{https://doi.org/10.1006/aima.1996.0045}{doi:10.1006/aima.1996.0045}.
 
+\bibitem{LauNgai1999}
+K.-S.~Lau and S.-M.~Ngai,
+\textit{Multifractal measures and a weak separation condition},
+Adv.\ Math.\ \textbf{141} (1999), no.~1, 45--96.
+\href{https://doi.org/10.1006/aima.1998.1773}{doi:10.1006/aima.1998.1773}.
+
 \bibitem{Mekhontsev2019}
 D.~Mekhontsev,
 \textit{An algebraic framework for finding and analyzing self-affine tiles and fractals},
 Doctoral thesis, Ernst-Moritz-Arndt-Universit\"at Greifswald, 2019.
 \href{https://nbn-resolving.org/urn:nbn:de:gbv:9-opus-24794}{urn:nbn:de:gbv:9-opus-24794}.
+
+\bibitem{Strichartz1993}
+R.~S.~Strichartz,
+\textit{Self-similar measures and their Fourier transforms.~{II}},
+Trans.\ Amer.\ Math.\ Soc.\ \textbf{336} (1993), no.~1, 335--361.
+\href{https://doi.org/10.1090/S0002-9947-1993-1081941-2}{doi:10.1090/S0002-9947-1993-1081941-2}.
 
 \bibitem{VrscayRoehrig1989}
 E.~R.~Vrscay and C.~J.~Roehrig,
