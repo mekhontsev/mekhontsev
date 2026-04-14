@@ -9,6 +9,10 @@ Mathematician and software developer. My research and tools focus on
 
 ## Publications
 
+**D. Mekhontsev** — Disk-Like Self-Similar Tiles with High Boundary Dimension
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19562023.svg)](https://doi.org/10.5281/zenodo.19562023)  
+*Preprint*, 2026. [PDF](papers/comb-tile/comb-tile-article.pdf)
+
 **D. Mekhontsev** — [The aspect ratio of the Twin Dragon is 1/φ](https://arxiv.org/abs/2604.05010)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19440753.svg)](https://doi.org/10.5281/zenodo.19440753)  
 *Preprint*, 2026. [PDF](papers/twin-dragon/twin-dragon-aspect-ratio.pdf)
