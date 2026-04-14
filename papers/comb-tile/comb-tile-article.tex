@@ -617,6 +617,14 @@ intersect, the common intersection $f_{i_1}(A) \cap f_{i_2}(A) \cap f_{i_3}(A)$
 consists of at most one point.
 \end{theorem}
 
+\begin{remark}
+In the original Bandt--Wang theorem, the criterion is stated for triples of
+neighboring tiles in the self-similar tiling.  For a self-replicating tiling,
+every tile is a first-level IFS image of some translate of~$A$, so checking
+triples of the form $f_{i_j}(A)$ is equivalent to checking all neighboring
+triples in the full tiling.
+\end{remark}
+
 We apply this criterion to the comb family.
 
 \begin{theorem}[Disk-like]\label{thm:disklike}
@@ -830,6 +838,10 @@ The polynomial $p_n$ satisfies:
   p_n(n)     &= 2n(2n{-}3)              &&> 0 \quad (n \ge 3),
 \end{alignat*}
 so the intermediate value theorem guarantees a root in $(n{-}1,\,n)$.
+Uniqueness follows from Descartes' rule: the coefficients of $p_n$ exhibit
+exactly two sign changes for $n \ge 3$, so $p_n$ has at most two positive
+real roots; since a second root $\mu_n \in (1,n{-}1)$ is accounted for
+separately (see Section~\ref{ssec:roots}), the root in $(n{-}1,n)$ is unique.
 Since $p_n(0) = n(n{-}2) > 0$ for $n \ge 3$ and $p_n(1) = 2(n{-}2) > 0$,
 there is also a root between $1$ and $n{-}1$; the dominant root is the
 one in $(n{-}1,\,n)$.
@@ -875,7 +887,9 @@ has the following properties for $n \ge 3$:
 with $\lambda_n = n - 4/n + O(1/n^2)$.
 \item \textbf{Second real root:} $\mu_n \in (1,\, n{-}1)$, with
 $\mu_n = 1 + 2/n - 14/n^3 + O(1/n^4)$ (note that the $1/n^2$
-coefficient vanishes).
+coefficient vanishes).  Existence follows from $p_n(1) = 2(n{-}2) > 0$
+and $p_n(n{-}1) = -(n{-}2)(n^2{-}3n{+}1) < 0$ for $n \ge 3$, by the
+intermediate value theorem.
 \item \textbf{Two remaining roots $\alpha_n, \beta_n$:} by Vieta's
 relations,
 \[
