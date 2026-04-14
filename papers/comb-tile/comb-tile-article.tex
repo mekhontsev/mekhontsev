@@ -92,7 +92,8 @@ with a bounded number of boundary components and the disk-like property?}
 
 \textbf{Main result.}
 We construct an infinite family of self-similar tiles $\{A_n\}_{n \ge 3}$ with
-exactly $6$~boundary components for every $n \ge 3$, and
+exactly $6$~boundary components for every $n \ge 3$
+(Remark~\ref{rem:neighbor-count}), and
 $\dH(\partial A_n) \to 2$ as $n \to \infty$.  Each tile is
 \emph{disk-like} (homeomorphic to a closed disk).  Furthermore, the rate of
 convergence is sharp:
@@ -764,13 +765,26 @@ theory~\cite{mauldin-williams}: since all contractions $f_j$ share the
 common ratio $r = 1/\sqrt{n}$ in the eigenspace of~$g$, the Hausdorff
 dimension of the boundary GIFS equals $s = 2\log\rho(M_n)/\log n$.
 
-We note that the OSC for the boundary GIFS~\eqref{eq:bnd-rules} is
-inherited from the OSC of the original IFS: since the six boundary
-pieces $B_k = A \cap \sigma_k(A)$ are subsets of~$A$, and distinct
-first-level tiles $f_i(A)$ have disjoint interiors by the OSC, the
-images $f_i(B_k)$ appearing in~\eqref{eq:bnd-rules} also have
-mutually disjoint interiors.  The Mauldin--Williams formula therefore
-applies.
+The OSC for the boundary GIFS~\eqref{eq:bnd-rules} is verified by
+the open sets
+$V_k = \operatorname{int}(A) \cap \sigma_k(\operatorname{int}(A))$,
+following the method of
+Duvall--Keesling--Strichartz~\cite{duvall-keesling-strichartz}.
+Each~$V_k$ is open and non-empty (since $B_k$ separates
+$\operatorname{int}(A)$ from $\sigma_k(\operatorname{int}(A))$,
+and both are open).  Images from distinct maps,
+$f_i(V_k)$ and $f_j(V_l)$ with $i \ne j$, are disjoint because
+$f_i(\operatorname{int}(A)) \cap f_j(\operatorname{int}(A)) = \emptyset$
+by the OSC of the original IFS\@.  Images from the same map satisfy
+$f_i(V_k) \cap f_i(V_l) = f_i(V_k \cap V_l)$, and
+$V_k \cap V_l
+  = \operatorname{int}(A)
+    \cap \sigma_k(\operatorname{int}(A))
+    \cap \sigma_l(\operatorname{int}(A))$
+is a triple intersection of distinct tile interiors, which is empty
+for the comb tiling (this also follows from the disk-like property,
+Theorem~\ref{thm:disklike}).
+The Mauldin--Williams formula~\cite{mauldin-williams} therefore applies.
 
 To prove the factorisation~\eqref{eq:charpoly-factor}, we solve the
 eigenvector equation $M_n v = \lambda v$ for $\lambda \ne 0$.
@@ -803,7 +817,8 @@ Finally, substituting into row~5:
       {\lambda^2\bigl(\lambda-(n{-}1)\bigr)}\, B_5.
 \end{align*}
 Dividing by $B_5 \ne 0$ and multiplying through by
-$\lambda^2(\lambda-(n{-}1))$:\begin{align*}
+$\lambda^2(\lambda-(n{-}1))$:
+\begin{align*}
   \lambda^3\bigl(\lambda-(n{-}1)\bigr)
   &= 2\lambda\bigl(\lambda-(n{-}1)\bigr) \\
   &\quad + (n{-}3)(n{-}2)\lambda + (n{-}2)(2\lambda-n).
@@ -1056,7 +1071,7 @@ strong spectral gap.
 The comb family provides the first explicit construction (to our knowledge)
 of an infinite parametric family of self-similar tiles with
 $\dH(\partial A_n) \to 2$ and \emph{bounded} neighbor graph complexity:
-exactly $6$~components for all $n \ge 3$.  This complements
+exactly $6$~components for all $n \ge 3$ (Remark~\ref{rem:neighbor-count}).  This complements
 Keesling's examples~\cite{keesling}, where $\dH(\partial A)$
 can be made arbitrarily close to~$2$ but the graph complexity
 grows without bound.
@@ -1092,7 +1107,7 @@ could resolve this for small~$n$.
 \end{enumerate}
 
 % --------------------------------------------------------------------------
-\begin{thebibliography}{10}
+\begin{thebibliography}{12}
 
 \bibitem{bandt1991}
 C.~Bandt,
@@ -1138,6 +1153,21 @@ Multifractal measures and a weak separation condition,
 R.\,D.~Mauldin and S.\,C.~Williams,
 Hausdorff dimension in graph directed constructions,
 \emph{Trans.\ Amer.\ Math.\ Soc.}\ \textbf{309} (1988), 811--829.
+
+\bibitem{ngai-tang}
+S.-M.~Ngai and T.-M.~Tang,
+Topology of connected self-similar tiles in the plane,
+\emph{Topology Appl.}\ \textbf{150} (2005), 139--155.
+
+\bibitem{akiyama-thuswaldner}
+S.~Akiyama and J.\,M.~Thuswaldner,
+A survey on topological properties of tiles related to number systems,
+\emph{Geom.\ Dedicata}\ \textbf{109} (2004), 89--105.
+
+\bibitem{leung-lau}
+K.-S.~Leung and K.-S.~Lau,
+Disklikeness of planar self-affine tiles,
+\emph{Trans.\ Amer.\ Math.\ Soc.}\ \textbf{359} (2007), 3337--3355.
 
 \end{thebibliography}
 
