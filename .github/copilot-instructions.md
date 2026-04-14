@@ -3,11 +3,11 @@
 ## Repository structure
 
 This repository contains LaTeX research papers in `papers/` subdirectories.
-Each paper directory has its own `TODO.md` with pending improvements.
+Pending improvements are tracked in `TODO.md` in the repository root.
 
 ## Workflow
 
-1. Before making changes, check `TODO.md` in the relevant paper directory.
+1. Before making changes, check `TODO.md` in the repository root.
 2. Batch multiple small fixes into a single commit/PR when possible.
 3. After completing a task, mark it `[x]` in `TODO.md` in the same commit.
 4. Do not create separate PRs for each minor fix — accumulate in TODO first.
