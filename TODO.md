@@ -4,11 +4,11 @@
 
 ### Mathematical gaps
 
-- [ ] **Uniqueness of dominant root λ_n in (n−1, n)**
+- [x] **Uniqueness of dominant root λ_n in (n−1, n)**
   Remark "Root location" (after Theorem 5) proves existence via IVT but not uniqueness.
   Fix: show p_n'(x) > 0 on (n−1, n), or use Descartes' rule of signs.
 
-- [ ] **Justify μ_n ∈ (1, n−1) explicitly**
+- [x] **Justify μ_n ∈ (1, n−1) explicitly**
   Section 5.3 "Root structure" states μ_n ∈ (1, n−1) without proof.
   Fix: add p_n(1) = 2(n−2) > 0, p_n(n−1) < 0 ⇒ root in (1, n−1) by IVT.
 
@@ -36,3 +36,4 @@
 - [x] Expand bibliography with 3 references (PR #9)
 - [x] Fix incorrect OSC argument for boundary GIFS — removed V_k = int(A) ∩ σ_k(int(A)) (PR #10)
 - [x] Sort bibliography alphabetically (PR #10)
+- [x] Clarify Bandt–Wang formulation: tiles vs first-level IFS pieces (added Remark after Thm 6)
