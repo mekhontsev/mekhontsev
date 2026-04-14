@@ -760,31 +760,16 @@ in the interval $(n{-}1,\, n)$, and the boundary Hausdorff dimension is
 \end{theorem}
 
 \begin{proof}
-The dimension formula~\eqref{eq:dim} follows from the Mauldin--Williams
-theory~\cite{mauldin-williams}: since all contractions $f_j$ share the
-common ratio $r = 1/\sqrt{n}$ in the eigenspace of~$g$, the Hausdorff
-dimension of the boundary GIFS equals $s = 2\log\rho(M_n)/\log n$.
-
-The OSC for the boundary GIFS~\eqref{eq:bnd-rules} is verified by
-the open sets
-$V_k = \operatorname{int}(A) \cap \sigma_k(\operatorname{int}(A))$,
-following the method of
-Duvall--Keesling--Strichartz~\cite{duvall-keesling-strichartz}.
-Each~$V_k$ is open and non-empty (since $B_k$ separates
-$\operatorname{int}(A)$ from $\sigma_k(\operatorname{int}(A))$,
-and both are open).  Images from distinct maps,
-$f_i(V_k)$ and $f_j(V_l)$ with $i \ne j$, are disjoint because
-$f_i(\operatorname{int}(A)) \cap f_j(\operatorname{int}(A)) = \emptyset$
-by the OSC of the original IFS\@.  Images from the same map satisfy
-$f_i(V_k) \cap f_i(V_l) = f_i(V_k \cap V_l)$, and
-$V_k \cap V_l
-  = \operatorname{int}(A)
-    \cap \sigma_k(\operatorname{int}(A))
-    \cap \sigma_l(\operatorname{int}(A))$
-is a triple intersection of distinct tile interiors, which is empty
-for the comb tiling (this also follows from the disk-like property,
-Theorem~\ref{thm:disklike}).
-The Mauldin--Williams formula~\cite{mauldin-williams} therefore applies.
+The dimension formula~\eqref{eq:dim} follows from the
+Mauldin--Williams theory~\cite{mauldin-williams} applied to the
+boundary GIFS~\eqref{eq:bnd-rules}.  Since the original IFS
+satisfies the OSC with $V = \operatorname{int}(A)$
+(Theorem~\ref{thm:graph}), the boundary GIFS inherits the
+hypotheses of~\cite{mauldin-williams};
+see also~\cite{duvall-keesling-strichartz} for the same approach
+applied to the boundaries of self-similar tiles.  All contractions
+share the ratio $r = 1/\sqrt{n}$, so
+$\dH(\partial A_n) = 2\log\rho(M_n)/\log n$.
 
 To prove the factorisation~\eqref{eq:charpoly-factor}, we solve the
 eigenvector equation $M_n v = \lambda v$ for $\lambda \ne 0$.
@@ -1109,6 +1094,11 @@ could resolve this for small~$n$.
 % --------------------------------------------------------------------------
 \begin{thebibliography}{12}
 
+\bibitem{akiyama-thuswaldner}
+S.~Akiyama and J.\,M.~Thuswaldner,
+A survey on topological properties of tiles related to number systems,
+\emph{Geom.\ Dedicata}\ \textbf{109} (2004), 89--105.
+
 \bibitem{bandt1991}
 C.~Bandt,
 Self-similar sets.~5. Integer matrices and fractal tilings of~$\R^n$,
@@ -1149,6 +1139,11 @@ K.-S.~Lau and S.-M.~Ngai,
 Multifractal measures and a weak separation condition,
 \emph{Adv.\ Math.}\ \textbf{141} (1999), 45--96.
 
+\bibitem{leung-lau}
+K.-S.~Leung and K.-S.~Lau,
+Disklikeness of planar self-affine tiles,
+\emph{Trans.\ Amer.\ Math.\ Soc.}\ \textbf{359} (2007), 3337--3355.
+
 \bibitem{mauldin-williams}
 R.\,D.~Mauldin and S.\,C.~Williams,
 Hausdorff dimension in graph directed constructions,
@@ -1158,16 +1153,6 @@ Hausdorff dimension in graph directed constructions,
 S.-M.~Ngai and T.-M.~Tang,
 Topology of connected self-similar tiles in the plane,
 \emph{Topology Appl.}\ \textbf{150} (2005), 139--155.
-
-\bibitem{akiyama-thuswaldner}
-S.~Akiyama and J.\,M.~Thuswaldner,
-A survey on topological properties of tiles related to number systems,
-\emph{Geom.\ Dedicata}\ \textbf{109} (2004), 89--105.
-
-\bibitem{leung-lau}
-K.-S.~Leung and K.-S.~Lau,
-Disklikeness of planar self-affine tiles,
-\emph{Trans.\ Amer.\ Math.\ Soc.}\ \textbf{359} (2007), 3337--3355.
 
 \end{thebibliography}
 
