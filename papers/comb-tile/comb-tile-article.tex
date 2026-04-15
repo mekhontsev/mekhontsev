@@ -1500,6 +1500,35 @@ why the combination of a small constant neighbor graph ($6$~pieces for
 all~$n$) and high boundary dimension ($\to 2$) inevitably produces a
 strong spectral gap.
 
+\begin{remark}[Relative measures of boundary pieces]
+\label{rem:measures}
+The Perron eigenvector of~$M_n$ is proportional to the
+$\mathcal{H}^s$-measure of each boundary piece.
+Normalising $v_5 = 1$ and writing $\delta = \lambda_n - (n{-}1)$,
+the eigenvector equations (from the proof of
+Theorem~\ref{thm:dim}) give
+\[
+  v_1 = v_2 = \frac{1}{\lambda_n},\quad
+  v_3 = \frac{n{-}2}{\lambda_n\,\delta},\quad
+  v_4 = \frac{2\lambda_n - n}{\lambda_n^2\,\delta},\quad
+  v_6 = \frac{n{-}2}{\delta}.
+\]
+Since $\lambda_n \to n$ and $\delta \to 1$, we obtain
+$v_6 \sim n{-}2$ while $v_5 = 1$ and
+$v_3 \approx 1$,
+so $v_1 = v_2$, $v_4 \sim 1/n^2$ are negligible.
+The relative measures
+$w_k = v_k / \sum_j v_j$ satisfy
+\[
+  w_6 \;\approx\; 1 - \frac{2}{n}, \qquad
+  w_5 \;\approx\; w_3 \;\approx\; \frac{1}{n}, \qquad
+  w_1 = w_2,\; w_4 = O(1/n^2).
+\]
+Thus, for large~$n$, the single piece~$B_6$ carries nearly all of the
+$\mathcal{H}^s$-measure of~$\partial A_n$: it accounts for $46\%$
+at $n = 3$, $82\%$ at $n = 10$, and $96\%$ at $n = 50$.
+\end{remark}
+
 % --------------------------------------------------------------------------
 \section{Discussion and Open Questions}
 \label{sec:discussion}
@@ -1516,13 +1545,18 @@ can be made arbitrarily close to~$2$ but the graph complexity
 grows without bound.
 
 The rate $2 - \dH(\partial A_n) \sim 8/(n^2\,\ln n)$ is determined by
-the quartic polynomial $p_n(x)$; improving this rate would require a
-family whose boundary polynomial has a dominant root growing faster
-than linearly in~$n$.
+the quartic polynomial $p_n(x)$.  Indeed,
+$p_n(n) = 2n(2n{-}3)$ while the product of the three
+non-dominant conjugates at~$n$ grows as~$\sim n^3$,
+so $n - \lambda_n \sim 4/n$ and the
+rate~$8/(n^2 \ln n)$ follows directly.
+Improving this rate would require a family whose characteristic
+polynomial satisfies $|p(n)| = o(n^2)$.
 
 \item \textbf{Disk-like property.}
 Theorem~\ref{thm:disklike} proves the disk-like property for all
-$n \ge 3$ via the Bandt--Wang criterion: the triple intersection
+$n \ge 3$ via the criterion of Loridant, Luo and
+Thuswaldner~\cite{loridant-luo-thuswaldner}: the triple intersection
 structure cycles with period~$2$ independently of~$n$, mirroring
 the constancy of the neighbor graph (Theorem~\ref{thm:graph}).
 Both results rely on the same structural observation: only the
@@ -1540,9 +1574,12 @@ polynomials parametrised by $d$ and~$n$.
 \item \textbf{Enumeration of disk-like tiles with high boundary dimension.}
 For each~$n \ge 3$, classify all disk-like self-similar tiles with
 $n$~maps whose boundary dimension exceeds $\dH(\partial A_n)$.
-The comb tile may or may not be optimal within its class;
-a systematic search over all admissible orientation assignments
-could resolve this for small~$n$.
+The comb tile need not be optimal within its class: already for
+$n = 3$ the twin dragon ($2$~maps, $\dH(\partial A) \approx 1.524$)
+exceeds the comb value $\dH(\partial A_3) \approx 1.453$, albeit
+with a different number of maps.
+A systematic search over all admissible orientation assignments
+could resolve optimality for small~$n$.
 \end{enumerate}
 
 % --------------------------------------------------------------------------
