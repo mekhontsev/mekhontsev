@@ -15,9 +15,12 @@
 ### Monopole structure and spectral theory
 
 - [x] **Monopole Equivalence Theorem** (see `papers/comb-tile/monopole-equivalence.md`)
-  Proved: ρ_n → 0 ⟺ c = 1, where c = lim tr(M_n)/n.
-  At c = 1 (monopole): ρ_n = O(n^{−1/(d−1)}), 2 − dim_H = O(1/(n² ln n)).
-  At c ≥ 2 (competing): ρ_n → const > 0, 2 − dim_H = Θ(1/(n ln n)) — slower.
+  Proved: $\rho_n \to 0 \Rightarrow c=1$, and $c=1$ together with the monopole matrix condition (MMC)
+  gives $\rho_n = O(1/n)$. The sharper comb asymptotics come from the quartic $p_n$.
+
+- [ ] **Open: does MMC follow automatically from $c=1$ for boundary GIFS?**
+  Current proof uses MMC as an explicit hypothesis for the direction $c=1 \Rightarrow \rho_n\to 0$.
+  It is open whether disk-like boundary GIFS + bounded neighbor complexity force MMC.
 
 - [ ] **Open: is c ≥ 2 realizable by an actual disk-like IFS?**
   A model 4×4 matrix with c = 2 exists (see monopole-equivalence.md),
@@ -39,12 +42,11 @@
 
 - [~] **Optimality of the rate 8/(n² ln n)**
   Partially resolved by the Monopole Equivalence Theorem:
-  - Among c = 1 families: 8/(n² ln n) is the rate for combs; optimality within
-    this class depends on the subsidiary polynomial structure.
-  - A hypothetical c ≥ 2 family would have 2 − dim_H = Θ(1/(n ln n)) — *slower*,
-    not faster. So c ≥ 2 does NOT beat the comb rate.
-  - Remaining question: can a c = 1 family with different subsidiary structure
-    achieve 2 − dim_H = o(1/(n² ln n))?
+  - Under MMC one gets a closed gap in the $c=1$ regime.
+  - A hypothetical c ≥ 2 family has 2 − dim_H = Θ(1/(n ln n)) — *slower*,
+    and does not close the spectral gap.
+  - Remaining question: which extra $c=1$ structures (as in the comb quartic)
+    force the faster $8/(n^2\ln n)$-type asymptotics?
 
 ### Proof details
 
