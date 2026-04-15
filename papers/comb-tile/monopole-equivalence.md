@@ -19,7 +19,7 @@ For the direction $c=1 \Rightarrow \rho_n\to 0$, we impose the following explici
 - $(M_n)_{aa} = n - 1 + O(1)$,
 - every other entry of $M_n$ is $O(1)$.
 
-Equivalently: at most one entry of $M_n$ is $\Theta(n)$, it is diagonal, and all other entries are uniformly bounded.
+Equivalently: there is at most one $\Theta(n)$ entry of $M_n$; if it exists, it is diagonal, and all other entries are uniformly bounded.
 
 ## Main Result
 
@@ -93,7 +93,7 @@ Under $c=1$ with MMC, $\lambda_1 = n-1+O(1)$, so
 
 $$2-s_n = \frac{2\log(n/\lambda_1)}{\log n} = O\!\left(\frac{1}{n\log n}\right).$$
 
-The sharper estimate $\lambda_1 = n - O(1/n)$ does not follow from $c=1$ alone. It is specific to the comb family and comes from the quartic characteristic equation $p_n(\lambda)=0$ (as defined in the article) evaluated at $\lambda=\lambda_1$.
+The sharper estimate $\lambda_1 = n - O(1/n)$ does not follow from $c=1$ alone. It is specific to the comb family and comes from its quartic characteristic equation $p_n(\lambda)=0$ evaluated at $\lambda=\lambda_1$.
 
 For $c\ge 2$, one still has $n-\lambda_1=\Theta(1)$, hence
 
