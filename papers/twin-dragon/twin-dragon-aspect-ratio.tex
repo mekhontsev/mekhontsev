@@ -141,8 +141,8 @@ the reciprocal aspect ratio of such a tile
 (Theorem~\ref{thm:metallic}), and shows that $\mathbb{Z}[i]$ is the unique imaginary
 quadratic ring where collinear tiles achieve metallic-ratio aspect ratios
 (Corollary~\ref{cor:unique-Zi}).
-Section~\ref{sec:td} applies the formula to the Twin Dragon
-and proves the main result.
+The eponymous Twin Dragon is treated as Example~\ref{ex:twin-dragon}
+immediately after Corollary~\ref{cor:field}.
 
 \section{The aspect ratio formula}\label{sec:family}
 
@@ -189,7 +189,7 @@ $|\sum t_k^2| \leq \sum |t_k^2| = \sum |t_k|^2$.
 When all $t_k$ are collinear ($t_k = e^{i\theta}r_k$ with $r_k \in \mathbb{R}$),
 one has $\kappa = 1$; vertices of a regular $N$-gon ($N\geq 3$) give $\kappa = 0$.
 The Twin Dragon is the case $N=2$, $a = (1-i)/2$, $s_k = 1$, $t_k = \pm 1$
-($\sigma^2=1$, $\kappa=1$), studied in Section~\ref{sec:td}.
+($\sigma^2=1$, $\kappa=1$), treated in Example~\ref{ex:twin-dragon} below.
 
 \begin{theorem}\label{thm:family}
 With the notation above, let $I$ and~$J$ denote the sets of
@@ -265,8 +265,11 @@ and applying Cramer's rule
 since $|a|^2(|u|+|v|)\leq |a|^2 < 1$)
 gives~\eqref{eq:omega}.
 The ellipticity
-$\rho = |\omega|/E[|Z|^2]$ gives~\eqref{eq:rho},
-and $\mathrm{AR}^2 = (1-\rho)/(1+\rho)$.
+$\rho = |\omega|/E[|Z|^2]$ gives~\eqref{eq:rho};
+since the covariance matrix $M$ of the real 2D vector
+$(\mathrm{Re}\,Z,\mathrm{Im}\,Z)$ is positive semidefinite,
+$|\omega|\leq E[|Z|^2]$ and $\rho\in[0,1]$, so
+$\mathrm{AR}^2 = (1-\rho)/(1+\rho)\in[0,1]$.
 The orientation~\eqref{eq:psi} follows from the
 covariance decomposition in Remark~\ref{rem:orientation}.
 
@@ -349,6 +352,58 @@ $|1-a^2| = \sqrt{\mathbf{N}(\lambda^2-1)}/\mathbf{N}(\lambda)$,
 and $\kappa=1$
 into~\eqref{eq:family}.
 \end{proof}
+
+\begin{example}[Twin Dragon]\label{ex:twin-dragon}
+The Twin Dragon $A\subset\mathbb{C}$ is the attractor of the IFS
+\cite{DavisKnuth1970}
+\[
+  A = f_1(A)\cup f_2(A),\qquad
+  f_{1,2}(z) = \tfrac{1-i}{2}(z\pm 1),
+\]
+governed by the Gaussian integer $\lambda=1+i$
+\textup{(}so $a=1/\lambda=(1-i)/2$, $N=2$, $\ell=2$,
+$\sigma^2=1$, $\kappa=1$\textup{)}.
+This is the case $\lambda=1+i$ of Corollary~\ref{cor:field},
+with $\lambda^2-1 = -1+2i$, $\mathbf{N}(\lambda^2-1)=5$, $d=5$:
+substituting in~\eqref{eq:field} gives
+\[
+  \mathrm{AR}^2
+  = \frac{\sqrt{5}-1}{\sqrt{5}+1}
+  = \frac{3-\sqrt{5}}{2}
+  = \frac{1}{\varphi^2},
+  \qquad
+  \mathrm{AR} = \frac{1}{\varphi}.
+\]
+The open set condition holds \cite[Corollary~3]{Bandt1991}, so the
+self-similar measure coincides with $\mathcal{H}^2|_A$
+\cite[\S5]{Hutchinson1981}; since the similarity dimension equals the
+ambient dimension, the covariance matrix $M$ describes the actual
+geometric shape of the tile \textup{(}Figure~\ref{fig:ellipses}a\textup{)}.
+Explicitly, $E[Z^2]=a^2/(1-a^2)=(-1-2i)/5$,
+$E[|Z|^2]=|a|^2/(1-|a|^2)=1$, whence
+\[
+  M = \frac{1}{5}\begin{pmatrix}2 & -1 \\ -1 & 3\end{pmatrix},
+  \qquad
+  I_{1,2} = \tfrac{1}{2}\bigl(1\mp\tfrac{1}{\sqrt{5}}\bigr),
+\]
+confirming $\sqrt{I_1/I_2}=1/\varphi$.
+The principal-axis angle follows from
+Proposition~\ref{prop:family-N}\textup{(}iii\textup{)}:
+$\tan\psi=-\varphi$, i.e.\ $\psi=-\arctan\varphi\approx-58.3^\circ$
+along the direction $(1,-\varphi)$.
+\end{example}
+
+\begin{remark}
+The appearance of $\varphi$ is unexpected: no pentagon, decagon, or
+Fibonacci recurrence enters the Twin Dragon's definition.
+The origin of~$5$ --- and hence $\varphi$ --- is a single Gaussian
+prime.  Since $1-a^2=(2+i)/2$ and $\kappa=1$, the ellipticity is
+$\rho = (1-|a|^2)/|1-a^2| = 1/\sqrt{5}$, where $5=\mathbf{N}(2+i)$
+is the norm of the Gaussian prime $2+i$;
+thus $\varphi$ enters via the factorisation $5=(2+i)(2-i)$ in
+$\mathbb{Z}[i]$, and $\mathrm{AR}^2=(1-\rho)/(1+\rho)=1/\varphi^2$
+uses $\varphi^2=\varphi+1$.
+\end{remark}
 
 \begin{table}[ht]
 \centering
@@ -495,11 +550,11 @@ $\lambda\in\mathcal{O}_K\setminus\mathbb{R}$
 and digits $t_k\in\mathcal{O}_K$,
 the anisotropy satisfies $\kappa^2\in\mathbb{Q}$,
 and $\mathrm{AR}^2$ lies in $\mathbb{Q}(\sqrt{d}\,)$
-where $d$ is the square-free part of
-$\mathbf{N}(\lambda^2-1)\cdot\bigl(\mathbf{N}(\lambda^2-1)
-  - \kappa^2(\mathbf{N}(\lambda)-1)^2\bigr)$.
-In particular, the quadratic field of $\mathrm{AR}$ depends only on
-$\lambda$ and~$\kappa^2$, not on the individual digits.
+where $d$ is the square-free part of $\mathbf{N}(\lambda^2-1)$
+\textup{(}the same quadratic field as in
+Corollary~\textup{\ref{cor:field}}\textup{)}.
+In particular, the quadratic field of $\mathrm{AR}$ does not depend on
+$\kappa$ or on the individual digits.
 \end{corollary}
 
 \begin{proof}
@@ -525,11 +580,11 @@ Rationalising:
   = \frac{\mathbf{N}(\lambda^2\!-\!1) - (N\!-\!1)^2\kappa^2}
          {\bigl(\sqrt{\mathbf{N}(\lambda^2\!-\!1)} + (N\!-\!1)\kappa\bigr)^2}\,.
 \]
-Now $\mathbf{N}(\lambda^2\!-\!1)\in\mathbb{Z}$
-and $(N\!-\!1)^2\kappa^2 = (N\!-\!1)^2\mathbf{N}(\tau)/\sigma^4 \in\mathbb{Q}$,
-so $\mathrm{AR}^2$ is a rational function of
-$\sqrt{\mathbf{N}(\lambda^2\!-\!1)}$
-and lies in~$\mathbb{Q}(\sqrt{d}\,)$.
+The numerator is rational
+(since $\mathbf{N}(\lambda^2\!-\!1)\in\mathbb{Z}$
+and $(N\!-\!1)^2\kappa^2 = (N\!-\!1)^2\mathbf{N}(\tau)/\sigma^4 \in\mathbb{Q}$),
+and the denominator lies in $\mathbb{Q}(\sqrt{\mathbf{N}(\lambda^2-1)}\,)$,
+so their ratio lies in the same field $\mathbb{Q}(\sqrt{d}\,)$.
 \end{proof}
 
 \begin{remark}
@@ -611,9 +666,12 @@ $\lambda_N = 1+i\sqrt{N\!-\!1}$\textup{)},
 \eqref{eq:family-N} simplifies to
 $\mathrm{AR}_N = (\sqrt{N+3}-\sqrt{N-1})/2$,
 and $\tan\psi$ satisfies $t^2+t\sqrt{N\!-\!1}-1=0$.
-When additionally $N\!-\!1=m^2$, this is the
-$m$-th metallic-ratio equation:
-$m=1$ gives $\varphi$, $m=2$ gives $1+\sqrt{2}$.
+When additionally $N\!-\!1=m^2$ for an integer $m\geq 1$, this equation
+becomes $t^2+mt-1=0$, whose roots are $1/\mu_m$ and $-\mu_m$,
+where $\mu_m=(m+\sqrt{m^2+4})/2$ is the $m$-th metallic mean
+\textup{(}the root of $x^2-mx-1=0$\textup{)};
+so $\tan\psi\in\{1/\mu_m,\,-\mu_m\}$, with the sign fixed by~\eqref{eq:psi-N}.
+For $m=1$, $\tan\psi=-\varphi$; for $m=2$, $\tan\psi=-(1+\sqrt{2})$.
 \end{enumerate}
 \end{proposition}
 
@@ -672,7 +730,7 @@ For fixed $N$, increasing $\ell$ toward $2\sqrt{N}$ drives $a$
 toward the real axis and $\mathrm{AR}\to 0$;
 setting $\ell=0$ gives $\lambda = i\sqrt{N}$ (purely imaginary~$a$)
 and $\mathrm{AR} = 1/\sqrt{N}$, the maximum for a given~$N$.
-For $N=2$ the IFS $\{(i/\sqrt{2})(z\pm 1)\}$
+For $N=2$ the IFS $\{-\tfrac{i}{\sqrt{2}}(z\pm 1)\}$
 has attractor the rectangle $[-1,1]\times[-\sqrt{2},\sqrt{2}]$
 (one verifies that $f_1$ and $f_2$ map it to the top and bottom halves);
 this rectangle tiles the plane by translation.
@@ -718,20 +776,10 @@ ring of integers: $\lambda^2-1 = \ell\lambda-(N\!+\!1) \in \mathbb{Z}[\lambda]$.
 Its norm $(N\!+\!1)^2-\ell^2$ determines $\mathrm{AR}$
 via~\eqref{eq:family-N}, and its argument determines~$\psi$
 via~\eqref{eq:psi-N}.
-This admits a hierarchical interpretation.
-The random-iteration representation
-$Z = \sum_{n\geq 1} a^n\varepsilon_n$
-\textup{(}$\varepsilon_n$ i.i.d.\ from the centred digits\textup{)}
-decomposes $E[Z^2]$ as $\sum_{n\geq 1}\sigma^2 a^{2n}$:
-each level~$n$ of the IFS contributes $\sigma^2/N^n$ to the
-anisotropy along direction $2n\arg(a) = -2n\arg(\lambda)$.
-The geometric sum of these rotated contributions points in the
-direction $\arg\bigl(a^2/(1-a^2)\bigr) = -\arg(\lambda^2-1)$,
-which is precisely twice the principal-axis angle.
-At the boundary $\ell=0$ the vector $\lambda^2-1 = -(N\!+\!1)$ is
-real negative, giving $\psi = -\pi/2$ (vertical major axis);
-as $\ell\to 2\sqrt{N}$ the vector tends to $2(N\!-\!1)>0$,
-giving $\psi\to 0$ (horizontal, degenerate).
+At the boundary $\ell=0$ one has $\lambda^2-1 = -(N\!+\!1)$,
+giving $\psi = -\pi/2$ (vertical major axis);
+as $\ell\to 2\sqrt{N}$ the argument tends to~$0$ and
+$\psi\to 0$ (horizontal, degenerate).
 \end{remark}
 
 \begin{figure}[ht]
@@ -848,7 +896,11 @@ $m^2|\lambda^2-1|^2 \leq (m^2+4)(N\!-\!1)^2$.
 Since $|\lambda^2-1|^2 = (N\!-\!1)^2+4q^2$, this simplifies to
 $4m^2q^2 \leq 4(N\!-\!1)^2$, i.e.\ $mq\leq N\!-\!1$.
 
-\textit{(a)}: $q\leq N-1$ holds since $N=p^2+q^2\geq q+1$ for $p\geq 1$.
+\textit{(a)}: we must verify $q\leq N-1$ for every Gaussian integer
+$\lambda=p+qi\notin\mathbb{R}$ with $|\lambda|>1$.
+If $p\geq 1$ then $N=p^2+q^2\geq 1+q^2\geq q+1$, so $q\leq N-1$.
+If $p=0$ then $|\lambda|>1$ forces $q\geq 2$, and
+$N-1=q^2-1\geq q$ since $q\geq 2$.
 Equality $q=N\!-\!1$ gives $p^2=1-q(q\!-\!1)$;
 for $q=1$ this yields $p=1$, $\lambda=1+i$;
 for $q\geq 2$ one has $p^2<0$, which is impossible.
@@ -902,21 +954,34 @@ For every integer $m\geq 1$:
 Let $\lambda = 1+mi \in \mathbb{Z}[i]$.
 Then $N = |\lambda|^2 = m^2+1$ and $\operatorname{Im}(\lambda)=m$.
 The standard digits $\{0,1,\ldots,m^2\}$ form a CRS
-modulo~$\lambda$ (\S\ref{sec:family-N});
-the induced $N$-map IFS satisfies the open set
-condition~\cite{Bandt1991}, so its attractor is a
-plane-filling tile.
+modulo~$\lambda$ (\S\ref{sec:family-N}); by
+Lagarias--Wang~\cite{LagariasWang1996}, any CRS with an
+expanding base $\lambda$ yields a self-affine tile of positive
+Lebesgue measure whose translates by $\mathbb{Z}[i]$ tile
+$\mathbb{R}^2$, and the open set condition
+holds~\cite{Bandt1991}.
 The collinear digit set has $\kappa = 1$, and
 Proposition~\ref{prop:golden}(b) gives
 $m = (N\!-\!1)/\operatorname{Im}(\lambda) = m^2/m$,
 hence $\mathrm{AR} = 1/\mu_m$.
 
 \textit{(b):}
-For any $\lambda=p+qi$ with $mq\leq N\!-\!1$
-(Proposition~\ref{prop:golden}), we have
-$N = p^2+q^2 \geq q(m\!-\!q)+1+q^2 = qm+1$,
-which is minimised at~$q=1$, giving
-$N \geq \lceil\sqrt{m}\,\rceil^2+1$.
+Let $\lambda=p+qi\in\mathbb{Z}[i]\setminus\mathbb{R}$,
+so $p\in\mathbb{Z}$ and $q\geq 1$ \textup{(}WLOG\textup{)}, and set
+$k=\lceil\sqrt{m}\,\rceil$, so that
+$(k-1)^2<m\leq k^2$.
+The condition $mq\leq N-1$ with $N=p^2+q^2$ rearranges to
+$p^2\geq mq-q^2+1$, and since $p^2$ is a non-negative integer,
+$N = p^2+q^2 \geq \max\bigl(q^2,\,mq+1\bigr)$.
+\emph{Case $q=1$}: $p^2\geq m$; since $p$ is an integer,
+$p^2\geq k^2$, so $N=p^2+1\geq k^2+1$.
+\emph{Case $q\geq 2$}: using $m\geq (k-1)^2+1$,
+\[
+  mq+1 \;\geq\; 2m+1 \;\geq\; 2\bigl((k-1)^2+1\bigr)+1
+        \;=\; 2k^2-4k+5 \;\geq\; k^2+1,
+\]
+the last step being $(k-2)^2\geq 0$.
+Hence $N\geq k^2+1 = \lceil\sqrt{m}\,\rceil^2+1$ in every case.
 
 \textit{(c):}
 When $m=k^2$, the choice $\lambda=k+i$ yields $N=k^2+1=m+1$ and
@@ -924,33 +989,8 @@ the collinear CRS has $\kappa=1$ with $(N\!-\!1)/q=m$.
 \end{proof}
 
 \begin{remark}
-Not every integer $N\geq 2$ is the norm of a Gaussian integer with
-non-zero imaginary part.
-By the sum-of-two-squares theorem, $N=p^2+q^2$ with $q\neq 0$
-if and only if every prime factor of~$N$ congruent to~$3\pmod{4}$
-appears to an even power.
-The first admissible values are $N=2,4,5,8,9,10,13,\ldots$;
-in particular $N=3,6,7,11,14,15$ are not representable.
-\end{remark}
-
-\begin{remark}\label{rem:ncol}
-For \emph{collinear} digits ($\kappa=1$) the condition
-$m=(N\!-\!1)/q$ (Proposition~\ref{prop:golden}(b)) requires
-$p^2=q(m\!-\!q)+1$ to be a perfect square.
-Taking $q=m$ gives the universal upper bound
-$N_{\mathrm{col}}(m) \leq m^2+1$,
-but smaller~$q$ may yield a smaller~$N$.
-For $m=k^2$ a perfect square, $q=1$ gives
-$N_{\mathrm{col}}(k^2) = k^2+1 = N_{\min}(k^2)$,
-so the collinear and non-collinear minima coincide.
-In contrast, for non-square~$m$ a gap opens:
-e.g.\ $N_{\min}(5)=10$ while $N_{\mathrm{col}}(5)=26$,
-and $N_{\min}(7)=10$ while $N_{\mathrm{col}}(7)=50$.
-In general, $N_{\mathrm{col}}(m)$ equals the minimum of
-$q^2 + q(m\!-\!q) + 1$ over those $q\in\{1,\ldots,m\}$ for which
-$q(m\!-\!q)+1$ is a perfect square ---
-a Diophantine condition for which no closed-form solution
-is known for general~$m$.
+By the sum-of-two-squares theorem, the admissible norms $N=p^2+q^2$ with
+$q\neq 0$ form the set $\{2,4,5,8,9,10,13,\ldots\}$.
 \end{remark}
 
 \begin{remark}
@@ -1056,101 +1096,7 @@ $\operatorname{Im}\lambda = q\in\mathbb{Z}$,
 and taking $q=1$ gives $m=(N\!-\!1)/1 = p^2$, always a positive integer.
 \end{proof}
 
-\section{The Twin Dragon}\label{sec:td}
-
-The Twin Dragon $A \subset \mathbb{C}$ is the attractor of the IFS \cite{DavisKnuth1970}
-\begin{equation}
-  A = f_1(A) \cup f_2(A),
-  \qquad
-  f_{1,2}(z) = \frac{1-i}{2}(z \pm 1).
-\end{equation}
-Both maps have the same contraction ratio $r = |{(1-i)/2}| = 1/\sqrt{2}$,
-so the similarity dimension is $\alpha = -\log 2 / \log r = 2$.
-The open set condition holds \cite[Corollary~3]{Bandt1991}: the Twin Dragon
-is a digit tile for $\mathbb{Z}[i]/(1+i)\mathbb{Z}[i]$, so its
-translates by $\mathbb{Z}[i]$ tile~$\mathbb{C}$ with the interiors
-pairwise disjoint.  By \cite[\S5]{Hutchinson1981} the
-self-similar measure therefore coincides with $\mathcal{H}^\alpha|_A$.
-Since $\alpha=2$ equals the ambient dimension, $\mathcal{H}^2$ is Lebesgue
-area, and the covariance matrix $M$ describes
-the actual geometric shape (Figure~\ref{fig:ellipses}a).
-
-Substituting $a = (1-i)/2$ into Theorem~\ref{thm:family}
-(with $N=2$, $t_k=\pm1$, so $\sigma^2=1$):
-$|a|^2 = \tfrac{1}{2}$, $a^2 = -\tfrac{i}{2}$,
-$1-a^2 = \tfrac{2+i}{2}$, so
-\[
-  E[Z^2] = \frac{a^2}{1-a^2} = \frac{-i}{2+i} = \frac{-1-2i}{5},
-  \qquad
-  E[|Z|^2] = \frac{|a|^2}{1-|a|^2} = 1.
-\]
-The covariance matrix follows via
-$M_{11}=\tfrac{1}{2}(E[|Z|^2]+\mathrm{Re}\,E[Z^2])$,
-$M_{22}=\tfrac{1}{2}(E[|Z|^2]-\mathrm{Re}\,E[Z^2])$,
-$M_{12}=\tfrac{1}{2}\mathrm{Im}\,E[Z^2]$:
-\begin{equation}
-  M = \frac{1}{5}\begin{pmatrix}2 & -1 \\ -1 & 3\end{pmatrix}.
-\end{equation}
-The matrix $M$ has $\operatorname{tr} M = 1$ and $\det M = \frac{1}{5}$,
-so its eigenvalues are
-\begin{equation}
-  I_{1,2} = \frac{1 \mp \tfrac{1}{\sqrt{5}}}{2}.
-\end{equation}
-The geometric aspect ratio --- the ratio of standard deviations along
-the principal axes of $M$ --- is
-\begin{equation}
-  \sqrt{\frac{I_1}{I_2}}
-  = \sqrt{\frac{\sqrt{5}-1}{\sqrt{5}+1}}
-  = \sqrt{\frac{3-\sqrt{5}}{2}}
-  = \frac{1}{\varphi},
-\end{equation}
-where $\varphi = (1+\sqrt{5})/2$ is the golden ratio.
-
-\begin{corollary}
-The attractor of the IFS $\bigl\{f_{1,2}(z) = \tfrac{1-i}{2}(z \pm 1)\bigr\}$
-has covariance matrix $M = \tfrac{1}{5}\bigl(\begin{smallmatrix}2&-1\\-1&3\end{smallmatrix}\bigr)$,
-geometric aspect ratio $1/\varphi = (\sqrt{5}-1)/2 \approx 0.618$,
-and major-axis direction $(1, -\varphi)$
-(angle $-\arctan\varphi \approx -58.3^\circ$ with the horizontal),
-where $\varphi = (1+\sqrt{5})/2$ is the golden ratio.
-\end{corollary}
-
-\begin{proof}
-This is the case $\lambda = 1+i$ of Corollary~\ref{cor:field}
-($\mathbf{N}(\lambda^2-1)=5$, $d=5$), with the orientation
-from Proposition~\ref{prop:family-N}(ii).
-\end{proof}
-
-\begin{remark}
-The Twin Dragon is the $(N,\ell)=(2,2)$ instance of
-Proposition~\ref{prop:family-N}, giving
-$\tan\psi = -\varphi$ (i.e.\
-$\psi \approx -58.3^\circ$).
-Thus the same constant~$\varphi$ governs both the aspect ratio
-($\mathrm{AR} = 1/\varphi$) and the orientation
-($\tan\psi = -\varphi$).
-\end{remark}
-
-\begin{remark}
-The appearance of $\varphi$ is unexpected: the Twin Dragon is defined
-by the Gaussian integer $1+i$, with no pentagon, decagon, or Fibonacci
-recurrence in the construction.
-The number $5$ --- and hence $\varphi$ --- can be traced to a single
-Gaussian prime.  By the ergodic theorem for random iteration
-\cite{BarnsleyElton1988}, $\mu$ is the distribution of the random series
-$Z = \sum_{k\geq 1} \varepsilon_k a^k$ with
-$a = (1-i)/2$ and $\varepsilon_k \overset{\mathrm{iid}}{\sim} \{\pm 1\}$.
-Since $1-a^2 = (2+i)/2$ and $\kappa=1$ (real translations), the ellipticity is
-$\rho = (1-|a|^2)\kappa/|1-a^2|
-= 1/\sqrt{5}$,
-where $5 = \mathbf{N}(2+i)$ is the norm of the Gaussian prime $2+i$.
-Thus $\varphi$ enters via the Gaussian factorisation $5=(2+i)(2-i)$
-in $\mathbb{Z}[i]$, and the identity $\mathrm{AR}^2 = (1-\rho)/(1+\rho)$
-from~\eqref{eq:family} immediately gives $1/\varphi^2$
-(using $\varphi^2=\varphi+1$).
-\end{remark}
-
-\subsection*{Further directions}
+\section{Further directions}
 
 An explicit closed-form construction of a CRS
 achieving $\kappa=\kappa_m^*$ for all~$N$ would be desirable;

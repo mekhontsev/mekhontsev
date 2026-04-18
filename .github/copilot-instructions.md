@@ -20,24 +20,22 @@ Pending improvements are tracked in `TODO.md` in the repository root.
 
 `ifslib` is a WASM library for IFS tile computation (rendering, neighbor graphs, Hausdorff dimensions, etc.).
 
-- WASM binary: `https://raw.githubusercontent.com/ifsdb/ifsdb.github.io/main/public/ifslib.wasm`
-- JS worker examples: `https://github.com/ifsdb/ifsdb.github.io/tree/main/public`
-  - `ifslib-worker.js` — rendering (init, ifs_select, render)
-  - `ifslib-analytics-worker.js` — analytics (init, ifs_select, information)
+- WASM binary: `C:\workspace\ifsdb\public\ifslib.wasm` (local, always up to date after running the "sync: ifslib.wasm" workspace task)
+- JS worker examples: `C:\workspace\ifsdb\public\`
+  - `ifslib-worker.js` — rendering (init, set_block, render)
+  - `ifslib-analytics-worker.js` — analytics (init, set_block, information)
 
 To use in Node.js:
 ```javascript
 const fs = require('fs');
-const buf = fs.readFileSync('ifslib.wasm');
+const buf = fs.readFileSync('C:/workspace/ifsdb/public/ifslib.wasm');
 const mod = await WebAssembly.compile(buf);
 const inst = await WebAssembly.instantiate(mod, {});
 inst.exports._initialize();
-// init(aifsPtr), ifs_select(blockPtr, rootPtr), information(reqPtr), render(w, h, quality, scale)
+// init(aifsPtr), set_block(blockPtr), set_root(rootPtr), information(reqPtr), render(w, h, quality, scale)
 // get_last_output() returns pointer to result C-string
 // Use malloc/free for string passing (see worker examples)
 ```
-
-Download the WASM file with `curl -O https://raw.githubusercontent.com/ifsdb/ifsdb.github.io/main/public/ifslib.wasm` before running.
 
 ## Scratch folder
 

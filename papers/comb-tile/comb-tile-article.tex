@@ -1,5 +1,7 @@
 \documentclass{amsart}
 
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
 \usepackage{mathtools}
 \usepackage{booktabs}
 \usepackage{hyperref}
@@ -9,10 +11,11 @@
 \usetikzlibrary{positioning,decorations.pathreplacing}
 
 % ---------- theorem styles ----------
-\newtheorem{theorem}{Theorem}
+\newtheorem{theorem}{Theorem}[section]
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
 \newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{conjecture}[theorem]{Conjecture}
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
 \theoremstyle{remark}
@@ -47,7 +50,10 @@ ratio~$1/\!\sqrt{n}$, with the following properties:
 every~$n$;
 (ii)~each $A_n$ is disk-like (homeomorphic to a closed disk);
 (iii)~the boundary Hausdorff dimension satisfies
-$2 - \dH(\partial A_n) \sim 8/(n^2\ln n)$ as $n \to \infty$.
+$\dH(\partial A_n) = 2\log\lambda_n/\log n$, where $\lambda_n$ is
+the dominant root of an explicit quartic polynomial
+$p_n(x) = x^4 - (n{-}1)x^3 - 2x^2 - (n{-}1)(n{-}4)x + n(n{-}2)$,
+and $2 - \dH(\partial A_n) \sim 8/(n^2\ln n)$ as $n \to \infty$.
 In particular, $\dH(\partial A_n) \to 2$ with bounded neighbor
 graph complexity.  Despite the increasingly rough boundary,
 the tiling has the combinatorial type of a regular hexagonal
@@ -56,6 +62,11 @@ $6$ triple points, all of valence~$3$.
 This complements the examples of
 Keesling~\cite{keesling}, where $\dH(\partial A) \to n$
 in~$\R^n$ but the graph complexity grows without bound.
+The construction generalises to~$\R^d$: the closed-form case
+$d = 1$ and exact computations for $d \le 7$ suggest that the
+number of boundary components is $\tfrac{1}{2}\bigl((1{+}\sqrt 2)^{d+1}
++ (1{-}\sqrt 2)^{d+1}\bigr) - 1$, and
+$d - \dH(\partial A_n) \sim 2d^2/(n^2\ln n)$.
 \end{abstract}
 
 \maketitle
@@ -100,37 +111,106 @@ harder problem.
 The natural question arises: \emph{can $\dH(\partial A)$ approach~$2$
 with a bounded number of boundary components and the disk-like property?}
 
-The family presented below was discovered through a systematic
-computational search over IFS with companion matrices and mixed
-orientation assignments, using
+\textbf{Main result (informal).}
+For every integer $n \ge 3$ there is a self-similar plane tile $A_n$,
+defined by $n$~contractions of ratio $1/\!\sqrt{n}$
+(Definition~\ref{def:comb}), such that:
+\begin{itemize}
+\item[(a)] \emph{Bounded graph complexity:} the neighbor graph of $A_n$
+  has exactly $6$~boundary components, independent of~$n$
+  (Theorem~\ref{thm:graph}).
+\item[(b)] \emph{Disk-likeness:} $A_n$ is homeomorphic to the closed
+  disk, and the tiling has the combinatorial type of the regular
+  hexagonal tiling: each tile has $6$~edge neighbors and $6$~triple
+  points of valence~$3$ (Theorem~\ref{thm:disklike},
+  Remark~\ref{rem:topology}).
+\item[(c)] \emph{Boundary dimension tends to~$2$:} the boundary
+  dimension is given by $\dH(\partial A_n) = 2\log\lambda_n / \log n$
+  where $\lambda_n$ is the dominant real root of the explicit quartic
+  \[
+    p_n(x) = x^4 - (n{-}1)x^3 - 2x^2 - (n{-}1)(n{-}4)x + n(n{-}2);
+  \]
+  consequently $2 - \dH(\partial A_n) \sim 8/(n^2\ln n)$
+  as $n\to\infty$ (Theorems~\ref{thm:dim} and~\ref{thm:asymp}).
+\end{itemize}
+All three properties are proved by an explicit analysis of the
+refinement equation; the proofs are uniform in~$n$.  A generalisation
+to~$\R^d$ is developed in Section~\ref{sec:higherdim}, together with
+the closed-form case $d = 1$ (\S\ref{ssec:d1}) and conjectures
+supported by exact computation for $d \le 7$.
+
+\textbf{Discovery.}
+The family was found by a systematic computational search over IFS with
+companion matrices and mixed orientation assignments, using
 IFStile~\cite{ifstile} to evaluate the neighbor graph and boundary
 dimension for each candidate.  The key structural observation --- that
 $n{-}1$ collinear contraction maps of equal ratio plus one transverse
 map with opposite orientation yield a constant $6$-component neighbor
 graph for every~$n$ --- emerged from this search and was subsequently
-verified by the purely analytic proof given in
+verified by the purely analytic proofs of
 Sections~\ref{sec:osc}--\ref{sec:disklike}.
 
-\textbf{Main result.}
-We construct an infinite family of self-similar tiles $\{A_n\}_{n \ge 3}$ with
-exactly $6$~boundary components for every $n \ge 3$
-(Remark~\ref{rem:neighbor-count}), and
-$\dH(\partial A_n) \to 2$ as $n \to \infty$.  Each tile is
-\emph{disk-like} (homeomorphic to a closed disk).  Furthermore, the rate of
-convergence is sharp:
-\[
-  2 - \dH(\partial A_n) \;\sim\; \frac{8}{n^2 \ln n}.
-\]
-The boundary dimension is determined by a quartic polynomial $p_n(x)$
-with integer coefficients depending on~$n$, for which we derive a
-closed-form expression.  Both the constancy of the neighbor graph
-(always $6$~components) and the disk-like property are proved for all
-$n \ge 3$ by an explicit analysis of the refinement equation.
-The resulting tiling has the combinatorial type of a regular hexagonal
-tiling: $\partial A_n$ is a Jordan curve subdivided into six
-self-similar arcs, each shared with one of $6$~edge neighbors, meeting
-at $6$~triple points of valence~$3$
-(Remark~\ref{rem:topology}).
+\subsection*{Related work}
+
+The comb family sits at the intersection of three strands of the
+literature.
+
+\emph{Topology and disk-likeness of self-similar tiles.}
+General criteria for a planar self-affine tile to be homeomorphic to
+a disk were developed by Bandt and Wang~\cite{bandt-wang}, with
+further refinements by Leung and Lau~\cite{leung-lau} and Ngai and
+Tang~\cite{ngai-tang}; we rely on the neighbor-based criterion of
+Loridant, Luo and Thuswaldner~\cite{loridant-luo-thuswaldner}.
+A broader survey of topological properties of tiles arising from
+number systems is given by Akiyama and
+Thuswaldner~\cite{akiyama-thuswaldner}.
+
+\emph{Boundary dimension.}
+The computation of $\dH(\partial A)$ for a self-similar tile reduces
+to the spectral radius of a graph-directed substitution
+matrix~\cite{mauldin-williams}, whose construction via the neighbor
+graph was systematised by Scheicher and
+Thuswaldner~\cite{scheicher-thuswaldner}; explicit calculations for
+specific families appear in Duvall, Keesling and
+Strichartz~\cite{duvall-keesling-strichartz}.  Keesling's
+bound~\cite{keesling} $\dH(\partial A) < n$ for tiles in~$\R^n$
+together with his examples approaching this bound provide the
+upper-dimension envelope within which our construction lives.
+
+\emph{Self-affine tilings and separation.}
+The broader setting of self-affine lattice tilings is due to
+Bandt~\cite{bandt1991} and Lagarias and Wang~\cite{lagarias-wang};
+the Open Set Condition and its weakenings are studied by Lau and
+Ngai~\cite{lau-ngai}.  Our IFS is self-similar in the strict sense
+(equal contraction ratios, orthogonal matrices), so OSC and the
+classical Moran formula apply directly.
+
+\subsection*{Why this family was not found earlier}
+
+Existing constructions of self-similar planar tiles fall into two
+broad classes.  \emph{Number-system tiles}~\cite{akiyama-thuswaldner,
+lagarias-wang} use a fixed expansion matrix together with a digit
+set forming a complete residue system in a quadratic ring such as
+$\Z[i]$ or $\Z[\omega]$; all digit maps share the linear part~$+I$.
+\emph{Symmetric IFS}~\cite{bandt-wang,duvall-keesling-strichartz}
+arrange the digits cyclically (twindragon, terdragon, McMullen
+carpets, etc.), so the boundary substitution matrix inherits a
+discrete rotational or reflective symmetry that bounds its
+spectral radius and confines $\dH(\partial A)$ well below the
+ambient dimension.
+
+The comb family departs from both schemes.  Its $n{-}1$ collinear
+``spine'' digits use $+I$, while a single ``tooth'' digit uses
+$-I$ with a transverse offset $2n{-}3$ tuned per~$n$.  This
+asymmetric digit set, the use of two different linear parts, and
+the dependence of the off-axis offset on the parameter~$n$ all
+fall outside the symmetry assumptions that have implicitly
+guided previous searches; in particular, no principled
+derivation of the offset $2n{-}3$ is currently known
+(see~\S\ref{sec:discussion}).  The construction was discovered by
+an automated search over self-similar IFS minimising the
+neighbour graph using the IFStile package~\cite{ifstile} and is
+verified analytically here.
 
 % --------------------------------------------------------------------------
 \section{The Comb Family}
@@ -227,6 +307,66 @@ Hausdorff dimension of the attractor is
 \]
 for every~$n$.  Thus each $A_n$ is a plane-filling set (a tile).
 
+To verify the tiling property rigorously, we reformulate
+{\cite[Theorem~2]{bandt1991}} in a form where the residue condition
+is identical to the purely translational case (Theorem~1 ibid.).
+
+\begin{proposition}[Tiling criterion with symmetries,
+  after {\cite[Theorem~2]{bandt1991}}]
+\label{prop:bandt-sym}
+Let $g \in \Z^{d \times d}$ be expanding with $m = |\det g|$,
+and let $P$ be a finite group of integer matrices with
+$\det s = \pm 1$ for every $s \in P$, normalized by~$g$
+(i.e.\ $gPg^{-1} = P$).
+Given $s_1,\ldots,s_m \in P$ and
+\emph{digit vectors} $h_1,\ldots,h_m \in \Z^d$,
+define the attractor~$A$ by
+\begin{equation}\label{eq:ifs-sym}
+  A \;=\; \bigcup_{i=1}^{m} g^{-1}\,s_i(A + h_i).
+\end{equation}
+If $\{h_1,\ldots,h_m\}$ is a complete residue system
+for $\Z^d / g\Z^d$, then $A$ has nonempty interior,
+the open set condition holds with
+$V = \operatorname{int}(A)$, and $\dH(A) = d$.
+\end{proposition}
+
+\begin{proof}
+Set $y_i = s_i\,h_i$ and consider the contractions
+$f_i(x) = s_i\,g^{-1}(x) + y_i$, which are in the
+form of Theorem~2 in~\cite{bandt1991}.
+The lattice condition of that theorem requires
+\[
+  \Z^d = \bigcup_{i=1}^{m} s_i^{-1}\bigl(y_i + g\Z^d\bigr).
+\]
+Since $gPg^{-1} = P$, we have
+$g^{-1}s_i^{-1}g \in P \subset \mathrm{GL}(d,\Z)$, so
+$s_i^{-1}\,g\Z^d = g(g^{-1}s_i^{-1}g)\Z^d = g\Z^d$, and
+\[
+  s_i^{-1}(y_i + g\Z^d)
+  = s_i^{-1}y_i + g\Z^d
+  = h_i + g\Z^d,
+\]
+and the condition reduces to $\{h_i\}$ being a complete
+residue system for~$\Z^d/g\Z^d$ --- our hypothesis.
+
+Theorem~2 of~\cite{bandt1991} now yields a unique attractor
+$\hat{A} = \bigcup_i f_i(\hat{A})$ with nonempty interior and
+$\dH(\hat{A}) = d$.
+Setting $A = g^{-1}\hat{A}$, we verify~\eqref{eq:ifs-sym}:
+\[
+  g^{-1}\,s_i(A + h_i)
+  = g^{-1}\bigl(s_i\,g^{-1}\hat{A} + s_i\,h_i\bigr)
+  = g^{-1}\,f_i(\hat{A}),
+\]
+so $\bigcup g^{-1}\,s_i(A + h_i)
+  = g^{-1}\hat{A} = A$.
+Since $g^{-1}$ is a linear bijection,
+$\operatorname{int}(A) \ne \emptyset$ and $\dH(A) = d$.
+The open set condition
+for~\eqref{eq:ifs-sym} holds with
+$V = g^{-1}(\operatorname{int}\hat{A}) = \operatorname{int}(A)$.
+\end{proof}
+
 \begin{proposition}[Self-replicating tiling]\label{prop:tiling}
 For every $n \ge 3$, $A_n$ is an $n$-rep tile in the sense
 of~\cite{bandt1991}: the plane is tiled by copies of~$A_n$ and its
@@ -238,11 +378,26 @@ half-turn~$-A_n$:
 with the union measure-disjoint.
 \end{proposition}
 
-The proof follows from the neighbor graph analysis
-(Theorem~\ref{thm:graph}), which verifies the Open Set Condition with
-$V = \operatorname{int} A_n$ and shows that every neighbor of~$A_n$
-is either a $\Z^2$-translate or a half-turn
-$\Z^2$-translate~\cite{bandt1991}.
+\begin{proof}
+The comb IFS (Definition~\ref{def:comb}) has the
+form~\eqref{eq:ifs-sym} with $d = 2$, $P = \{I, -I\}$,
+$s_j = I$ for $j < n{-}1$, and $s_{n-1} = -I$.
+The digit vectors are
+$h_j = j(n{-}1)\,e_1$ ($j = 0,\ldots,n{-}2$)
+and $h_{n-1} = -\bigl(n^2{-}n{-}1,\;2n{-}3\bigr)$.
+The companion matrix $g = C(x^2 - n)$ satisfies $|\det g| = n$
+and $g\Z^2 = \{(ny, x) : x,y \in \Z\}$, so
+$\Z^2/g\Z^2 \cong \Z/n\Z$ via the first coordinate modulo~$n$.
+The first coordinates of the digit vectors modulo~$n$ are
+$j(n{-}1) \equiv -j$ for $j < n{-}1$ and
+$-(n^2{-}n{-}1) \equiv 1$ for $j = n{-}1$,
+giving $\{0, n{-}1, n{-}2, \ldots, 1\}$, a complete
+residue system.
+Proposition~\ref{prop:bandt-sym} gives
+$\operatorname{int}(A_n) \ne \emptyset$ and $\dH(A_n) = 2$.
+The tiling by $\Z^2$-translates of $A_n$ and $-A_n$
+follows from the neighbor graph (Theorem~\ref{thm:graph}).
+\end{proof}
 
 Following~\cite{bandt1991}, the maps above are written in~$\R^2$
 with the integer lattice~$\Z^2$, so that $g$ and all digits have
@@ -310,7 +465,7 @@ $n \ge 3$.
 
 A \emph{neighbor map} of the tile $A = A_n$ is an isometry
 $\sigma \colon \R^2 \to \R^2$ such that $A \cap \sigma(A) \ne \emptyset$
-and $\sigma \ne \mathrm{id}$~\cite{bandt1991}.  Because every contraction
+and $\sigma \ne \mathrm{id}$~\cite{bandt1991,scheicher-thuswaldner}.  Because every contraction
 $f_j = g^{-1} \circ h_j$ has linear part $\pm g^{-1}$, every neighbor
 map has the form $\sigma(x) = \varepsilon x + t$ with
 $\varepsilon \in \{+I, -I\}$ and $t \in \R^2$.
@@ -540,7 +695,8 @@ The finiteness of the neighbor graph implies the OSC~\cite{lau-ngai}.
 Each of the six neighbor types $\sigma_1, \ldots, \sigma_6$ corresponds
 to exactly one adjacent tile in the tiling, so every copy of~$A_n$ has
 precisely $6$~neighbors.  This is the minimum possible for a disk-like
-tile that tiles the plane: by Euler's formula for normal planar tilings,
+tile that tiles the plane: by Euler's formula for normal planar
+tilings~\cite[Section~3.3]{grunbaum-shephard},
 the average number of neighbors is at least~$6$, with equality
 corresponding to the hexagonal combinatorics.  The comb family thus
 achieves this topological minimum despite the extreme geometric
@@ -548,10 +704,12 @@ complexity of the boundary ($\dH(\partial A_n) \to 2$).
 \end{remark}
 
 \begin{remark}
-For $n = 3$ the general formulas specialise: the role of $f_{n-3} = f_0$
-collapses with the first spine map, so $\sigma_5$ has no $B_3$
-contributions.  The substitution matrix (see below) handles this
-automatically via $n{-}3 = 0$.
+For $n = 3$ the general formulas specialise: the $B_3$-contribution
+to $B_5$ in~\eqref{eq:bnd-rules} is an empty union (since
+$n - 4 < 0$), reflecting the fact that at $n = 3$ no pair
+$(i,j) \in \{0,\ldots,n{-}2\}^2$ satisfies $i + j = n{-}4 = -1$.
+The $B_4$-contribution collapses from $n{-}2$ distinct maps to a
+single map $f_0 = f_{n-3}$.
 \end{remark}
 
 \subsection{Boundary substitution rules}
@@ -566,9 +724,9 @@ child, we obtain the substitution rules (valid for all $n \ge 3$):
   B_2 &= f_{n-2}(B_5), \\
   B_3 &= f_{n-1}(B_6), \\
   B_4 &= f_{n-2}(B_1) \cup f_{n-2}(B_3) \cup f_{n-1}(B_2), \\
-  B_5 &= f_0(B_2 \cup B_3 \cup B_4)
-    \cup \bigcup_{j=1}^{n-4} f_j(B_3 \cup B_4)
-    \cup f_{n-3}(B_4) \cup f_{n-1}(B_1), \\
+  B_5 &= f_{n-1}(B_1) \cup f_0(B_2)
+    \cup \bigcup_{j=0}^{n-4} f_j(B_3)
+    \cup \bigcup_{j=0}^{n-3} f_j(B_4), \\
   B_6 &= \bigcup_{j=0}^{n-3} f_j(B_5 \cup B_6) \cup f_{n-2}(B_6).
 \end{aligned}
 \end{equation}
@@ -641,7 +799,8 @@ the rule for~$B_j$, is:
 \label{sec:disklike}
 
 A self-similar tile $A$ is called \emph{disk-like} if it is homeomorphic to the
-closed unit disk~\cite{bandt-wang}.  As noted in the Introduction, tiles with large
+closed unit disk; see~\cite{bandt-wang,leung-lau} for criteria
+and~\cite{akiyama-thuswaldner,ngai-tang} for surveys.  As noted in the Introduction, tiles with large
 $\dH(\partial A)$ are generically non-disk-like, so achieving
 $\dH(\partial A)$ close to~$2$ while maintaining the disk-like property
 is particularly challenging.
@@ -717,7 +876,7 @@ We verify all three conditions for the comb family.
 For every $n \ge 3$, the double neighboring graph $G_2$ restricted to
 the six edge neighbors $\sigma_1, \ldots, \sigma_6$ is the cycle
 \[
-  B_1 - B_5 - B_6 - B_2 - B_4 - B_3 - B_1.
+  B_1 - B_3 - B_4 - B_2 - B_6 - B_5 - B_1.
 \]
 \end{lemma}
 
@@ -836,13 +995,16 @@ three sub-pieces form a path:
 $f_{n-2}(B_1) - f_{n-2}(B_3) - f_{n-1}(B_2)$.
 
 \emph{Case $B_5$.}
-The rule~\eqref{eq:bnd-rules} gives $2n{-}3$ sub-pieces:
+The rule~\eqref{eq:bnd-rules} gives $2n{-}3$ sub-pieces.  For $n \ge 4$
+these are
 \[
   f_0(B_2),\; f_0(B_4),\; f_0(B_3),\;
   f_1(B_4),\; f_1(B_3),\; \ldots,\;
   f_{n-4}(B_4),\; f_{n-4}(B_3),\;
-  f_{n-3}(B_4),\; f_{n-1}(B_1).
+  f_{n-3}(B_4),\; f_{n-1}(B_1);
 \]
+for $n = 3$ the $B_3$-union in~\eqref{eq:bnd-rules} is empty and the
+three sub-pieces are $f_0(B_2),\, f_0(B_4),\, f_2(B_1)$.
 Two sub-pieces from the \emph{same} map~$f_j$ are adjacent in~$G_{\sigma_5}$
 when the corresponding boundary pieces are adjacent in~$G_2$.
 Since $B_2 B_4$ and $B_3 B_4$ are edges of~$G_2$
@@ -866,12 +1028,15 @@ and $B_1$ adjacent to~$B_3$ in~$G_2$, both of which hold.
 No non-consecutive sub-pieces are adjacent: maps $f_j, f_\ell$ with
 $|j - \ell| \ge 2$ have tiles of $x_1$-diameter at most $2n{-}3$
 separated by distance $(n{-}1)|j - \ell| - (2n{-}3) > 0$.
-Hence the path is:
+Hence the path is (for $n \ge 4$):
 \begin{align*}
   &f_0(B_2) - f_0(B_4) - f_0(B_3) - f_1(B_4) - f_1(B_3) - \cdots\\
   &\quad\cdots - f_{n-4}(B_3) - f_{n-3}(B_4) - f_{n-1}(B_1),
 \end{align*}
-and $G_{\sigma_5}$ is a simple path on $2n{-}3$ vertices.
+while for $n = 3$ it degenerates to
+$f_0(B_2) - f_0(B_4) - f_2(B_1)$, with the last edge via
+$\sigma_3 = f_0^{-1} f_2$.
+In all cases $G_{\sigma_5}$ is a simple path on $2n{-}3$ vertices.
 
 \emph{Case $B_6$.}
 The rule gives $2n{-}3$ sub-pieces:
@@ -1011,8 +1176,30 @@ $f_\alpha^{-1} \sigma_1 f_\beta$ (with $\alpha, \beta \le n{-}2$)
 have translation component
 $t_2' = n{-}1 > n{-}1{-}1/n = \mathrm{height}(R)$,
 so they exceed the $R$-bound
-and are infeasible.  Among the remaining cases, a direct
-computation shows that the unique surviving child is
+and are infeasible.  We check the three remaining child types
+(those involving the tooth index $n{-}1$):
+\begin{itemize}
+\item \emph{Spine--tooth} ($\alpha \le n{-}2$, $j = n{-}1$):
+  sign~$-I$, translation $\bigl((n{-}1)(n{-}\alpha)-1,\; 3n{-}4\bigr)$.
+  The $x_2$-component $3n{-}4$ exceeds the sum
+  $2 \cdot \mathrm{height}(R) = 2(n{-}1{-}1/n)$ for $n \ge 3$,
+  so $A \cap \sigma(A) = \emptyset$ for all~$\alpha$.
+\item \emph{Tooth--tooth} ($\alpha = j = n{-}1$):
+  sign~$+I$, translation $(0,\,{-}(n{-}1))$.
+  This requires $x_2 \ge n{-}1$ in~$A$, but
+  $A \subset R$ has $x_2 \le n{-}1{-}1/n$; infeasible.
+\item \emph{Tooth--spine} ($\alpha = n{-}1$, $\beta \le n{-}2$):
+  sign~$-I$, translation $\bigl((n{-}1)(n{-}\beta)-1,\; n{-}2\bigr)$.
+  For $\beta \le n{-}3$ the first component
+  $(n{-}1)(n{-}\beta)-1 \ge 3n{-}4$, forcing both summands in the
+  $A + A$ representation into the tooth strip
+  ($x_1 \ge n{-}1$, hence $x_2 \ge (n{-}1)(n{-}2)/n$
+  by~\eqref{eq:B1-strips}); then
+  $p_2 + q_2 \ge 2(n{-}1)(n{-}2)/n > n{-}2$ for $n \ge 3$,
+  contradicting $p_2 + q_2 = n{-}2$.
+  Only $\beta = n{-}2$ survives, giving translation $(2n{-}3,\,n{-}2)$.
+\end{itemize}
+Thus the unique surviving child is
 \[
   f_{n-1}^{-1} \circ \sigma_1 \circ f_{n-2} = \sigma_5,
 \]
@@ -1315,46 +1502,11 @@ $n$ & $\lambda_n$ & $\dH(\partial A_n)$ & $2 - \dH(\partial A_n)$ \\
 \end{tabular}
 \end{table}
 
-\subsection{Root structure}
-\label{ssec:roots}
-
-The polynomial $p_n(x) = x^4 - (n{-}1)\,x^3 - 2\,x^2 - (n{-}1)(n{-}4)\,x + n(n{-}2)$
-has the following properties for $n \ge 3$:
-
-\begin{enumerate}
-\item \textbf{Dominant root:} $\lambda_n \in (n{-}1,\, n)$, real and simple,
-with $\lambda_n = n - 4/n + O(1/n^2)$.
-\item \textbf{Second real root:} $\mu_n \in (1,\, n{-}1)$, with
-$\mu_n = 1 + 2/n - 14/n^3 + O(1/n^4)$ (note that the $1/n^2$
-coefficient vanishes).  Existence follows from $p_n(1) = 2(n{-}2) > 0$
-and $p_n(n{-}1) = -(n{-}2)(n^2{-}3n{+}1) < 0$ for $n \ge 3$, by the
-intermediate value theorem.
-\item \textbf{Two remaining roots $\alpha_n, \beta_n$:} by Vieta's
-relations,
-\[
-  \alpha_n + \beta_n = (n{-}1) - \lambda_n - \mu_n
-                     = -2 + \frac{2}{n} + O(1/n^2),
-\]
-\[
-  \alpha_n \beta_n = \frac{n(n{-}2)}{\lambda_n\, \mu_n}
-                   = n - 4 + O(1/n).
-\]
-The pair is complex conjugate with common modulus
-$|\alpha_n| = |\beta_n| = \sqrt{\alpha_n \beta_n} = \sqrt{n} - 2/\sqrt{n} + O(n^{-3/2})$.
-\end{enumerate}
-
-\begin{remark}[Coefficients as functions of $n$]
-The coefficients of $p_n$ are polynomial in~$n$:
-\[
-  p_n(x) = x^4 - (n{-}1)\,x^3 - 2\,x^2 - (n^2{-}5n{+}4)\,x + (n^2{-}2n).
-\]
-In particular, the constant term $n^2 - 2n = n(n{-}2)$ is positive for
-$n \ge 3$, and the linear coefficient $-(n^2{-}5n{+}4) =
--(n{-}1)(n{-}4)$ changes sign at $n = 4$.  For $n < 4$, the linear
-coefficient is positive; for $n > 4$ it is negative.  This sign change
-at $n = 4$ corresponds to a subtle shift in the boundary topology
-(although the neighbor graph retains $6$~components throughout).
-\end{remark}
+All numerical values in Tables~\ref{tab:dims} and~\ref{tab:ratio}
+are computed from the dominant real root~$\lambda_n$ of the
+explicit quartic~\eqref{eq:quartic} via the
+formula~\eqref{eq:dim}; no numerical simulation of the IFS is
+involved.
 
 \subsection{Asymptotic expansion of the dominant root}
 
@@ -1415,10 +1567,9 @@ The next term in the expansion of $\lambda_n$ can be extracted by the
 same method: write $x = n - 4/n + c_2/n^2$ and substitute into
 $p_n(x) = 0$.  The $n^2$~coefficient was already forced to zero by
 $c_1 = 4$; balancing the coefficient of~$n$ (linear in~$c_2$) gives
-$c_2 = 14$.  Continuing to the next order yields $c_3 = -72$, so
+$c_2 = 14$, so
 \[
-  \lambda_n = n - \frac{4}{n} + \frac{14}{n^2} - \frac{72}{n^3}
-  + O(1/n^4).
+  \lambda_n = n - \frac{4}{n} + \frac{14}{n^2} + O(1/n^3).
 \]
 Substituting into $\dH(\partial A_n) = 2\log\lambda_n / \log n$ and
 expanding, we obtain the refined gap formula
@@ -1453,7 +1604,49 @@ $n$ & $2 - \dH(\partial A_n)$ & $8/(n^2\,\ln n)$ & Ratio \\
 \end{tabular}
 \end{table}
 
+\subsection{Root structure}
+\label{ssec:roots}
+
+The polynomial $p_n(x) = x^4 - (n{-}1)\,x^3 - 2\,x^2 - (n{-}1)(n{-}4)\,x + n(n{-}2)$
+has the following properties for $n \ge 3$:
+
+\begin{enumerate}
+\item \textbf{Dominant root:} $\lambda_n \in (n{-}1,\, n)$, real and simple,
+with $\lambda_n = n - 4/n + O(1/n^2)$.
+\item \textbf{Second real root:} $\mu_n \in (1,\, n{-}1)$, with
+$\mu_n = 1 + 2/n - 14/n^3 + O(1/n^4)$ (note that the $1/n^2$
+coefficient vanishes).  Existence follows from $p_n(1) = 2(n{-}2) > 0$
+and $p_n(n{-}1) = -(n{-}2)(n^2{-}3n{+}1) < 0$ for $n \ge 3$, by the
+intermediate value theorem.
+\item \textbf{Two remaining roots $\alpha_n, \beta_n$:} by Vieta's
+relations,
+\[
+  \alpha_n + \beta_n = (n{-}1) - \lambda_n - \mu_n
+                     = -2 + \frac{2}{n} + O(1/n^2),
+\]
+\[
+  \alpha_n \beta_n = \frac{n(n{-}2)}{\lambda_n\, \mu_n}
+                   = n - 4 + O(1/n).
+\]
+The pair is complex conjugate with common modulus
+$|\alpha_n| = |\beta_n| = \sqrt{\alpha_n \beta_n} = \sqrt{n} - 2/\sqrt{n} + O(n^{-3/2})$.
+\end{enumerate}
+
+\begin{remark}[Coefficients as functions of $n$]
+The coefficients of $p_n$ are polynomial in~$n$:
+\[
+  p_n(x) = x^4 - (n{-}1)\,x^3 - 2\,x^2 - (n^2{-}5n{+}4)\,x + (n^2{-}2n).
+\]
+In particular, the constant term $n^2 - 2n = n(n{-}2)$ is positive for
+$n \ge 3$, and the linear coefficient $-(n^2{-}5n{+}4) =
+-(n{-}1)(n{-}4)$ changes sign at $n = 4$.  For $n < 4$, the linear
+coefficient is positive; for $n > 4$ it is negative.  This sign change
+at $n = 4$ corresponds to a subtle shift in the boundary topology
+(although the neighbor graph retains $6$~components throughout).
+\end{remark}
+
 \subsection{Spectral gap and monopole structure}
+\label{ssec:spectral}
 
 The substitution matrix~$M_n$ has characteristic polynomial
 $x^2 \cdot p_n(x)$, so its nonzero eigenvalues are exactly the
@@ -1471,33 +1664,16 @@ exponentially less (their shares decay as~$\rho^k$ after $k$
 substitution steps).
 \end{definition}
 
-For the comb family,
+For the comb family in the plane,
 \[
   \rho_n = \frac{|\lambda_2|}{\lambda_n}
          = \frac{1}{\sqrt{n}} - \frac{2}{n^{3/2}} + O(n^{-5/2})
          \;\longrightarrow\; 0,
 \]
 so the boundary is of monopole type for every~$n \ge 3$, with
-a spectral gap that improves monotonically.
-
-The monopole structure is not a coincidence but a direct consequence
-of keeping the neighbor graph at constant size while driving
-$\dH(\partial A_n) \to 2$.  The boundary dimension satisfies
-$\dH(\partial A_n) = 2\log\lambda_n / \log n$, so approaching the
-ambient dimension requires $\lambda_n \to n$.  But $\lambda_n$ is the
-Perron eigenvalue of the $6 \times 6$ matrix~$M_n$, whose trace
-equals~$n{-}1$ (the only nonzero diagonal entry is
-$(M_n)_{66} = n{-}1$).  Since the sum of all eigenvalues equals the
-trace, $\lambda_n \approx n$ forces the remaining roots to sum to
-approximately $-1$: they stay bounded while the dominant eigenvalue
-grows.  In particular $|\lambda_2| = O(\sqrt{n})$, giving
-$\rho_n = O(1/\sqrt{n})$.
-
-In other words, a \emph{fixed-size} substitution matrix whose Perron
-eigenvalue grows without bound is automatically monopole.  This explains
-why the combination of a small constant neighbor graph ($6$~pieces for
-all~$n$) and high boundary dimension ($\to 2$) inevitably produces a
-strong spectral gap.
+a spectral gap that improves monotonically.  This is a special
+case of a dimension-independent phenomenon; see
+\S\ref{ssec:monopole-d}.
 
 \begin{remark}[Relative measures of boundary pieces]
 \label{rem:measures}
@@ -1515,7 +1691,7 @@ Theorem~\ref{thm:dim}) give
 Since $\lambda_n \to n$ and $\delta \to 1$, we obtain
 $v_6 \sim n{-}2$ while $v_5 = 1$ and
 $v_3 \approx 1$,
-so $v_1 = v_2$, $v_4 \sim 1/n^2$ are negligible.
+so $v_1 = v_2 \sim 1/n$ and $v_4 \sim 1/n$ are negligible.
 The relative measures
 $w_k = v_k / \sum_j v_j$ satisfy
 \[
@@ -1529,56 +1705,662 @@ at $n = 3$, $82\%$ at $n = 10$, and $96\%$ at $n = 50$.
 \end{remark}
 
 % --------------------------------------------------------------------------
-\section{Discussion and Open Questions}
+\section{Higher-Dimensional Generalization}
+\label{sec:higherdim}
+
+The comb construction extends naturally to all dimensions $d \ge 1$.
+In this section we define the $d$-dimensional comb IFS, present exact
+computational results for $d \le 7$, and formulate conjectures that
+generalise the planar theory of
+Sections~\ref{sec:osc}--\ref{sec:dim}.
+The one-dimensional case $d = 1$ admits a closed-form analysis
+and is treated separately in~\S\ref{ssec:d1};
+it serves as a rigorous base case for the conjectures below.
+All numerical results below were obtained by exact rational arithmetic
+using IFStile~\cite{ifstile}; in particular, the neighbor graph
+computations use no floating-point approximations.
+
+\subsection{The $d$-dimensional comb IFS}
+
+For integers $d \ge 1$ and $n \ge 3$, let
+$g = C(x^d - n) \in \Z^{d \times d}$
+be the companion matrix of $x^d - n$, with eigenvalues
+$n^{1/d}\zeta_d^k$ ($k = 0, \ldots, d{-}1$,
+$\zeta_d = e^{2\pi i/d}$) and spectral radius~$n^{1/d}$.
+For $d = 1$ this reduces to the scalar $g = n$.
+
+\begin{definition}[$d$-dimensional comb IFS]\label{def:comb-d}
+The \emph{$d$-dimensional comb IFS} with parameters $d$ and~$n$ consists
+of $n$ digit maps on~$\R^d$:
+\begin{equation}\label{eq:comb-maps-d}
+\begin{aligned}
+  h_j(x) &= x + j(n{-}1)\,e_1,
+    &\quad j &= 0, \ldots, n{-}2, \\[2pt]
+  h_{n-1}(x) &= -x + \bigl(n^2{-}n{-}1,\;
+    \underbrace{2n{-}3, \ldots, 2n{-}3}_{d-1}\bigr),
+\end{aligned}
+\end{equation}
+where $e_1 = (1, 0, \ldots, 0)$
+(for $d = 1$ the underbraced block is empty,
+so $h_{n-1}(x) = -x + (n^2{-}n{-}1)$).
+The attractor
+$A_n^{(d)} = g^{-1}\bigl(\bigcup_{j=0}^{n-1} h_j(A_n^{(d)})\bigr)$.
+\end{definition}
+
+For $d = 2$ this recovers Definition~\ref{def:comb};
+for $d = 1$, see~\S\ref{ssec:d1}.
+The off-axis translation $2n{-}3 = 2(n{-}1) - 1$ is
+the same in all $d{-}1$ transverse coordinates.
+
+\begin{remark}[Motivation of the construction]
+The construction of Definition~\ref{def:comb-d} was discovered by
+a systematic IFStile~\cite{ifstile} search over self-similar IFS
+minimising the number of boundary components, and its particular
+form can be motivated from first principles only in part.
+\begin{itemize}
+\item \emph{Expansion.} Requiring $n$ digit maps of equal
+  contraction ratio $n^{-1/d}$ and integer-matrix expansion
+  forces, up to similarity, the companion matrix of a monic
+  integer polynomial with constant term $\pm n$; the minimal
+  such polynomial is $x^d - n$, used here.
+\item \emph{Digit residues.} By Proposition~\ref{prop:bandt-sym},
+  the digit set must project to a complete residue system modulo
+  $g\Z^d \cong \Z/n\Z$.  Taking $n{-}1$ aligned digits at
+  $0, n{-}1, 2(n{-}1), \ldots, (n{-}2)(n{-}1)$ along~$e_1$
+  covers residues $\{0, -1, -2, \ldots, -(n{-}2)\}$
+  (mod~$n$); a single additional digit with residue $\pm 1$
+  completes the system for every~$n$ simultaneously, which
+  explains why the same combinatorial pattern works for all $n$.
+\item \emph{Transverse offset.} The specific value $2n{-}3$ of
+  the transverse translation in $h_{n-1}$, as well as the choice
+  of $-I$ rather than $+I$ for its linear part, were selected
+  empirically to minimise the neighbor graph.  A first-principles
+  derivation of these choices --- and a proof that the resulting
+  graph complexity is the smallest possible in this
+  expansion class --- remains open
+  (see~\S\ref{sec:discussion}).
+\end{itemize}
+\end{remark}
+
+We verify that $A_n^{(d)}$ is a tile by applying
+Proposition~\ref{prop:bandt-sym} in dimension~$d$.
+
+\begin{corollary}\label{cor:comb-tile}
+For every $d \ge 1$ and $n \ge 3$, the attractor $A_n^{(d)}$
+of Definition~\textup{\ref{def:comb-d}}
+tiles~$\R^d$ and $\dH(A_n^{(d)}) = d$.
+\end{corollary}
+
+\begin{proof}
+The symmetry group $P = \{I,-I\}$ centralizes every matrix.
+The digit maps of Definition~\ref{def:comb-d} have the form
+$h_j(x) = s_j\,x + d_j$ with $s_j = I$ for $j < n{-}1$
+and $s_{n-1} = -I$.
+Since $s_j(x + s_j^{-1}d_j) = s_j\,x + d_j$,
+rewriting in the form~\eqref{eq:ifs-sym} gives digit vectors
+$v_j = s_j^{-1}d_j$:
+\[
+  v_j = j(n{-}1)\,e_1 \;\;(j = 0,\ldots,n{-}2),
+  \qquad
+  v_{n-1} = -d_{n-1}.
+\]
+The companion matrix $g = C(x^d - n)$ satisfies $|\det g| = n$,
+and $g\Z^d$ is spanned by $\{e_2,\ldots,e_d,\,ne_1\}$
+(since $ge_k = e_{k+1}$ for $k < d$ and $ge_d = ne_1$),
+so $\Z^d/g\Z^d \cong \Z/n\Z$ via the first coordinate modulo~$n$.
+The first coordinates of the digit vectors modulo~$n$ are:
+$j(n{-}1) \equiv -j$ for $j = 0,\ldots,n{-}2$,
+and $-(n^2{-}n{-}1) \equiv 1$ for $j = n{-}1$.
+Thus the residues are
+$\{0, n{-}1, n{-}2, \ldots, 2, 1\} = \{0,1,\ldots,n{-}1\}$,
+a complete system.
+The result follows from Proposition~\ref{prop:bandt-sym}.
+\end{proof}
+
+\begin{remark}[Bounding parallelepiped]\label{rem:invariant-d}
+The Hutchinson operator $F = \bigcup_j f_j$ maps the
+\emph{$d$-dimensional comb box}
+\[
+  R_d \;=\; [0,\, 2n{-}3]^{d-1} \times [0,\, n{-}1{-}1/n]
+\]
+into itself: $F(R_d) \subseteq R_d$ for every $d \ge 1$ and
+$n \ge 3$.  This generalises Lemma~\ref{lem:bound} ($d = 2$);
+for $d = 1$ it gives the bounding interval
+$R_1 = [0,\, n{-}1{-}1/n]$.
+Indeed, $g^{-1}(y_1, \ldots, y_d) = (y_2, \ldots, y_d, y_1/n)$
+(reducing to $g^{-1}(y) = y/n$ when $d = 1$),
+so $g^{-1}(R_d) = [0,2n{-}3]^{d-2} \times [0, n{-}1{-}1/n]
+\times [0, (2n{-}3)/n]$.  Adding the spine
+translations $j(n{-}1)/n\cdot e_d$ ($j = 0, \ldots, n{-}2$)
+fills the last coordinate of $R_d$ up to $(n^2{-}n{-}1)/n
+= n{-}1{-}1/n$ and leaves the first $d{-}1$ coordinates inside
+$R_d$.  The tooth piece $f_{n-1}(R_d)$ fits in the corner
+$[0, 2n{-}3]^{d-2} \times [n{-}2{+}1/n,\, 2n{-}3]
+\times [n{-}3{+}2/n,\, n{-}1{-}1/n]$
+(the first interval is absent when $d \le 2$, the second when
+$d = 1$).
+
+Consequently $A_n^{(d)} = \bigcap_{k\ge 0} F^k(R_d)$ is a
+monotone intersection of compact PL~sets.  This is the natural
+starting point for any future ball-likeness proof
+(see~\S\ref{sec:discussion}).
+\end{remark}
+
+Figure~\ref{fig:comb3d} shows the attractor $A_5^{(3)}$
+in dimension $d = 3$.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.5\textwidth]{comb3d_n5.png}
+\caption{The $3$-dimensional comb tile $A_5^{(3)}$
+  ($d = 3$, $n = 5$), rendered in the real Jordan basis of the
+  companion matrix $g = C(x^3 - 5)$.}
+\label{fig:comb3d}
+\end{figure}
+
+\begin{remark}[IFStile program for $d = 3$]\label{rem:aifs-3d}
+The $3$-dimensional comb tile can be rendered in
+IFStile~\cite{ifstile} using the following program
+(shown for $n = 5$):
+\begin{verbatim}
+@
+$dim=3
+$subspace=[g,0,1]
+g=$companion([-5,0,0])
+h1=[4,0,0]
+h2=[8,0,0]
+h3=[12,0,0]
+h4=[19,7,7]*-1
+A=g^-1*(1|h1|h2|h3|h4)*A
+\end{verbatim}
+\noindent
+Here \verb|$companion([-5,0,0])| creates the companion matrix
+of $x^3 - 5$, and \verb|$subspace=[g,0,1]| projects
+from~$\R^3$ to the eigenbasis of~$g$: the real eigenvalue
+$5^{1/3}$ (index~$0$, one dimension) and the complex conjugate
+pair $5^{1/3}\zeta_3^{\pm 1}$ (index~$1$, two dimensions).
+For general $n \ge 3$, replace $-5$ with $-n$ in the companion
+matrix, adjust the translations to
+$h_j = [j(n{-}1),0,0]$ for $j = 1,\ldots,n{-}2$,
+and set $h_{n-1} = [n^2{-}n{-}1,\; 2n{-}3,\; 2n{-}3] \cdot
+(-I_3)$.
+\end{remark}
+
+\subsection{The closed-form case \texorpdfstring{$d = 1$}{d = 1}}
+\label{ssec:d1}
+
+Before stating the general conjectures, we analyse the
+one-dimensional case in full.  Unlike the cases $d \ge 2$,
+both the neighbor graph and the dominant root admit closed-form
+expressions, providing a rigorous base case for the
+conjectures formulated below.
+
+At $d = 1$, Definition~\ref{def:comb-d} reads: scalar
+expansion $g = n$ and digit maps
+\[
+  h_j(x) = x + j(n{-}1) \;\; (j = 0, \ldots, n{-}2), \qquad
+  h_{n-1}(x) = -x + (n^2{-}n{-}1),
+\]
+so $f_j(x) = h_j(x)/n$ for $j < n{-}1$ and
+$f_{n-1}(x) = (-x + n^2{-}n{-}1)/n$.  All contractions have
+ratio $1/n$.
+
+\begin{proposition}[Complete analysis at $d=1$]\label{prop:d1}
+For every $n \ge 3$:
+\begin{enumerate}
+\item $A_n^{(1)}$ has positive Lebesgue measure and satisfies
+  the OSC.
+\item The neighbor graph has exactly two non-trivial types,
+  \[
+    \sigma_1(x) = -x + (2n{-}3), \qquad
+    \sigma_2(x) = -x + (n{-}2).
+  \]
+\item The substitution matrix and its characteristic polynomial are
+  \begin{equation}\label{eq:d1-matrix}
+    M_n^{(1)} =
+    \begin{pmatrix} 0 & 1 \\ n{-}2 & n{-}1 \end{pmatrix},
+    \qquad
+    q_n^{(1)}(x) = x^2 - (n{-}1)\,x - (n{-}2).
+  \end{equation}
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\emph{Step 1 (OSC).}  The digits
+$v_j = s_j^{-1} h_j(0) \bmod n$
+form a complete residue system: for $j < n{-}1$ we have $s_j = I$
+and $v_j = j(n{-}1) \equiv -j \pmod n$, while $s_{n-1} = -I$ and
+$v_{n-1} = -(n^2{-}n{-}1) \equiv 1 \pmod n$, so
+$\{v_0, \ldots, v_{n-1}\} \equiv \{0, 1, \ldots, n{-}1\} \pmod n$.
+Proposition~\ref{prop:bandt-sym} now gives $\mu(A_n^{(1)}) > 0$
+and the OSC.
+
+\emph{Step 2 (bounding interval).}  Let
+$L = (n^2{-}n{-}1)/n = n{-}1-1/n$ and $I = [0, L]$.  A direct
+check shows $f_j(I) \subset I$ for every~$j$: for $j < n{-}1$ the
+maximum of $f_j$ on $I$ is $(L + j(n{-}1))/n$, which at
+$j = n{-}2$ equals $(n{-}1)^2 (2n{-}1) / (n^2(n{-}1))$ and is
+bounded by~$L$ since $(n{-}1)^2 \ge 0$; for $f_{n-1}$ the
+maximum is $(n^2{-}n{-}1)/n = L$.  Hence $A_n^{(1)} \subset I$.
+Consequently, if $\sigma = f_i^{-1} f_j$ is a neighbor type
+(i.e., $\sigma(A) \cap A \neq \emptyset$), its translation
+component lies in $[-2L,\, 2L]$.
+
+\emph{Step 3 (level-1 neighbors).}  Enumerate the ordered pairs
+$(i, j)$ with $i \neq j$ by the orientations of $s_i$ and $s_j$:
+\begin{itemize}
+\item \emph{Both spine} ($i, j < n{-}1$):
+  $\sigma(x) = x + (j{-}i)(n{-}1)$, translation
+  $t = (j{-}i)(n{-}1)$ of modulus $\ge n{-}1$.  Since
+  $n{-}1 > L$, the shifted interval $I + t$ intersects~$I$ only
+  when $|t| < n{-}1-1/n$, which fails.  No contribution.
+\item \emph{Tooth/spine} ($i = n{-}1$, $j < n{-}1$):
+  $\sigma(x) = -x + t$ with
+  $t = (n{-}1)(n{-}j) - 1$.  The admissibility
+  $0 \le t \le 2L$ forces $n - j \le (2n{-}1)/(n{-}1) < 3$, i.e.,
+  $j \in \{n{-}2, n{-}1\}$; excluding $j = n{-}1$ leaves $j = n{-}2$,
+  $t = 2n{-}3$: the type $\sigma_1$.
+\item \emph{Spine/tooth} ($i < n{-}1$, $j = n{-}1$): symmetric
+  under $\sigma \mapsto \sigma^{-1}$ (and $\sigma_1^{-1} = \sigma_1$),
+  giving the same type $\sigma_1$.
+\end{itemize}
+Level-1 thus yields a single type $\sigma_1$.
+
+\emph{Step 4 (substitution row for $\sigma_1$).}  For each ordered
+pair $(j, k)$ compute $\sigma' = f_j^{-1} \sigma_1 f_k$.
+\begin{itemize}
+\item $j, k < n{-}1$: $\sigma'(x) = -x + 2n^2 - 3n - (j+k)(n{-}1)$.
+  Admissibility forces $j + k \ge 2n{-}3$, but
+  $j + k \le 2(n{-}2) = 2n{-}4$; no contribution.
+\item $j = n{-}1$ or $k = n{-}1$ (exactly one): $\sigma'$ is a
+  translation $x \mapsto x \pm (n{-}1-m)(n{-}1)$ for
+  $m \in \{0, \ldots, n{-}2\}$; the only admissible value is
+  $\pm(n{-}1)$, and $A \pm (n{-}1)$ is disjoint from~$A$ (as
+  in the spine/spine case).  No contribution.
+\item $j = k = n{-}1$: $\sigma'(x) = -x + (n{-}2) = \sigma_2$.
+  This is a new type, attached to $\sigma_1$ by a single edge.
+\end{itemize}
+This yields the first row $[0,\, 1]$ of $M_n^{(1)}$.
+
+\emph{Step 5 (substitution row for $\sigma_2$).}  Similarly
+decompose $\sigma'' = f_j^{-1} \sigma_2 f_k$.
+\begin{itemize}
+\item $j, k < n{-}1$: $\sigma''(x) = -x + n^2 - 2n - (j+k)(n{-}1)$,
+  admissible iff $n{-}3 \le j + k \le n{-}2$.
+  \begin{itemize}
+    \item $j + k = n{-}3$: $t = 2n{-}3 = \sigma_1$,
+          attained by $n{-}2$ pairs.
+    \item $j + k = n{-}2$: $t = n{-}2 = \sigma_2$,
+          attained by $n{-}1$ pairs.
+  \end{itemize}
+\item $j = n{-}1$ or $k = n{-}1$ (exactly one): $\sigma''$ is a
+  translation whose admissible value~$\pm(n{-}1)$ gives pieces
+  disjoint from~$A$ (as in Step~4).
+\item $j = k = n{-}1$: $\sigma''(x) = -x + (n^2{-}2)$ with
+  $t = n^2 - 2 > 2L$ for $n \ge 3$, not a neighbor.
+\end{itemize}
+The second row is therefore $[n{-}2,\, n{-}1]$.  Since both rows
+reference only $\sigma_1$ and $\sigma_2$, the neighbor graph is
+closed: no further types arise, completing the enumeration and
+proving~\eqref{eq:d1-matrix}.
+\end{proof}
+
+\begin{corollary}[Asymptotics at $d=1$]\label{cor:d1-asymp}
+The dominant eigenvalue $\lambda_n$ of $M_n^{(1)}$ satisfies
+\begin{equation}\label{eq:d1-lambda}
+  \lambda_n \;=\; \frac{(n{-}1) + \sqrt{n^2 + 2n - 7}}{2}
+            \;=\; n - \frac{2}{n} + O\!\left(\frac{1}{n^2}\right),
+\end{equation}
+and, consequently,
+\begin{equation}\label{eq:d1-gap}
+  1 - \dH\bigl(\partial A_n^{(1)}\bigr)
+  \;=\; \frac{2}{n^2 \ln n}\bigl(1 + O(1/n)\bigr).
+\end{equation}
+\end{corollary}
+
+\begin{proof}
+The closed form follows from $q_n^{(1)}(x) = 0$ via the quadratic
+formula.  Writing $\lambda_n = n + a/n + O(1/n^2)$ and substituting
+into $\lambda_n^2 - (n{-}1)\lambda_n - (n{-}2) = 0$, the coefficient
+of $n^0$ yields $a + 2 = 0$, hence $a = -2$.  Then
+$\log(\lambda_n/n) = \log(1 - 2/n^2 + O(1/n^3)) = -2/n^2 + O(1/n^3)$,
+so
+\[
+  1 - \dH(\partial A_n^{(1)})
+  = 1 - \frac{\log\lambda_n}{\log n}
+  = \frac{2}{n^2 \ln n}\bigl(1 + O(1/n)\bigr). \qedhere
+\]
+\end{proof}
+
+\begin{remark}[Consistency with the conjectures]
+Both predictions of Conjectures~\ref{conj:pieces}
+and~\ref{conj:asymp-d} (stated below) hold at $d = 1$:
+\begin{itemize}
+\item $p(1) = 2$, the initial condition of the
+  recurrence~\eqref{eq:pieces-rec} in
+  Conjecture~\ref{conj:pieces}.
+\item The leading coefficient $c_1^{(1)} = 2$ in
+  expansion~\eqref{eq:d1-gap} matches the predicted
+  $2d^2$ of Conjecture~\ref{conj:asymp-d} at $d = 1$.
+\end{itemize}
+\end{remark}
+
+\emph{Topology.} The $1$-dimensional analog of ball-likeness is
+connectedness.  For $n \ge 3$, the first Hutchinson iterate of
+the bounding interval $[0,\, n{-}1{-}1/n]$ leaves $n - 3$
+residual gaps (each of length $1/n^2$) between consecutive
+spine intervals, none of which is covered by the single tooth
+image; these gaps persist under iteration and yield a dense
+family of gaps at every scale $1/n^{2k}$.  More precisely,
+$A_n^{(1)}$ is a \emph{cantorval} in the sense of
+Guthrie--Nymann~\cite{guthrie-nymann}: a compact subset of $\R$
+with positive Lebesgue measure and without isolated points,
+which is neither a finite union of intervals nor a Cantor set,
+and such that both endpoints of every gap are accumulation
+points of other gaps.  In particular, $A_n^{(1)}$ is not
+connected, so the topological analog of
+Theorem~\ref{thm:disklike} fails in dimension one, while the
+algebraic and metric statements (OSC, substitution spectrum,
+asymptotic boundary dimension) continue to hold unchanged.
+This singles out the connectedness condition as the essential
+non-trivial ingredient of the disk-like theorem in~$d = 2$.
+
+\subsection{Boundary component count}
+
+\begin{conjecture}[Boundary components]\label{conj:pieces}
+For every $d \ge 1$ and $n \ge 3$, the number $p(d)$ of boundary
+components of $A_n^{(d)}$ depends only on~$d$, not on~$n$, and
+satisfies the linear recurrence
+\begin{equation}\label{eq:pieces-rec}
+  p(d) = 2\,p(d{-}1) + p(d{-}2) + 2,
+  \qquad d \ge 2,
+\end{equation}
+with initial values $p(0) = 0$ and $p(1) = 2$
+(Proposition~\ref{prop:d1}); equivalently, $p(2) = 6$
+(Theorem~\ref{thm:graph}).
+\end{conjecture}
+
+\begin{table}[h]
+\centering
+\caption{Boundary component count $p(d)$ and reduced
+  characteristic polynomial degree $\deg q_n^{(d)}$ of the
+  $d$-dimensional comb tile.  For $d \le 5$ the data are
+  verified for all $n = 3, \ldots, 10$; for $d = 6$ and
+  $d = 7$ they are verified at $n = 3$.
+  Empirically $\deg q_n^{(d)} = p(d) - p(d{-}1)$.}
+\label{tab:pieces}
+\begin{tabular}{rrrl}
+\toprule
+$d$ & $p(d)$ & $\deg q_n^{(d)}$ & Status \\
+\midrule
+1 &     2 &    2 & Proposition~\ref{prop:d1} \\
+2 &     6 &    4 & Theorem~\ref{thm:graph}, Theorem~\ref{thm:dim} \\
+3 &    16 &   10 & $n = 3, \ldots, 10$ \\
+4 &    40 &   24 & $n = 3, \ldots, 10$ \\
+5 &    98 &   58 & $n = 3, \ldots, 10$ \\
+6 &   238 &  140 & $n = 3$ \\
+7 &   576 &  338 & $n = 3$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The sequence
+$(p(d))_{d\ge 0} = 0,\, 2,\, 6,\, 16,\, 40,\, 98,\, 238,\, 576,\,
+1392,\, \ldots$
+is OEIS~A265278~\cite{oeis-A265278} (shifted by one).
+Solving the recurrence~\eqref{eq:pieces-rec} yields the closed form
+\begin{equation}\label{eq:pieces-closed}
+  p(d)
+  = \tfrac{1}{2}\bigl((1{+}\sqrt{2})^{d+1}
+                      + (1{-}\sqrt{2})^{d+1}\bigr) - 1.
+\end{equation}
+Asymptotically $p(d) \sim (1{+}\sqrt{2})^{d+1}/2$, so the graph
+complexity grows exponentially with the ambient dimension but
+remains independent of~$n$.
+
+\begin{remark}[Combinatorial origin]
+The same integer sequence enumerates several families of
+pattern-avoiding combinatorial structures: reverse double lists
+avoiding a length-$3$ pattern~\cite{diepenbroek-maus-stoll},
+Cayley permutations~\cite{golab}, and weakly single-peaked weak
+orderings with a unique
+maximum~\cite{couceiro-devillet-marichal}.
+This suggests that the $p(d)$ boundary pieces may admit a
+combinatorial description, although no direct bijection is
+currently known.
+A structural hint is visible in the substitution matrix: a
+posteriori computation shows that $p(d{-}1)$ of the $p(d)$
+pieces correspond to zero eigenvalues
+(see~\S\ref{ssec:charpoly-d}), so these pieces appear
+``inherited'' from the $(d{-}1)$-dimensional structure, while
+the remaining $p(d) - p(d{-}1)$ pieces arise from interaction
+with the single transverse map.
+\end{remark}
+
+\subsection{Reduced characteristic polynomial}
+\label{ssec:charpoly-d}
+
+For each~$d$, the boundary substitution matrix~$M_n^{(d)}$ has size
+$p(d) \times p(d)$.  Computations show that its characteristic
+polynomial has exactly $p(d{-}1)$ zero eigenvalues, so the reduced
+polynomial $q_n^{(d)}(\lambda)$ has degree $p(d) - p(d{-}1)$
+(cf.\ Table~\ref{tab:pieces}).
+Its dominant root $\lambda_n$ determines the boundary dimension:
+\begin{equation}\label{eq:dim-d}
+  \dH\bigl(\partial A_n^{(d)}\bigr)
+  = \frac{d\,\log\lambda_n}{\log n}.
+\end{equation}
+For $d = 2$, $q_n^{(2)} = p_n$ is the quartic~\eqref{eq:quartic}.
+For $d = 3$ and $d = 4$, all coefficients of $q_n^{(d)}$ have
+been determined as explicit polynomials in~$n$ (of degree at
+most~$5$ and~$12$ respectively) by fitting data for $n = 3,
+\ldots, 20$ and verifying the result for all~$n$ in that range.
+For $d = 5$ the degree is $58$; boundary polynomials have been
+computed for $n = 3, \ldots, 10$, but the parametric form is
+not yet determined.
+
+\subsection{Asymptotic boundary dimension}
+
+\begin{conjecture}[Asymptotic rate]\label{conj:asymp-d}
+For every fixed $d \ge 1$,
+\begin{equation}\label{eq:asymp-d}
+  d - \dH\bigl(\partial A_n^{(d)}\bigr)
+  \;\sim\; \frac{2d^2}{n^2\,\ln n}
+  \qquad (n \to \infty).
+\end{equation}
+Equivalently, the dominant root satisfies
+$\lambda_n = n - 2d/n + O(1/n^2)$.
+\end{conjecture}
+
+For $d = 1$ this is Corollary~\ref{cor:d1-asymp} ($2 \cdot 1 = 2$).
+For $d = 2$ this is Theorem~\ref{thm:asymp} ($2 \cdot 4 = 8$).
+For $d = 3$ and $d = 4$, the explicit parametric polynomials
+$q_n^{(3)}$ and~$q_n^{(4)}$ yield exact dominant roots for all~$n$,
+and the normalised gap
+$\bigl(d - \dH\bigr) \cdot n^2 \ln n / (2d^2)$ converges to~$1$
+as predicted.
+
+Table~\ref{tab:dims-d} lists boundary dimensions for selected
+values of~$n$ in dimensions $d = 3$ and~$5$.
+
+\begin{table}[h]
+\centering
+\caption{Boundary dimension $\dH(\partial A_n^{(d)})$ of the
+  $d$-dimensional comb tile
+  (compare with Table~\ref{tab:dims} for $d = 2$).}
+\label{tab:dims-d}
+\begin{tabular}{rcc}
+\toprule
+$n$ & $d = 3$ & $d = 5$ \\
+\midrule
+  3 & 2.471 & 4.464 \\
+  5 & 2.807 & 4.762 \\
+  7 & 2.902 & 4.856 \\
+ 10 & 2.953 & 4.919 \\
+ 20 & 2.989 & --- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{remark}[Topological conjecture]
+In dimension~$d \ge 3$ the analog of the disk-like property is
+\emph{ball-likeness} (homeomorphy to the closed $d$-ball).
+No effective criterion comparable
+to~\cite{loridant-luo-thuswaldner} is available for $d \ge 3$.
+We conjecture that $A_n^{(d)}$ is ball-like for all $d \ge 2$
+and all $n \ge 3$.
+\end{remark}
+
+\begin{remark}[Monopole structure in higher dimensions]
+\label{ssec:monopole-d}
+The planar bound $\rho_n^{(2)} = O(1/\sqrt n)$ admits a
+dimension-dependent generalisation.  Numerical computation gives
+\begin{equation}\label{eq:rho-d}
+  \rho_n^{(d)} \;\sim\; c_d\, n^{-1/d}
+  \qquad (n \to \infty),
+\end{equation}
+with $c_d$ bounded (verified for $d \le 5$;
+$c_1 = 1$, $c_2 \to 1$, $c_3 \approx 1.06$, $c_4 \approx 1.16$,
+$c_5 \approx 1.18$).
+The exponent $1/d$ matches the contraction ratio of the IFS
+($n^{-1/d} = $ spectral radius of $g^{-1}$): the secondary
+eigenvalues grow as $|\lambda_2| \sim n^{(d-1)/d}$, while the
+Perron eigenvalue grows linearly.  In particular, $\rho_n^{(d)} \to 0$
+for every fixed $d \ge 1$ but the spectral gap weakens as
+$d$ increases.
+
+For $d = 1$, the explicit $2 \times 2$ matrix $M_n^{(1)}$ of
+Proposition~\ref{prop:d1} satisfies $\det M_n^{(1)} = -(n{-}2)$,
+so $|\lambda_2^{(1)}| = (n{-}2)/\lambda_n \to 1$ and
+$\rho_n^{(1)} = (n{-}2)/\lambda_n^2 \sim 1/n$.
+
+For $d = 2$, Schur's inequality
+$\lambda_n^2 + |\lambda_2|^2 \le \|M_n^{(2)}\|_F^2$
+combined with the explicit form of $M_n$
+($\|M_n\|_F^2 = (n{-}1)^2 + O(n)$) and Theorem~\ref{thm:asymp}
+($\lambda_n = n - 4/n + O(1/n^2)$) gives
+$|\lambda_2| = O(\sqrt n)$ and hence $\rho_n^{(2)} = O(1/\sqrt n)$,
+agreeing with~\eqref{eq:rho-d}.
+
+For $d \ge 3$, the bound~\eqref{eq:rho-d} remains conjectural.
+\end{remark}
+
+% --------------------------------------------------------------------------
+\section{Open Questions and Outlook}
 \label{sec:discussion}
+
+The comb family combines three features which, taken together,
+appear to be new: bounded neighbor-graph complexity, disk-likeness
+for all~$n$, and boundary dimension tending to~$2$.  We close with
+a summary of the main phenomena uncovered, followed by a list of
+questions that remain open.
+
+\subsection*{Summary of main phenomena}
+
+\begin{itemize}
+
+\item \emph{Constant graph with $\dH(\partial A_n) \to 2$.}
+The comb family provides the first explicit construction (to our
+knowledge) of an infinite parametric family of self-similar tiles
+with $\dH(\partial A_n) \to 2$ and \emph{bounded} neighbor graph
+complexity: exactly $6$~components for all $n \ge 3$
+(Remark~\ref{rem:neighbor-count}).  This complements
+Keesling's examples~\cite{keesling}, where $\dH(\partial A)$ can
+be made arbitrarily close to~$2$ but the graph complexity grows
+without bound.
+
+\item \emph{Source of the rate $2 - \dH(\partial A_n) \sim 8/(n^2\ln n)$.}
+The rate is determined by the quartic $p_n(x)$.  Indeed,
+$p_n(n) = 2n(2n{-}3)$ while the product of the three
+non-dominant conjugates at~$n$ grows as~$\sim n^3$, so
+$n - \lambda_n \sim 4/n$ and the rate $8/(n^2\ln n)$ follows
+directly.
+
+\item \emph{Universality of the combinatorial pattern.}
+The disk-like property (Theorem~\ref{thm:disklike}) is proved via
+the criterion of Loridant, Luo and
+Thuswaldner~\cite{loridant-luo-thuswaldner}: the triple
+intersection structure cycles with period~$2$ independently
+of~$n$, mirroring the constancy of the neighbor graph
+(Theorem~\ref{thm:graph}).  In both results only the translations
+in the neighbor maps change with~$n$, while the combinatorial
+pattern is universal.
+
+\end{itemize}
+
+\subsection*{Open questions}
 
 \begin{enumerate}
 
-\item \textbf{Boundary dimension approaches~$2$ with constant graph.}
-The comb family provides the first explicit construction (to our knowledge)
-of an infinite parametric family of self-similar tiles with
-$\dH(\partial A_n) \to 2$ and \emph{bounded} neighbor graph complexity:
-exactly $6$~components for all $n \ge 3$ (Remark~\ref{rem:neighbor-count}).  This complements
-Keesling's examples~\cite{keesling}, where $\dH(\partial A)$
-can be made arbitrarily close to~$2$ but the graph complexity
-grows without bound.
+\item \textbf{Ball-likeness in dimension $d \ge 3$.}
+The $d$-dimensional generalisation (Section~\ref{sec:higherdim})
+preserves OSC and the substitution-matrix structure, but the
+topological analog of the disk-like property remains fully open
+for $d \ge 3$: is $A_n^{(d)}$ homeomorphic to the closed
+$d$-ball?  The $d = 1$ case is settled negatively
+(Proposition~\ref{prop:d1}: $A_n^{(1)}$ is a cantorval), and
+$d = 2$ is settled positively (Theorem~\ref{thm:disklike}).
 
-The rate $2 - \dH(\partial A_n) \sim 8/(n^2\,\ln n)$ is determined by
-the quartic polynomial $p_n(x)$.  Indeed,
-$p_n(n) = 2n(2n{-}3)$ while the product of the three
-non-dominant conjugates at~$n$ grows as~$\sim n^3$,
-so $n - \lambda_n \sim 4/n$ and the
-rate~$8/(n^2 \ln n)$ follows directly.
-Improving this rate would require a family whose characteristic
-polynomial satisfies $|p(n)| = o(n^2)$.
+\item \textbf{Conjectures on boundary structure for $d \ge 3$.}
+The recurrence for the boundary component count
+(Conjecture~\ref{conj:pieces}) and the asymptotic rate
+$\dH(\partial A_n^{(d)}) \sim d - \alpha_d/(n^2\ln n)$
+(Conjecture~\ref{conj:asymp-d}) are verified by exact
+computation for $d \le 7$, but proofs in full generality
+are open.  Note that the two-step recurrence~\eqref{eq:pieces-rec}
+is anchored precisely on the dimensions treated rigorously in
+this paper: $d = 1$ (Proposition~\ref{prop:d1}) and $d = 2$
+(Theorem~\ref{thm:graph}).
+A proof of the inductive step
+$d{-}2,\,d{-}1 \Rightarrow d$ would therefore give the full
+sequence of boundary structures.
 
-\item \textbf{Disk-like property.}
-Theorem~\ref{thm:disklike} proves the disk-like property for all
-$n \ge 3$ via the criterion of Loridant, Luo and
-Thuswaldner~\cite{loridant-luo-thuswaldner}: the triple intersection
-structure cycles with period~$2$ independently of~$n$, mirroring
-the constancy of the neighbor graph (Theorem~\ref{thm:graph}).
-Both results rely on the same structural observation: only the
-translations in the neighbor maps change with~$n$, while
-the combinatorial pattern is universal.
+\item \textbf{Combinatorial origin of A265278.}
+The sequence $p(d) = 0, 2, 6, 16, 40, 98, \ldots$ of boundary
+component counts coincides with OEIS~A265278~\cite{oeis-A265278},
+which also enumerates reverse double lists avoiding a length-$3$
+pattern~\cite{diepenbroek-maus-stoll}, certain quasitrivial
+semigroups~\cite{couceiro-devillet-marichal}, and Cayley
+permutations~\cite{golab}.  Is there a direct bijection between
+any of these combinatorial families and the boundary components
+of the $d$-dimensional comb?
 
-\item \textbf{Higher dimensions.}
-The comb construction generalises to $\R^d$ by using the companion
-matrix of $x^d - n$ and $n$ maps with $n{-}1$ collinear translations
-and one off-axis map.  The attractor has $\dH(A) = d$ for every~$n$,
-and we expect $\dH(\partial A_n) \to d$ with bounded graph complexity.
-The boundary polynomial would then be determined by a family of
-polynomials parametrised by $d$ and~$n$.
+\item \textbf{Role of digit non-collinearity.}
+The non-collinearity of the digit set is essential for
+$\dH(\partial A_n) \to 2$: a rectangle $1 \times \sqrt{n}$ tiled
+by $n$ rotated copies of itself is disk-like with $n$~pieces of
+ratio~$1/\!\sqrt{n}$, but all digits are collinear and
+$\dH(\partial A) = 1$ for all~$n$.  A precise quantitative
+formulation --- minimum transverse displacement required to force
+$\dH(\partial A_n) \to 2$ --- is open.
 
-\item \textbf{Enumeration of disk-like tiles with high boundary dimension.}
-For each~$n \ge 3$, classify all disk-like self-similar tiles with
-$n$~maps whose boundary dimension exceeds $\dH(\partial A_n)$.
-The comb tile need not be optimal within its class: already for
-$n = 3$ the twin dragon ($2$~maps, $\dH(\partial A) \approx 1.524$)
-exceeds the comb value $\dH(\partial A_3) \approx 1.453$, albeit
-with a different number of maps.
-A systematic search over all admissible orientation assignments
-could resolve optimality for small~$n$.
+\item \textbf{Optimality and enumeration at small $n$.}
+For each~$n \ge 3$, classify all disk-like self-similar tiles
+with $n$~maps whose boundary dimension exceeds
+$\dH(\partial A_n)$.  The comb tile need not be optimal within
+its class: already for $n = 3$ the twin dragon ($2$~maps,
+$\dH(\partial A) \approx 1.524$) exceeds the comb value
+$\dH(\partial A_3) \approx 1.453$, albeit with a different number
+of maps.  A systematic search over all admissible orientation
+assignments could resolve optimality for small~$n$.
+
+\item \textbf{Improving the rate.}
+Is there a disk-like family on $\R^2$ with bounded graph
+complexity for which $2 - \dH(\partial A_n)$ decays faster than
+$8/(n^2 \ln n)$?  By the argument above, this would require a
+characteristic polynomial satisfying $|p(n)| = o(n^2)$.
+
+\item \textbf{First-principles derivation of the
+  transverse offset.}
+The transverse translation $2n{-}3$ in $h_{n-1}$ and the use
+of $-I$ as its linear part were selected empirically (via an
+IFStile search) to minimise the neighbor graph.  Is the
+resulting $6$-component graph optimal within the expansion
+class $g = C(x^d - n)$?  More generally, can the entire
+construction of Definition~\ref{def:comb-d} be characterised as
+the unique (up to symmetry) choice minimising graph complexity
+among self-similar IFS with expansion~$g$ and $n$~digits?
+
 \end{enumerate}
 
 % --------------------------------------------------------------------------
@@ -1599,6 +2381,17 @@ C.~Bandt and Y.~Wang,
 Disk-like self-affine tiles in~$\R^2$,
 \emph{Discrete Comput.\ Geom.}\ \textbf{26} (2001), 591--601.
 
+\bibitem{couceiro-devillet-marichal}
+M.~Couceiro, J.~Devillet and J.-L.~Marichal,
+Quasitrivial semigroups: characterizations and enumerations,
+\emph{Semigroup Forum}\ \textbf{98} (2019), 472--498.
+
+\bibitem{diepenbroek-maus-stoll}
+M.~Diepenbroek, M.~Maus and A.~Stoll,
+Pattern avoidance in reverse double lists,
+\emph{Discrete Math.\ Theor.\ Comput.\ Sci.}\ \textbf{20:1}
+(2018), \#19.
+
 \bibitem{loridant-luo-thuswaldner}
 B.~Loridant, J.~Luo and J.\,M.~Thuswaldner,
 Topology of crystallographic tiles,
@@ -1613,6 +2406,23 @@ Hausdorff dimension of boundaries of self-similar tiles,
 K.\,J.~Falconer,
 \emph{Fractal Geometry: Mathematical Foundations and Applications}, 3rd~ed.,
 Wiley, 2014.
+
+\bibitem{golab}
+H.~Golab,
+Pattern avoidance in Cayley permutations,
+undergraduate research report, Northern Arizona University,
+2020.
+
+\bibitem{grunbaum-shephard}
+B.~Gr{\"u}nbaum and G.\,C.~Shephard,
+\emph{Tilings and Patterns},
+W.\,H.~Freeman, New York, 1987.
+
+\bibitem{guthrie-nymann}
+J.\,A.~Guthrie and J.\,E.~Nymann,
+The topological structure of the set of subsums of an infinite
+series,
+\emph{Colloq.\ Math.}\ \textbf{55} (1988), 323--327.
 
 \bibitem{hutchinson}
 J.\,E.~Hutchinson,
@@ -1653,6 +2463,18 @@ Hausdorff dimension in graph directed constructions,
 S.-M.~Ngai and T.-M.~Tang,
 Topology of connected self-similar tiles in the plane,
 \emph{Topology Appl.}\ \textbf{150} (2005), 139--155.
+
+\bibitem{oeis-A265278}
+OEIS Foundation Inc.,
+Sequence~A265278,
+\emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org/A265278}, 2026.
+
+\bibitem{scheicher-thuswaldner}
+K.~Scheicher and J.\,M.~Thuswaldner,
+Neighbours of self-affine tiles in lattice tilings,
+\emph{Fractals in Graz 2001} (P.~Grabner and W.~Woess, eds.),
+Trends Math., Birkh{\"a}user, 2003, pp.~241--262.
 
 \end{thebibliography}
 
