@@ -32,7 +32,9 @@ const buf = fs.readFileSync('C:/workspace/ifsdb/public/ifslib.wasm');
 const mod = await WebAssembly.compile(buf);
 const inst = await WebAssembly.instantiate(mod, {});
 inst.exports._initialize();
-// init(aifsPtr), set_block(blockPtr), set_root(rootPtr), information(reqPtr), render(w, h, quality, scale)
+// init(aifsPtr), get_block_idx(blockIdPtr), set_block(blockIdx), set_root(rootPtr)
+// set_camera(paramsPtr, numParams), set_section(paramsPtr, spaceDim, sectionDim)
+// set_parameter(param, value), information(reqPtr), render(w, h)
 // get_last_output() returns pointer to result C-string
 // Use malloc/free for string passing (see worker examples)
 ```
